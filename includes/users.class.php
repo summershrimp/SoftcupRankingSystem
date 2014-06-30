@@ -28,10 +28,6 @@ class user
 	{
 		if($user_id = $this->check_login($username, $password))
 		{
-			if(!isset($_SESSION['user_id']))
-			{
-				session_start();
-			}
 			$sql = "Select * From ".$GLOBALS['sc']->table('users')." Where `user_id` = '".$user_id."' LIMIT 1";
 			$this->user_info = $GLOBALS['db']->getRow($sql);
 			unset($this->user_info['salt']);
