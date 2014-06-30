@@ -8,33 +8,20 @@
 	<h3>题目</h3>
 	<h3>队伍</h3>
 	<form action="post_score.php" method="post">
-		<input type="hidden" name="exam" value="题目" />
-		<input type="hidden" name="team" value="队伍" />
-		<div class="form_row_container">
-			<span class="form_left">标准1</span>
-			<input class="form_right" type="number" min="0" max="100" name="score[]" title="范围：0~10" placeholder="范围：0~10" autofocus required />
-			<div class="form_desc">这里是标准1的具体内容（暂时先这么写好了，长一点会怎么样呢？）。</div>
-		</div>
-		<div class="form_row_container">
-			<span class="form_left">标准2</span>
-			<input class="form_right" type="number" min="0" max="100" name="score[]" title="范围：0~20" placeholder="范围：0~20" autofocus required />
-			<div class="form_desc">这里是标准2的具体内容（暂时先这么写好了，长一点会怎么样呢？）。</div>
-		</div>
-		<div class="form_row_container">
-			<span class="form_left">标准3</span>
-			<input class="form_right" type="number" min="0" max="100" name="score[]" title="范围：0~20" placeholder="范围：0~20" autofocus required />
-			<div class="form_desc">这里是标准3的具体内容（暂时先这么写好了，长一点会怎么样呢？）。</div>
-		</div>
-		<div class="form_row_container">
-			<span class="form_left">标准4</span>
-			<input class="form_right" type="number" min="0" max="100" name="score[]" title="范围：0~20" placeholder="范围：0~20" autofocus required />
-			<div class="form_desc">这里是标准4的具体内容（暂时先这么写好了，长一点会怎么样呢？）。</div>
-		</div>
-		<div class="form_row_container">
-			<span class="form_left">标准5</span>
-			<input class="form_right" type="number" min="0" max="100" name="score[]" title="范围：0~30" placeholder="范围：0~30" autofocus required />
-			<div class="form_desc">这里是标准5的具体内容（暂时先这么写好了，长一点会怎么样呢？）。</div>
-		</div>
+		<?php
+			$items = get_topic_items($exam);
+			$count = 0;
+			foreach ($items as $i) {
+				$count++;
+				echo "<div class=\"form_row_container\">";
+				echo "<span class=\"form_left\">#" . $count . "</span>";
+				echo "<input class=\"form_right\" type=\"number\" min=\"0\" max=\"" .
+					$i['maxscore'] . "\" name=\"" . $i['item_id'] . "\" title=\"范围：0~" . $i['maxscore'] .
+					"\" placeholder=\"范围：0~" . $i['maxscore'] . "\" autofocus required />";
+				echo "<div class=\"form_desc\"><b>" . $i['itemname'] . "</b><br />" . $i['comment'] . "</div>";
+				echo "</div>";
+			}
+		?>
 		<div class="form_row_container">
 			<input class="button" type="submit" value="提交" />
 		</div>

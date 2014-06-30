@@ -6,15 +6,11 @@
 <div id="test">
 	<h3>请选择题目</h3>
 	<ul>
-		<a href="?exam=1"><li>题目</li></a>
-		<a href="?exam=1"><li>题目</li></a>
-		<a href="?exam=1"><li>题目</li></a>
-		<a href="?exam=1"><li>题目</li></a>
-		<a href="?exam=1"><li>题目</li></a>
-		<a href="?exam=1"><li>题目</li></a>
-		<a href="?exam=1"><li>题目</li></a>
-		<a href="?exam=1"><li>题目</li></a>
-		<a href="?exam=1"><li>题目</li></a>
-		<a href="?exam=1"><li>题目</li></a>
+	<?php
+		$topic = get_all_topics();
+		foreach($topic as $t) {
+			echo "<a href=\"?exam=" . $t['topic_id'] . "\"><li>" . $t['topicname'] . "</li></a>";
+		}
+	?>
 	</ul>
 </div>

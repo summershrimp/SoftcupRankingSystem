@@ -3,6 +3,9 @@
 		exit();
 	}
 	if ($user->is_login()) {
+		if (isset($_GET['action']) && $_GET['action'] == "logout") {
+			require_once "logout.php";
+		}
 		require_once "title.php";
 		if (isset($_GET['team'])) {
 			require_once "team.php";
@@ -15,15 +18,8 @@
 		}
 	}
 	else {
-		if (isset($_GET['action'])) {
-			switch ($_GET['action']) {
-			case "login":
-				require_once "login.php";
-				break;
-			case "logout":
-				require_once "logout.php";
-				break;
-			}
+		if (isset($_GET['action']) && $_GET['action'] == "login") {
+			require_once "login.php";
 		}
 		require_once "guest.php";
 	}

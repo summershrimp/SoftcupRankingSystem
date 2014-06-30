@@ -54,7 +54,7 @@ input[type=text]:hover, input[type=number]:hover, input[type=text]:focus, input[
 	border: 1px solid #BBB;
 	padding: 2px 0;
 	background: #DDD;
-	margin-right: -6px;
+	margin-right: -2px;
 	vertical-align: middle;
 }
 .form_right {
@@ -92,6 +92,10 @@ header h1 {
 	display: inline-block;
 	margin: 0;
 	margin-left: 20px;
+}
+header a {
+	color: #FFF;
+	text-decoration: none;
 }
 #logout {
 	float: right;

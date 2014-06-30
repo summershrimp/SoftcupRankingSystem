@@ -166,12 +166,12 @@ class user
 		else return false;
 	}
 	
-	private function logout()
+	public function logout()
 	{
 		@session_unset();
 		@session_destroy();
-		setcookie($GLOBALS['sc']->table("username"),$username,-1,"/");
-		setcookie($GLOBALS['sc']->table("password"),$password,-1,"/");
+		setcookie($GLOBALS['sc']->table("username"),NULL,time()-3600,"/");
+		setcookie($GLOBALS['sc']->table("password"),NULL,time()-3600,"/");
 	}
 	
 	private function check_login($username, $password)

@@ -8,9 +8,12 @@
 	<h3>题目</h3>
 	<h3>请选择队伍</h3>
 	<ul>
-		<a href="?exam=<?php echo $exam; ?>&team=1"><li><span class="li_left">队伍</span><span class="li_right">---分</span></li></a>
-		<a href="?exam=<?php echo $exam; ?>&team=1"><li><span class="li_left">队伍</span><span class="li_right">---分</span></li></a>
-		<a href="?exam=<?php echo $exam; ?>&team=1"><li><span class="li_left">队伍</span><span class="li_right">---分</span></li></a>
-		<a href="?exam=<?php echo $exam; ?>&team=1"><li><span class="li_left">队伍</span><span class="li_right">---分</span></li></a>
+	<?php
+		$teams = get_teams($exam);
+		foreach($teams as $t) {
+			echo "<a href=\"?exam=" . $exam . "&team=" . $t['team_id'] .
+				"\"><li><span class=\"li_left\">" . $t['teamname'] . "</span><span class=\"li_right\">---分</span></li></a>";
+		}
+	?>
 	</ul>
 </div>

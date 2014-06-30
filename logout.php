@@ -3,4 +3,5 @@
 		exit();
 	}
 	$user->logout();
+	relocate("?");
 ?>
