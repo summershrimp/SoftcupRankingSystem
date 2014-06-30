@@ -26,8 +26,6 @@ class user
 	
 	public function login($username, $password)
 	{
-		setcookie($GLOBALS['sc']->table("username"),$username,0,"/");
-		setcookie($GLOBALS['sc']->table("password"),$password,0,"/");
 		if($user_id = $this->check_login($username, $password))
 		{
 			if(!isset($_SESSION['user_id']))
@@ -75,8 +73,6 @@ class user
 	
 	public function is_login()
 	{
-		if(isset($_COOKIE[$GLOBALS['sc']->table("username")])&&isset($_COOKIE[$GLOBALS['sc']->table("password")]))
-			$this->login($_COOKIE[$GLOBALS['sc']->table("username")],$_COOKIE[$GLOBALS['sc']->table("password")]);
 		if(isset($_SESSION['user_id']))
 			return true;
 		return false;
@@ -169,9 +165,6 @@ class user
 	public function logout()
 	{
 		@session_unset();
-		@session_destroy();
-		setcookie($GLOBALS['sc']->table("username"),NULL,time()-3600,"/");
-		setcookie($GLOBALS['sc']->table("password"),NULL,time()-3600,"/");
 	}
 	
 	private function check_login($username, $password)
