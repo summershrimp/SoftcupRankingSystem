@@ -33,7 +33,6 @@ class user
 			if(!isset($_SESSION['user_id']))
 			{
 				session_start();
-				echo "hello";
 			}
 			$sql = "Select * From ".$GLOBALS['sc']->table('users')." Where `user_id` = '".$user_id."' LIMIT 1";
 			$this->user_info = $GLOBALS['db']->getRow($sql);
@@ -171,6 +170,8 @@ class user
 	{
 		@session_unset();
 		@session_destroy();
+		setcookie($GLOBALS['sc']->table("username"),$username,-1,"/");
+		setcookie($GLOBALS['sc']->table("password"),$password,-1,"/");
 	}
 	
 	private function check_login($username, $password)

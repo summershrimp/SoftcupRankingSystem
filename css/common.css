@@ -1,0 +1,138 @@
+/* common */
+* {
+	font-family: "微软雅黑", "SimHei", "Tahoma";
+}
+html {
+	background: -webkit-linear-gradient(#EEE, #FFF);
+	background: -moz-linear-gradient(#EEE, #FFF);
+	background: -ms-linear-gradient(#EEE, #FFF);
+	background: -o-linear-gradient(#EEE, #FFF);
+	width: 100%;
+	height: 100%;
+}
+input[type=text], input[type=number], input[type=password] {
+	border: 1px solid #BBB;
+	line-height: 24px;
+	height: 24px;
+	outline: none;
+	padding: 2px 0;
+	margin: 5px auto;
+	vertical-align: middle;
+}
+input[type=number] {
+	width: 50%;
+	text-align: center;
+}
+input[type=text]:hover, input[type=number]:hover, input[type=text]:focus, input[type=number]:focus {
+	border: 1px solid orange;
+}
+.button {
+	border: 1px solid gray;
+	background: #DDD;
+	color: #000;
+	width: 30%;
+	padding: 5px;
+	outline: none;
+	margin: 10px;
+	max-width: 120px;
+}
+.back {
+	margin-top: 15px;
+	margin-bottom: -5px;
+}
+.button:hover {
+	background: #F3F3F3;
+}
+.button:active {
+	background: #CCC;
+}
+.form_left {
+	line-height: 24px;
+	height: 24px;
+	width: 30%;
+	display: inline-block;
+	border: 1px solid #BBB;
+	padding: 2px 0;
+	background: #DDD;
+	margin-right: -6px;
+	vertical-align: middle;
+}
+.form_right {
+	display: inline-block;
+	vertical-align: middle;
+}
+.form_desc {
+	width: 80%;
+	margin: 0 auto;
+	margin-bottom: 20px;
+	border: 1px solid #BBB;
+	background: #EEE;
+	padding: 5px 0;
+}
+h1, .form_row_container {
+	font-weight: normal;
+	text-align: center;
+}
+
+/* logged in */
+header {
+	background: #191919;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 48px;
+	color: white;
+}
+header h1 {
+	text-align: left;
+	font-size: 24px;
+	line-height: 48px;
+	height: 48px;
+	display: inline-block;
+	margin: 0;
+	margin-left: 20px;
+}
+#logout {
+	float: right;
+	margin-right: 20px;
+	height: 48px;
+	line-height: 48px;
+}
+#test {
+	position: absolute;
+	top: 48px;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	overflow: auto;
+	text-align: center;
+	border-right: 1px solid gray;
+}
+#test ul {
+	list-style-type: none;
+	padding: 0;
+}
+#test ul:last-child {
+	border-bottom: 1px solid #BBB;
+}
+#test ul a {
+	text-decoration: none;
+}
+#test ul li {
+	height: 48px;
+	line-height: 48px;
+	border-top: 1px solid #BBB;
+	color: #000;
+}
+#test ul li:hover {
+	background: #DDD;
+}
+.li_left {
+	float: left;
+	margin-left: 10%;
+}
+.li_right {
+	float: right;
+	margin-right: 10%;
+}
