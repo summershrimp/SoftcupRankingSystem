@@ -110,7 +110,7 @@ class user
 				   		$user_array['phone']."',  '".$user_array['comment']."')";
 			$GLOBALS['db']->query($sql);
 			if($GLOBALS['db']->affected_rows()==1)
-				return true;
+				return $GLOBALS['db']->insert_id();
 			return false;
 		}
 		else return false;
@@ -124,7 +124,7 @@ class user
 				   "( '".$topic_array['topicname']."','".$topic_array['comment']."')";
 			$GLOBALS['db']->query($sql);
 			if($GLOBALS['db']->affected_rows()==1)
-				return true;
+				return $GLOBALS['db']->insert_id();
 			return false;
 		}
 		else return false;
@@ -138,7 +138,7 @@ class user
 				   "('".$team_array['teamname']."', '".$team_array['comment']."', '".$team_array['topic_id']."')";
 			$GLOBALS['db']->query($sql);
 			if($GLOBALS['db']->affected_rows()==1)
-				return true;
+				return $GLOBALS['db']->insert_id();
 			return false;
 		}
 		else return false;
@@ -152,10 +152,24 @@ class user
 				   "('".$item_array['topic_id']."', '".$item_array['itemname']."', '".$item_array['maxscore']."', '".$item_array['comment']."');";
 			$GLOBALS['db']->query($sql);
 			if($GLOBALS['db']->affected_rows()==1)
-				return true;
+				return $GLOBALS['db']->insert_id();
 			return false;
 		}
 		else return false;
+	}
+	
+	public function get_team_scores($team_id)
+	{
+		$sql = "Select * From ".$GLOBALS['sc']->table('collects')." Where `team_id` = 'team_id' AND `user_id` = '".$this->user_info['user_id']."'";
+		$arr = $GLOBALS['db']->getAll($sql);
+		return $arr;
+	}
+	
+	public function get_team_total_scores($team_id)
+	{
+		$sql = "Select Sum(`score`) From ".$GLOBALS['sc']->table('collects')." Where `team_id` = 'team_id' AND `user_id` = '".$this->user_info['user_id']."'";
+		$arr = $GLOBALS['db']->getOne($sql);
+		return $arr;
 	}
 	
 	public function logout()
