@@ -1,18 +1,26 @@
+::-webkit-scrollbar, ::-webkit-scrollbar-thumb, ::-webkit-scrollbar-button {
+	display: none;
+}
 /* common */
 * {
 	font-family: "微软雅黑", "SimHei", "Tahoma";
 }
 html {
-	background: -webkit-linear-gradient(#EEE, #FFF);
-	background: -moz-linear-gradient(#EEE, #FFF);
-	background: -ms-linear-gradient(#EEE, #FFF);
-	background: -o-linear-gradient(#EEE, #FFF);
 	width: 100%;
 	height: 100%;
 }
-input[type=text], input[type=number], input[type=password] {
+body {
+	background: -webkit-linear-gradient(#DDD, #FFF);
+	background: -moz-linear-gradient(#DDD, #FFF);
+	background: -ms-linear-gradient(#DDD, #FFF);
+	background: -o-linear-gradient(#DDD, #FFF);
+	margin: 0;
+	overflow: hidden;
+}
+input[type=text], input[type=number], input[type=password], input[type=mobile], textarea, select {
 	border: 1px solid #BBB;
 	line-height: 24px;
+	width: 15%;
 	height: 24px;
 	outline: none;
 	padding: 2px 0;
@@ -23,7 +31,8 @@ input[type=number] {
 	width: 50%;
 	text-align: center;
 }
-input[type=text]:hover, input[type=number]:hover, input[type=text]:focus, input[type=number]:focus {
+input[type=text]:hover, input[type=number]:hover, input[type=mobile]:hover, textarea:hover,
+input[type=text]:focus, input[type=number]:focus, input[type=mobile]:focus, textarea:focus {
 	border: 1px solid orange;
 }
 .button {
@@ -33,8 +42,12 @@ input[type=text]:hover, input[type=number]:hover, input[type=text]:focus, input[
 	width: 30%;
 	padding: 5px;
 	outline: none;
-	margin: 10px;
+	margin: 2px;
 	max-width: 120px;
+}
+input[type=submit] {
+	margin-top: 10px;
+	margin-bottom: 30px;
 }
 .back {
 	margin-top: 15px;
@@ -44,7 +57,8 @@ input[type=text]:hover, input[type=number]:hover, input[type=text]:focus, input[
 	background: #F3F3F3;
 }
 .button:active {
-	background: #CCC;
+	background: #333;
+	color: #FFF;
 }
 .form_left {
 	line-height: 24px;
@@ -64,7 +78,8 @@ input[type=text]:hover, input[type=number]:hover, input[type=text]:focus, input[
 .form_desc {
 	width: 80%;
 	margin: 0 auto;
-	margin-bottom: 20px;
+	margin-top: 25px;
+	margin-bottom: -1px;
 	border: 1px solid #BBB;
 	background: #EEE;
 	padding: 5px 0;
@@ -113,23 +128,28 @@ header a {
 	text-align: center;
 	border-right: 1px solid gray;
 }
-#test ul {
+ul {
 	list-style-type: none;
 	padding: 0;
+	cursor: pointer;
 }
-#test ul:last-child {
+ul:last-child {
 	border-bottom: 1px solid #BBB;
 }
-#test ul a {
+ul a {
 	text-decoration: none;
 }
-#test ul li {
+ul li:active {
+	background: #333 !important;
+	color: #FFF !important;
+}
+ul li {
 	height: 48px;
 	line-height: 48px;
 	border-top: 1px solid #BBB;
 	color: #000;
 }
-#test ul li:hover {
+ul li:hover {
 	background: #DDD;
 }
 .li_left {
@@ -139,4 +159,31 @@ header a {
 .li_right {
 	float: right;
 	margin-right: 10%;
+}
+.thin {
+	width: 20% !important;
+	min-width: 120px;
+}
+textarea {
+	width: 100%;
+}
+form a {
+	color: #333;
+	text-decoration: none;
+	font-weight: normal;
+}
+select {
+	width: 23%;
+	height: 30px;
+}
+.insert {
+	height: 0;
+	-webkit-transition: height 0.5s;
+	-moz-transition: height 0.5s;
+	-o-transition: height 0.5s;
+	transition: height 0.5s;
+	overflow: hidden;
+}
+.warning {
+	color: red !important;
 }

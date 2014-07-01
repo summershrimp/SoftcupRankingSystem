@@ -4,5 +4,10 @@
 	}
 ?>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no,width=device-width,height=device-height">
 <link rel="stylesheet" href="css/common.css">
+<?php
+	if ($user->is_login() && $user->is_admin()) {
+		echo "<link rel=\"stylesheet\" href=\"css/admin.css\">";
+	}
+?>

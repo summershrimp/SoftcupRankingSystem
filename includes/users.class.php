@@ -185,7 +185,7 @@ class user
 		}
 		return false;
 	}
-	
+
 	public function change_topic($topic_id,$topic_array)
 	{
 		if($this->is_admin())
@@ -201,7 +201,8 @@ class user
 					"Set ".$set_content." ".
 					"Where `topic_id` = '$topic_id' ";
 			$GLOBALS['db']->query($sql);
-			if($GLOBALS['sb']->affected_rows()==1)
+
+			if($GLOBALS['db']->affected_rows()==1)
 				return $topic_id;
 			return false;
 		}
@@ -346,15 +347,15 @@ class user
 		if($this->is_admin())
 		{
 			$sql = 
-				"Select `items_id` ".
+				"Select `item_id` ".
 				"From ".$GLOBALS['sc']->table('items')." ".
 				"Where `topic_id` = '$topic_id' ";
 			$result = $GLOBALS['db']->query($sql);
-			while($arr = $GLOBALS['db']->fetchRow())
-				$this->delete_item($$arr['item_id']);
+			while($arr = $GLOBALS['db']->fetchRow($result))
+				$this->delete_item($arr['item_id']);
 			$sql = 
 				"Delete From ".$GLOBALS['sc']->table('topics')." ".
-				"Whrer `topic_id` = '$topic_id'";
+				"Where `topic_id` = '$topic_id'";
 			$GLOBALS['db']->query($sql);
 			if($GLOBALS['db']->affected_rows() == 1)
 				return true;
