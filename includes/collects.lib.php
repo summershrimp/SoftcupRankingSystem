@@ -27,7 +27,7 @@ function get_teams($team_id)
 	$sql = "Select * From ".$GLOBALS['sc']->table('teams')." Where `team_id` = '".$team_id."'";
 	return $arr = $GLOBALS['db']->getAll($sql);
 }
-function get_all_teams($topic_id)
+function get_all_teams()
 {
 	$sql = "Select * From ".$GLOBALS['sc']->table('teams');
 	return $arr = $GLOBALS['db']->getAll($sql);
@@ -47,43 +47,52 @@ function get_topic_items($topic_id)
 
 function get_collects($topic_id)
 {
-	$ret = Array();
-	//$sql = "Select `user_id`, `team_id`, Sum(`score`) as `sum` From ".$GLOBALS['sc']->table('collects')." Where `topic_id` = '".$topic_id."' Group By `team_id`";
-	$sql = 
-	"Select ".$GLOBALS['sc']->table('users').".`role_id`,".$GLOBALS['sc']->table('collects').".`user_id`, `team_id`, Sum(`score`) as `sum` ".
-	"From ".$GLOBALS['sc']->table('collects')." ".
-	"Left Join ".$GLOBALS['sc']->table('users')." ".
-	"On ".$GLOBALS['sc']->table('users').".`user_id` = ".$GLOBALS['sc']->table('collects').".`user_id` ".
-	"Where `topic_id` = '".$topic_id."' Group By `user_id`, `team_id`";
+	$sql = "Select `user_id`, `role_id`, `realname` From ".$GLOBALS['sc']->table('users')." ".
+			"Where `isadmin` = '0' Order By `role_id`";
+	$result = $GLOBALS['db']->query($sql);
+	$user_array = Array();
+	while($arr = $GLOBALS['db']->fetchRow($result))
+	{
+		$user_array[$arr['user_id']]['realname'] = $arr['realname'];
+		$user_array[$arr['user_id']]['role_id'] = $arr['role_id'];
+	}
 	
+	$sql = "Select `team_id`, `teamname` From ".$GLOBALS['sc']->table('teams')." ".
+			"Where `topic_id` = '$topic_id' ";
 	$result = $GLOBALS['db']->query($sql);
-	$temp = Array();
+	$team_array = Array();
 	while($arr = $GLOBALS['db']->fetchRow($result))
-	{
-		$temp[$arr['team_id']][$arr['user_id']]['sum']=$arr['sum'];
-		$temp[$arr['team_id']][$arr['user_id']]['role_id']=$arr['role_id'];
-	}
-	$sql = "Select `role_id`,`balance` From ".$GLOBALS['sc']->table('roles');
+		$team_array[$arr['team_id']] = $arr['teamname'];
+
+	$sql = "Select `role_id`, `balance` From ".$GLOBALS['sc']->table('roles');
 	$result = $GLOBALS['db']->query($sql);
-	$roles = Array();
+	$role_array = Array();
 	while($arr = $GLOBALS['db']->fetchRow($result))
-	{
-		$roles[$arr['role_id']] = intval($arr['balance']);
-	}
+		$role_array[$arr['role_id']] = $arr['balance'];
+	
 	$ret = Array();
-	foreach($temp as $keyt => $team)
+	
+	$ret['users'] = $user_array;
+	foreach ($team_array as $tkey => $tvalue)
 	{
-		$all_balance = 0;
-		$all_sum = 0;
-		foreach($team as $keyu => $t)
+		$ret['contents'][$tkey]['teamname'] = $tvalue;
+		$sumall=0;
+		$sumbal=0;
+		foreach($user_array as $ukey => $uvalue)
 		{
-			$all_sum += $roles[$t["role_id"]]*$t['sum'];
-			$all_balance += $roles[$t["role_id"]];
-			$ret[$keyt]['scores'][$keyu]=$t['sum'];
+			$sql = "Select Sum(`score`) as `score` From ". $GLOBALS['sc']->table('collects') ." Where `user_id` = '$ukey' And `team_id` = '$tkey' ";
+			$arr = $GLOBALS['db']->getRow($sql);
+			if(isset($arr['score']))
+			{
+				$sum = intval($arr['score']);
+				$sumall += $sum * intval($role_array[$uvalue['role_id']]);
+				$sumbal += intval($role_array[$uvalue['role_id']]);
+				$ret['contents'][$tkey]['scores'][$ukey] = $sum;
+			}
+			else 
+				$ret['contents'][$tkey]['scores'][$ukey] = -1;
 		}
-		$team_info = get_team_by_id($keyt);
-		$ret[$keyt]['ave']=floatval($all_sum)/floatval($all_balance);
-		$ret[$keyt]['teamname']=$team_info['teamname'];
+		$ret['contents'][$tkey]['avescore'] = $sumall / floatval($sumbal);
 	}
 	return $ret;
 }
