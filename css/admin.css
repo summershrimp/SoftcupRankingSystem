@@ -1,0 +1,109 @@
+#content {
+	position: absolute;
+	top: 60px;
+	left: 20%;
+	right: 0;
+	bottom: 0;
+	text-align: center;
+	overflow: auto;
+}
+#content table {
+	margin: 0 auto;
+	border: 1px solid #BBB;
+	width: 90%;
+	background: #FFF;
+}
+#content table th {
+	background: #CCC;
+}
+#content table tr {
+	line-height: 32px;
+}
+#content table tr:hover {
+	background: #BBB !important;
+}
+#content .click {
+	cursor: pointer;
+	color: #069;
+}
+#content .click:active {
+	background: #333 !important;
+	color: #FFF;
+}
+#content table tr:nth-child(odd) {
+	background: #E6E6E6;
+}
+#content table tr:nth-child(even) {
+	background: #F3F3F3;
+}
+.delete {
+	margin: 15px 0;
+}
+#wall {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, 0.2);
+}
+#conf {
+	position: absolute;
+	border: 1px solid #BBB;
+	background: #FFF;
+	width: 270px;
+	height: 150px;
+	top: 50%;
+	left: 50%;
+	margin-top: -90px;
+	margin-left: -135px;
+	box-shadow: 0 0 10px gray;
+}
+#conf span {
+	margin: 20px;
+	display: inline-block;
+	font-weight: bold;
+	font-size: 1.2em;
+}
+#conf p {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	padding: 20px;
+	margin: 0;
+	text-align: right;
+	background: #EEE;
+	border-top: 1px solid gray;
+}
+
+@media screen and (min-width:600px) {
+	#test {
+		width: 20%;
+	}
+}
+@media screen and (max-width:600px) {
+	#test {
+		bottom: auto;
+		height: 80px;
+		border: none;
+	}
+	#test ul {
+		border: none;
+	}
+	#test h3 {
+		display: none;
+	}
+	#test ul li {
+		display: inline-block;
+		border: 1px solid #BBB;
+		margin: 2px;
+		padding: 0 10px;
+		height: 36px;
+		line-height: 36px;
+	}
+	#content {
+		top: 105px;
+		left: 0px;
+	}
+}
