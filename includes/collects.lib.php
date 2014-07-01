@@ -76,17 +76,17 @@ function get_collects($topic_id)
 	foreach ($team_array as $tkey => $tvalue)
 	{
 		$ret['contents'][$tkey]['teamname'] = $tvalue;
-		$sumall=0;
-		$sumbal=0;
+		$sumall=0.0;
+		$sumbal=0.0;
 		foreach($user_array as $ukey => $uvalue)
 		{
 			$sql = "Select Sum(`score`) as `score` From ". $GLOBALS['sc']->table('collects') ." Where `user_id` = '$ukey' And `team_id` = '$tkey' ";
 			$arr = $GLOBALS['db']->getRow($sql);
 			if(isset($arr['score']))
 			{
-				$sum = intval($arr['score']);
-				$sumall += $sum * intval($role_array[$uvalue['role_id']]);
-				$sumbal += intval($role_array[$uvalue['role_id']]);
+				$sum = floatval($arr['score']);
+				$sumall += $sum * floatval($role_array[$uvalue['role_id']]);
+				$sumbal += floatval($role_array[$uvalue['role_id']]);
 				$ret['contents'][$tkey]['scores'][$ukey] = $sum;
 			}
 			else 

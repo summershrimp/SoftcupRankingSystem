@@ -78,6 +78,8 @@ class user
 	{
 		if(!$this->is_login())
 			return false;
+		$sql = "DELETE From ".$GLOBALS['sc']->table('collects')." Where `user_id` = '".$this->user_info['user_id']."' AND `topic_id` = '".$topic_id."' AND `team_id` = '$team_id'";
+		$GLOBALS['db']->query($sql);
 		$count = 0;
 		foreach($collects as $key => $value)
 		{
