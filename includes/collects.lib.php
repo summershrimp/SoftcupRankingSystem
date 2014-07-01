@@ -6,7 +6,7 @@ if (! defined ( 'IN_SCRS' ))
 
 function get_all_topics()
 {
-	$sql = "Select * From ".$GLOBALS['sc']->table('topics');
+	$sql = "Select * From ".$GLOBALS['sc']->table('topics')." Order By `disp`";
 	return $arr = $GLOBALS['db']->getAll($sql);
 }
 
@@ -16,9 +16,9 @@ function get_topic_by_id($topic_id)
 	return $arr = $GLOBALS['db']->getRow($sql);
 }
 
-function get_teams($topic_id)
+function get_teams($team_id)
 {
-	$sql = "Select * From ".$GLOBALS['sc']->table('teams')." Where `topic_id` = '".$topic_id."'";
+	$sql = "Select * From ".$GLOBALS['sc']->table('teams')." Where `team_id` = '".$team_id."'";
 	return $arr = $GLOBALS['db']->getAll($sql);
 }
 function get_all_teams($topic_id)
@@ -35,7 +35,7 @@ function get_team_by_id($team_id)
 
 function get_topic_items($topic_id)
 {
-	$sql = "Select * From ".$GLOBALS['sc']->table('items')." Where `topic_id` = '".$topic_id."'";
+	$sql = "Select * From ".$GLOBALS['sc']->table('items')." Where `topic_id` = '".$topic_id."' Order By `disp`";
 	return $arr = $GLOBALS['db']->getAll($sql);
 }
 

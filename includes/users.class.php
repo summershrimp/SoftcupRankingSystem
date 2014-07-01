@@ -160,7 +160,7 @@ class user
 	
 	public function get_team_scores($team_id)
 	{
-		$sql = "Select * From ".$GLOBALS['sc']->table('collects')." Where `team_id` = 'team_id' AND `user_id` = '".$this->user_info['user_id']."'";
+		$sql = "Select * From ".$GLOBALS['sc']->table('collects')." Where `team_id` = '$team_id' AND `user_id` = '".$this->user_info['user_id']."'";
 		$arr = $GLOBALS['db']->getAll($sql);
 		return $arr;
 	}
@@ -170,9 +170,20 @@ class user
 		$sql = 
 				"Select Sum(`score`) ".
 				"From ".$GLOBALS['sc']->table('collects')." ".
-				"Where `team_id` = 'team_id' AND `user_id` = '".$this->user_info['user_id']."'";
+				"Where `team_id` = '$team_id' AND `user_id` = '".$this->user_info['user_id']."'";
 		$arr = $GLOBALS['db']->getOne($sql);
 		return $arr;
+	}
+	
+	public function get_all_users($limit_start = 0,$limit_end = 20)
+	{
+		if($this->is_admin())
+		{
+			$sql = "Select * From ".$GLOBALS['sc']->table('users')." Order By `isadmin` Limit $limit_start, $limit_end";
+			$arr = $GLOBALS['db']->getAll($sql);
+			return $arr;
+		}
+		return false;
 	}
 	
 	public function change_topic($topic_id,$topic_array)
@@ -255,6 +266,28 @@ class user
 				"Update From ".$GLOBALS['sc']->table('items')." ".
 				"Set ".$set_content." ".
 				"Where `item_id` = '$item_id' ";
+			$GLOBALS['db']->query($sql);
+			if($GLOBALS['sb']->affected_rows()==1)
+				return $team_id;
+			return false;
+		}
+		return false;
+	}
+	
+	public function change_user($user_id, $user_array)
+	{
+		if($this->is_admin())
+		{
+			$set_content = "";
+			foreach($user_array as $key => $value)
+			{
+				$set_content .= "`$key` = '$value',";
+			}
+			rtrim($set_content,',');
+			$sql =
+			"Update From ".$GLOBALS['sc']->table('users')." ".
+			"Set ".$set_content." ".
+			"Where `user_id` = '$user_id' ";
 			$GLOBALS['db']->query($sql);
 			if($GLOBALS['sb']->affected_rows()==1)
 				return $team_id;
