@@ -39,6 +39,15 @@ function get_team_by_id($team_id)
 	return $arr = $GLOBALS['db']->getRow($sql);
 }
 
+function get_role_by_id($role_id)
+{
+
+	$sql = "Select * From ".$GLOBALS['sc']->table('roles')." Where `role_id` = '$role_id'";
+	$arr = $GLOBALS['db']->getRow($sql);
+	return $arr;
+	
+}
+
 function get_topic_items($topic_id)
 {
 	$sql = "Select * From ".$GLOBALS['sc']->table('items')." Where `topic_id` = '".$topic_id."' Order By `disp`";

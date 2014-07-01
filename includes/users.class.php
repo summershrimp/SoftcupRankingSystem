@@ -167,6 +167,13 @@ class user
 		return $arr;
 	}
 	
+	public function get_any_team_scores($user_id, $team_id)
+	{
+		$sql = "Select * From ".$GLOBALS['sc']->table('collects')." Where `team_id` = '$team_id' AND `user_id` = '$user_id'";
+		$arr = $GLOBALS['db']->getAll($sql);
+		return $arr;
+	}
+	
 	public function get_team_total_scores($team_id)
 	{
 		$sql = 
@@ -187,7 +194,31 @@ class user
 		}
 		return false;
 	}
-
+	
+	public function get_all_roles()
+	{
+		if($this->is_admin())
+		{
+			$sql = "Select * From ".$GLOBALS['sc']->table('roles');
+			$arr = $GLOBALS['db']->getAll($sql);
+			return $arr;
+		}
+		return false;
+	}
+	
+	public function get_user_by_id($user_id)
+	{
+		if($this->is_admin())
+		{
+			$sql = "Select * From ".$GLOBALS['sc']->table('users')." Where `user_id` = '$user_id'";
+			$arr = $GLOBALS['db']->getRow($sql);
+			unset($arr['password']);
+			unset($arr['salt']);
+			return $arr;
+		}
+		return false;
+	}
+	
 	public function change_topic($topic_id,$topic_array)
 	{
 		if($this->is_admin())
@@ -197,7 +228,7 @@ class user
 			{
 				$set_content .= "`$key` = '$value',";
 			}
-			rtrim($set_content,',');
+			$set_content = rtrim($set_content,',');
 			$sql = 
 					"Update From ".$GLOBALS['sc']->table('topics')." ".
 					"Set ".$set_content." ".
@@ -220,7 +251,7 @@ class user
 			{
 				$set_content .= "`$key` = '$value',";
 			}
-			rtrim($set_content,',');
+			$set_content = rtrim($set_content,',');
 			$sql =
 				"Update From ".$GLOBALS['sc']->table('teams')." ".
 				"Set ".$set_content." ".
@@ -242,7 +273,7 @@ class user
 			{
 				$set_content .= "`$key` = '$value',";
 			}
-			rtrim($set_content,',');
+			$set_content = rtrim($set_content,',');
 			$sql =
 				"Update From ".$GLOBALS['sc']->table('roles')." ".
 				"Set ".$set_content." ".
@@ -336,6 +367,21 @@ class user
 			$sql = 
 				"Delete From ".$GLOBALS['sc']->table('items')." ".
 				"Where `item_id` = '$item_id'";
+			$GLOBALS['db']->query($sql);
+			if($GLOBALS['db']->affected_rows()==1)
+				return true;
+			return false;
+		}
+		return false;
+	}
+	
+	public function delete_user($user_id)
+	{
+		if($this->is_admin())
+		{
+			$sql =
+			"Delete From ".$GLOBALS['sc']->table('users')." ".
+			"Where `user_id` = '$user_id'";
 			$GLOBALS['db']->query($sql);
 			if($GLOBALS['db']->affected_rows()==1)
 				return true;
