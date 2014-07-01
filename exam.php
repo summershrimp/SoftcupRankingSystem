@@ -5,7 +5,7 @@
 ?>
 <div id="test">
 	<input class="button back" type="button" value="返回" onclick="window.location='?'" />
-	<h3><?php echo get_topic_by_id($exam)['topicname'] ?></h3>
+	<h3><?php $a=get_topic_by_id($exam); echo $a['topicname']; ?></h3>
 	<h3>请选择队伍</h3>
 	<ul>
 	<?php

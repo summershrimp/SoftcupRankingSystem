@@ -16,6 +16,12 @@ function get_topic_by_id($topic_id)
 	return $arr = $GLOBALS['db']->getRow($sql);
 }
 
+function get_user_realname_by_id($user_id)
+{
+	$sql = "Select `realname` From ".$GLOBALS['sc']->table('users')." Where `user_id` = '".$user_id."' LIMIT 1";
+	return $arr = $GLOBALS['db']->getOne($sql);
+}
+
 function get_teams($topic_id)
 {
 	$sql = "Select * From ".$GLOBALS['sc']->table('teams')." Where `topic_id` = '".$topic_id."'";

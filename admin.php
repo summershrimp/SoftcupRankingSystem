@@ -9,5 +9,6 @@
 		<li onclick="window.location='?action=manexam'">赛题管理</li>
 		<li onclick="window.location='?action=manteam'">队伍管理</li>
 		<li onclick="window.location='?action=manuser'">用户管理</li>
+		<li onclick="window.location='?action=statics'">数据统计</li>
 	</ul>
 </div>
