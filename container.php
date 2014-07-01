@@ -7,7 +7,7 @@
 			switch ($_GET['action']) {
 			case "logout":
 				require_once "logout.php";
-				exit();
+				break;
 			case "addexam":
 			case "addteam":
 			case "adduser":
@@ -25,31 +25,44 @@
 			case "do_adduser":
 			case "do_editexam":
 			case "do_delexam":
+			case "statics":
+			case "show_statics":
 				require_once "title.php";
 				require_once "admin.php";
 				require_once $_GET['action'] . ".php";
-				exit();
+				break;
+			case "print":
+				if ($user->is_admin()) {
+					require_once "print.php";
+				}
+				else {
+					require_once "title.php";
+					require_once "logged.php";
+				}
 			}
 		}
-		require_once "title.php";
-		if (isset($_GET['team'])) {
-			require_once "team.php";
-		}
-		else if (isset($_GET['exam'])) {
-			require_once "exam.php";
-		}
-		else if ($user->is_admin()) {
-			require_once "admin.php";
-		}
 		else {
-			require_once "logged.php";
+			require_once "title.php";
+			if ($user->is_admin()) {
+				require_once "admin.php";
+			}
+			else if (isset($_GET['team'])) {
+				require_once "team.php";
+			}
+			else if (isset($_GET['exam'])) {
+				require_once "exam.php";
+			}
+			else {
+				require_once "logged.php";
+			}
 		}
 	}
 	else {
 		if (isset($_GET['action']) && $_GET['action'] == "login") {
 			require_once "login.php";
-			exit();
 		}
-		require_once "guest.php";
+		else {
+			require_once "guest.php";
+		}
 	}
 ?>

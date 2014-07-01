@@ -17,7 +17,8 @@
 				echo "<div class=\"form_desc\"><b>" . $i['itemname'] . "</b><br />" . $i['comment'] . "</div>";
 				echo "<span class=\"form_left\">得分</span>";
 				echo "<select name=\"int" . $i['item_id'] . "\">";
-				for ($j = 0; $j <= $i['maxscore']; $j++) echo "<option>" . $j . "</option>";
+				for ($j = 0; $j < $i['maxscore']; $j++) echo "<option>" . $j . "</option>";
+				echo "<option selected='selected'>" . $i['maxscore'] . "</option>";
 				echo "</select>";
 				echo "<span style='width:4%;display:inline-block;text-align:center'><b>.</b></span>";
 				echo "<select name=\"float" . $i['item_id'] . "\">";

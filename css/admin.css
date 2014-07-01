@@ -7,6 +7,9 @@
 	text-align: center;
 	overflow: auto;
 }
+#content ul li {
+	margin-left: 1px;
+}
 #content table {
 	margin: 0 auto;
 	border: 1px solid #BBB;
@@ -20,7 +23,7 @@
 	line-height: 32px;
 }
 #content table tr:hover {
-	background: #BBB !important;
+	background: #E9E9E9 !important;
 }
 #content .click {
 	cursor: pointer;
