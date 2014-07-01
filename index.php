@@ -1,8 +1,6 @@
 <?php
 	define('IN_SCRS','true');
 	require_once './includes/init.inc.php';
-/*elseif($user->is_admin())
-	relocate("admin/index.php");*/
 	$exam = $team = 0;
 	if (isset($_GET['exam'])) {
 		$exam = $_GET['exam'];
