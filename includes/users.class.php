@@ -167,9 +167,167 @@ class user
 	
 	public function get_team_total_scores($team_id)
 	{
-		$sql = "Select Sum(`score`) From ".$GLOBALS['sc']->table('collects')." Where `team_id` = 'team_id' AND `user_id` = '".$this->user_info['user_id']."'";
+		$sql = 
+				"Select Sum(`score`) ".
+				"From ".$GLOBALS['sc']->table('collects')." ".
+				"Where `team_id` = 'team_id' AND `user_id` = '".$this->user_info['user_id']."'";
 		$arr = $GLOBALS['db']->getOne($sql);
 		return $arr;
+	}
+	
+	public function change_topic($topic_id,$topic_array)
+	{
+		if($this->is_admin())
+		{
+			$set_content = "";
+			foreach($topic_array as $key => $value)
+			{
+				$set_content .= "`$key` = '$value',";
+			}
+			rtrim($set_content,',');
+			$sql = 
+					"Update From ".$GLOBALS['sc']->table('topics')." ".
+					"Set ".$set_content." ".
+					"Where `topic_id` = '$topic_id' ";
+			$GLOBALS['db']->query($sql);
+			if($GLOBALS['sb']->affected_rows()==1)
+				return $topic_id;
+			return false;
+		}
+		return false;	
+	}
+	
+	public function change_team($team_id, $team_array)
+	{
+		if($this->is_admin())
+		{
+			$set_content = "";
+			foreach($team_array as $key => $value)
+			{
+				$set_content .= "`$key` = '$value',";
+			}
+			rtrim($set_content,',');
+			$sql =
+				"Update From ".$GLOBALS['sc']->table('teams')." ".
+				"Set ".$set_content." ".
+				"Where `team_id` = '$team_id' ";
+			$GLOBALS['db']->query($sql);
+			if($GLOBALS['sb']->affected_rows()==1)
+				return $team_id;
+			return false;
+		}
+		return false;
+	}
+	
+	public function change_role($role_id, $role_array)
+	{
+		if($this->is_admin())
+		{
+			$set_content = "";
+			foreach($role_array as $key => $value)
+			{
+				$set_content .= "`$key` = '$value',";
+			}
+			rtrim($set_content,',');
+			$sql =
+				"Update From ".$GLOBALS['sc']->table('roles')." ".
+				"Set ".$set_content." ".
+				"Where `role_id` = '$role_id' ";
+			$GLOBALS['db']->query($sql);
+			if($GLOBALS['sb']->affected_rows()==1)
+				return $team_id;
+			return false;
+		}
+		return false;
+	}
+	
+	public function change_item($item_id, $item_array)
+	{
+		if($this->is_admin())
+		{
+			$set_content = "";
+			foreach($item_array as $key => $value)
+			{
+				$set_content .= "`$key` = '$value',";
+			}
+			rtrim($set_content,',');
+			$sql =
+				"Update From ".$GLOBALS['sc']->table('items')." ".
+				"Set ".$set_content." ".
+				"Where `item_id` = '$item_id' ";
+			$GLOBALS['db']->query($sql);
+			if($GLOBALS['sb']->affected_rows()==1)
+				return $team_id;
+			return false;
+		}
+		return false;
+	}
+	
+	public function delete_team($team_id)
+	{
+		if($this->is_admin())
+		{
+			$sql =
+				"Delete From ".$GLOBALS['sc']->table('teams')." ".
+				"Where `team_id` = '$team_id'";
+			$GLOBALS['db']->query($sql);
+			if($GLOBALS['db']->affected_rows()==1)
+				return true;
+			return false;
+		}
+		return false;
+	}
+	
+	public function delete_role($role_id)
+	{
+		if($this->is_admin())
+		{
+			$sql =
+			"Delete From ".$GLOBALS['sc']->table('roles')." ".
+			"Where `role_id` = '$role_id'";
+			$GLOBALS['db']->query($sql);
+			if($GLOBALS['db']->affected_rows()==1)
+				return true;
+			return false;
+		}
+		return false;
+	}
+	
+	public function delete_item($item_id)
+	{
+		if($this->is_admin())
+		{
+			$sql = 
+				"Delete From ".$GLOBALS['sc']->table('items')." ".
+				"Where `item_id` = '$item_id'";
+			$GLOBALS['db']->query($sql);
+			if($GLOBALS['db']->affected_rows()==1)
+				return true;
+			return false;
+		}
+		return false;
+	}
+	
+	public function delete_topic($topic_id)
+	{
+		if($this->is_admin())
+		{
+			$sql = 
+				"Select `items_id` ".
+				"From ".$GLOBALS['sc']->table('items')." ".
+				"Where `topic_id` = '$topic_id' ";
+			$result = $GLOBALS['db']->query($sql);
+			while($arr = $GLOBALS['db']->fetchRow())
+				$this->delete_item($$arr['item_id']);
+			$sql = 
+				"Delete From ".$GLOBALS['sc']->table('topics')." ".
+				"Whrer `topic_id` = '$topic_id'";
+			$GLOBALS['db']->query($sql);
+			if($GLOBALS['db']->affected_rows() == 1)
+				return true;
+			return false;
+		}
+		return false;
 	}
 	
 	public function logout()
