@@ -30,7 +30,7 @@
 			'</div>'+
 			'<div class="form_row_container">'+
 				'<span class="form_left thin">* 评测点描述</span>'+
-				'<input class="form_right thin" type="text" name="point_desc[]" title="评测点描述" required />'+
+				'<input class="form_right thin" type="text" name="point_desc[]" title="评测点描述" />'+
 			'</div>'+
 			'<div class="form_row_container">'+
 				'<span class="form_left thin">* 分值</span>'+

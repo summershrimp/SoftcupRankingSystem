@@ -13,6 +13,8 @@
 	}
 ?>
 <div id="content">
+	<input class="button back" type="button" value="返回" onclick="window.location='?action=statics'" />
+	<h3>评分表</h3>
 	<table>
 		<tr>
 			<th>队名</th><th>分数</th>
@@ -23,11 +25,11 @@
 			?>
 		</tr>
 		<?php
-		foreach ($a as $b) {
+		foreach ($a as $team_id => $b) {
 			echo "<td>" . $b['teamname'] . "</td>";
 			echo "<td>" . $b['ave'] . "</td>";
-			foreach ($b['scores'] as $key => $score) {
-				echo "<td>" . $score . "</td>";
+			foreach ($b['scores'] as $user => $score) {
+				echo "<td class='click' onclick=\"window.open('?action=print&exam=" . $_GET['exam'] . "&team=" . $team_id . "&user=" . $user . "')\">" . $score . "</td></a>";
 			}
 		}
 		?>

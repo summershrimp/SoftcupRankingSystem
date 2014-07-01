@@ -35,7 +35,7 @@
 			'</div>'+
 			'<div class="form_row_container">'+
 				'<span class="form_left thin">* 评测点描述</span>'+
-				'<input class="form_right thin" type="text" name="point_desc[]" title="评测点描述" required />'+
+				'<input class="form_right thin" type="text" name="point_desc[]" title="评测点描述" />'+
 			'</div>'+
 			'<div class="form_row_container">'+
 				'<span class="form_left thin">* 分值</span>'+
@@ -60,6 +60,7 @@
 		<div id="item_list">
 		<?php
 			$points = get_topic_items($_GET['id']);
+			$points = array_sort($points, 'item_id');
 			foreach ($points as $e) {
 				echo "<script>\n";
 				echo "cre();\n";
