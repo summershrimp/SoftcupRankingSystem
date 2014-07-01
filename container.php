@@ -24,7 +24,11 @@
 			case "do_addteam":
 			case "do_adduser":
 			case "do_editexam":
+			case "do_editteam":
+			case "do_edituser":
 			case "do_delexam":
+			case "do_deluser":
+			case "do_deluser":
 			case "statics":
 			case "show_statics":
 				require_once "title.php";
@@ -38,6 +42,11 @@
 				else {
 					require_once "title.php";
 					require_once "logged.php";
+				}
+			case "post_score":
+				if (!$user->is_admin()) {
+					require_once "title.php";
+					require_once "post_score.php";
 				}
 			}
 		}

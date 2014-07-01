@@ -27,7 +27,7 @@ function get_teams($topic_id)
 	$sql = "Select * From ".$GLOBALS['sc']->table('teams')." Where `topic_id` = '".$topic_id."'";
 	return $arr = $GLOBALS['db']->getAll($sql);
 }
-function get_all_teams($topic_id)
+function get_all_teams()
 {
 	$sql = "Select * From ".$GLOBALS['sc']->table('teams');
 	return $arr = $GLOBALS['db']->getAll($sql);

@@ -4,6 +4,7 @@
 	}
 ?>
 <div id="content">
+	<input class="button back" type="button" value="返回" onclick="window.location='?'" />
 	<h3>请选择赛题</h3>
 	<ul>
 	<?php
