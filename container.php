@@ -16,6 +16,10 @@
 				require_once "title.php";
 				require_once "addteam.php";
 				exit();
+			case "adduser":
+				require_once "title.php";
+				require_once "adduser.php";
+				exit();
 			case "addpoint":
 				require_once "title.php";
 				require_once "addpoint.php";

@@ -158,3 +158,10 @@ select {
 	width: 23%;
 	height: 30px;
 }
+.insert {
+	height: 0;
+	transition: height 1s;
+	-webkit-transition: height 1s;
+	-moz-transition: height 1s;
+	-o-transition: height 1s;
+}

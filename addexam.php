@@ -4,7 +4,7 @@
 	}
 ?>
 <script>
-	var id = 1;
+	var id = 0;
 	function del() {
 		if (id == 1) {
 			alert("至少需要一个测试点！");
@@ -45,17 +45,7 @@
 		<p><a href="#" onclick="cre()">[追加一个新的评测点]</a></p>
 		<p><a href="#" onclick="del()">[删除最后一个评测点]</a></p>
 		<div id="judge_list">
-			<div id="judge1">
-				<h4>评测点 #1</h4>
-				<div class="form_row_container">
-					<span class="form_left thin">评测点名称</span>
-					<input class="form_right thin" type="text" name="point_title" required />
-				</div>
-				<div class="form_row_container">
-					<span class="form_left thin">评测点描述</span>
-					<input class="form_right thin" type="text" name="point_desc" required />
-				</div>
-			</div>
+			<script>cre();</script>
 		</div>
 		<input class="button" type="submit" value="提交" />
 	</form>
