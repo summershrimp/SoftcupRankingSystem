@@ -5,8 +5,8 @@
 ?>
 <div id="test">
 	<input class="button back" type="button" value="返回" onclick="window.location='?exam=<?php echo $exam; ?>'" />
-	<h3>题目</h3>
-	<h3 style="margin-bottom:-5px">队伍</h3>
+	<h3><?php echo get_topic_by_id($exam)['topicname'] ?></h3>
+	<h3 style="margin-bottom:-5px"><?php echo get_team_by_id($team)['teamname'] ?></h3>
 	<form action="?action=post_score" method="post">
 		<?php
 			$items = get_topic_items($exam);

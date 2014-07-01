@@ -4,10 +4,10 @@
 	}
 ?>
 <div id="test">
-	<h3>请选择功能</h3>
+	<h3>内容</h3>
 	<ul>
-		<a href="?action=addexam"><li>添加赛题</li></a>
-		<a href="?action=addteam"><li>添加队伍</li></a>
-		<a href="?action=adduser"><li>添加用户</li></a>
+		<li onclick="window.location='?action=manexam'">赛题管理</li>
+		<li onclick="window.location='?action=manteam'">队伍管理</li>
+		<li onclick="window.location='?action=manuser'">用户管理</li>
 	</ul>
 </div>

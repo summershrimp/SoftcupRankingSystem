@@ -2,6 +2,11 @@
 	if (!defined("IN_SCRS")) {
 		exit();
 	}
+	if (!isset($_GET['id'])) {
+		relocate("javascript:window.history.go(-1)");
+		die();
+	}
+	$exam = get_topic_by_id($_GET['id']);
 ?>
 <script>
 	var id = 0;
@@ -42,18 +47,28 @@
 </script>
 <div id="content">
 	<input class="button back" type="button" value="返回" onclick="window.location='?action=manexam'" />
-	<h3>请填写赛题信息</h3>
-	<form action="?action=do_addexam" method="post">
+	<h3>编辑赛题信息</h3>
+	<form action="?action=do_editexam&id=<?php echo $_GET['id']; ?>" method="post">
 		<div class="form_row_container">
-			<span class="form_left thin">* 赛题名称</span><input class="form_right thin" type="text" name="title" title="赛题名称" autofocus required />
+			<span class="form_left thin">* 赛题名称</span><input class="form_right thin" type="text" name="title" title="赛题名称" value="<?php echo $exam['topicname'] ?>" autofocus required />
 		</div>
 		<div class="form_row_container">
-			<span class="form_left thin">* 赛题描述</span><span class="form_right thin" style="width:15%;margin:0 0.5599px"><textarea name="desc" title="赛题描述" required></textarea></span>
+			<span class="form_left thin">* 赛题描述</span><span class="form_right thin" style="width:15%;margin:0 0.5599px"><textarea name="desc" title="赛题描述" required><?php echo $exam['comment'] ?></textarea></span>
 		</div>
 		<p><a href="#" onclick="cre()">[追加一个新的评测点]</a></p>
 		<p><a href="#" onclick="del()">[删除最后一个评测点]</a></p>
 		<div id="item_list">
-			<script>cre();</script>
+		<?php
+			$points = get_topic_items($_GET['id']);
+			foreach ($points as $e) {
+				echo "<script>\n";
+				echo "cre();\n";
+				echo "document.getElementById('item'+id).childNodes[1].childNodes[1].value='" . $e['itemname'] . "';\n ";
+				echo "document.getElementById('item'+id).childNodes[2].childNodes[1].value='" . $e['comment'] . "';\n";
+				echo "document.getElementById('item'+id).childNodes[3].childNodes[1].value='" . $e['maxscore'] . "';\n";
+				echo "</script>\n";
+			}
+		?>
 		</div>
 		<input class="button" type="submit" value="提交" />
 	</form>

@@ -9,20 +9,25 @@
 				require_once "logout.php";
 				exit();
 			case "addexam":
-				require_once "title.php";
-				require_once "addexam.php";
-				exit();
 			case "addteam":
-				require_once "title.php";
-				require_once "addteam.php";
-				exit();
 			case "adduser":
+			case "manexam":
+			case "manteam":
+			case "manuser":
+			case "editexam":
+			case "editteam":
+			case "edituser":
+			case "delexam":
+			case "delteam":
+			case "deluser":
+			case "do_addexam":
+			case "do_addteam":
+			case "do_adduser":
+			case "do_editexam":
+			case "do_delexam":
 				require_once "title.php";
-				require_once "adduser.php";
-				exit();
-			case "addpoint":
-				require_once "title.php";
-				require_once "addpoint.php";
+				require_once "admin.php";
+				require_once $_GET['action'] . ".php";
 				exit();
 			}
 		}
