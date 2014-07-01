@@ -175,6 +175,17 @@ class user
 		return $arr;
 	}
 	
+	public function get_all_users($limit_start = 0,$limit_end = 20)
+	{
+		if($this->is_admin())
+		{
+			$sql = "Select * From ".$GLOBALS['sc']->table('users')." Order By `isadmin` Limit $limit_start, $limit_end";
+			$arr = $GLOBALS['db']->getAll($sql);
+			return $arr;
+		}
+		return false;
+	}
+
 	public function change_topic($topic_id,$topic_array)
 	{
 		if($this->is_admin())
@@ -190,6 +201,7 @@ class user
 					"Set ".$set_content." ".
 					"Where `topic_id` = '$topic_id' ";
 			$GLOBALS['db']->query($sql);
+
 			if($GLOBALS['db']->affected_rows()==1)
 				return $topic_id;
 			return false;
@@ -263,6 +275,28 @@ class user
 		return false;
 	}
 	
+	public function change_user($user_id, $user_array)
+	{
+		if($this->is_admin())
+		{
+			$set_content = "";
+			foreach($user_array as $key => $value)
+			{
+				$set_content .= "`$key` = '$value',";
+			}
+			rtrim($set_content,',');
+			$sql =
+			"Update From ".$GLOBALS['sc']->table('users')." ".
+			"Set ".$set_content." ".
+			"Where `user_id` = '$user_id' ";
+			$GLOBALS['db']->query($sql);
+			if($GLOBALS['sb']->affected_rows()==1)
+				return $team_id;
+			return false;
+		}
+		return false;
+	}
+	
 	public function delete_team($team_id)
 	{
 		if($this->is_admin())
@@ -322,7 +356,6 @@ class user
 			$sql = 
 				"Delete From ".$GLOBALS['sc']->table('topics')." ".
 				"Where `topic_id` = '$topic_id'";
-			echo $sql;
 			$GLOBALS['db']->query($sql);
 			if($GLOBALS['db']->affected_rows() == 1)
 				return true;
