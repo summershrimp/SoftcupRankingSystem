@@ -10,10 +10,9 @@
 	foreach ($item as $e) {
 		$user->delete_item($e['item_id']);
 	}
-	print_r($_POST);
 	$exam = array("topicname" => $_POST['title'], "comment" => $_POST['desc']);
 	$user->change_topic($_GET['id'], $exam);
-	$length = count($_POST['title']);
+	$length = count($_POST['point_title']);
 	for ($i = 0; $i < $length; $i++) {
 		$item = array(
 			"topic_id" => $_GET['id'],

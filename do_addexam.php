@@ -5,7 +5,7 @@
 	$exam = array("topicname" => $_POST['title'], "comment" => $_POST['desc']);
 	$result = $user->add_topic($exam);
 	if ($result != false) {
-		$length = count($_POST['title']);
+		$length = count($_POST['point_title']);
 		for ($i = 0; $i < $length; $i++) {
 			$item = array(
 				"topic_id" => $result,
