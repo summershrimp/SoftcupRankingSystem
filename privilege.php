@@ -5,7 +5,6 @@
 	$user_list = $user->get_all_users_no_admin();
 	$exam_list = get_all_topics();
 	$privilege = $user->get_all_privilege();
-	print_r($privilege);
 ?>
 <div id="content">
 	<h3>权限管理</h3>
@@ -22,8 +21,8 @@
 			foreach ($exam_list as $e) {
 				echo "<tr>";
 				echo "<td>" . $e['topicname'] . "</td>";
-				$checked = "";
 				foreach ($user_list as $f) {
+					$checked = isset($privilege[$e['topic_id']][$f['user_id']]) ? "checked='checked'" : "";
 					echo "<td><input type='checkbox' name='" . $e['topic_id'] . "-" . $f['user_id'] . "'" . $checked . " /></td>";
 				}
 				echo "</tr>";
