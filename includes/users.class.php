@@ -203,7 +203,7 @@ class user
 		$arr = $GLOBALS['db']->getOne($sql);
 		return $arr;
 	}
-
+ 
 	public function get_all_users($limit_start = 0,$limit_end = 20)
 	{
 		if($this->is_admin())
@@ -369,12 +369,14 @@ class user
 	{
 		if($this->is_admin())
 		{
+			if($this->user_info['user_id'] == $user_id)
+				return false;
 			$set_content = "";
 			foreach($user_array as $key => $value)
 			{
 				$set_content .= "`$key` = '$value',";
 			}
-			
+
 			$set_content = rtrim($set_content,',');
 			$sql =
 			"Update ".$GLOBALS['sc']->table('users')." ".

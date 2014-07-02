@@ -22,9 +22,9 @@ function get_user_realname_by_id($user_id)
 	return $arr = $GLOBALS['db']->getOne($sql);
 }
 
-function get_teams($team_id)
+function get_teams($topic_id)
 {
-	$sql = "Select * From ".$GLOBALS['sc']->table('teams')." Where `team_id` = '".$team_id."'";
+	$sql = "Select * From ".$GLOBALS['sc']->table('teams')." Where `topic_id` = '".$topic_id."'";
 	return $arr = $GLOBALS['db']->getAll($sql);
 }
 function get_all_teams()
