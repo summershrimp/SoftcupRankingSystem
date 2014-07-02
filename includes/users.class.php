@@ -233,7 +233,10 @@ class user
 		{
 			$sql = "Select * From ".$GLOBALS['sc']->table('user_privileges') . "" ;
 			$arr = $GLOBALS['db']->getAll($sql);
-			return $arr;
+			$ret = Array();
+			foreach ($arr as $a)
+				$ret[$a['user_id']][$a['topic_id']] = 1;
+			return $ret;
 		}
 		return false;
 	}
@@ -368,7 +371,7 @@ class user
 			"Where `user_id` = '$user_id' ";
 			$GLOBALS['db']->query($sql);
 			if($GLOBALS['db']->affected_rows()==1)
-				return $team_id;
+				return $user_id;
 			return false;
 		}
 		return false;
@@ -381,11 +384,14 @@ class user
 			$sql = "Delete From ".$GLOBALS['sc']->table("user_privileges")." Where `user_id` = '$user_id'";
 			$GLOBALS['db']->query($sql);
 			$count = 0;
-			foreach($topic_array as $value)
+			foreach($topic_array as $key => $value)
 			{
-				$sql = "Insert Into ".$GLOBALS['sc']->table("user_privileges")." (`user_id`, `topic_id`) VALUES ('$user_id', '$value')";
-				$GLOBALS['db']->query($sql);
-				$count++;
+				if($value == 1)
+				{
+					$sql = "Insert Into ".$GLOBALS['sc']->table("user_privileges")." (`user_id`, `topic_id`) VALUES ('$user_id', '$key')";
+					$GLOBALS['db']->query($sql);
+					$count++;
+				}
 			}
 			if($count == 0)
 				return false;
