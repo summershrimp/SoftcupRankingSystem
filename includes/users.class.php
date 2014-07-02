@@ -106,10 +106,10 @@ class user
 		if($this->is_admin())
 		{
 			$sql = "INSERT Into ".$GLOBALS['sc']->table('users').
-				   " (`username`,`password`,`salt`,`isadmin`,`sex`,`realname`,`phone`,`comment`) VALUES ".
+				   " (`username`,`password`,`salt`, `isadmin`, `role_id`, `sex`, `realname`, `phone`, `comment`) VALUES ".
 				   "('".$user_array['username']."',  '".$user_array['password']."',  '".$user_array['salt']."',  '".
-				   		$user_array['isadmin']."',  '".$user_array['sex']."',  '".$user_array['realname']."',  '".
-				   		$user_array['phone']."',  '".$user_array['comment']."')";
+				   		$user_array['isadmin']."',  '".$user_array['role_id']."',  '".$user_array['sex']."',  '".
+				   		$user_array['realname']."',  '".$user_array['phone']."',  '".$user_array['comment']."')";
 			$GLOBALS['db']->query($sql);
 			if($GLOBALS['db']->affected_rows()==1)
 				return $GLOBALS['db']->insert_id();
