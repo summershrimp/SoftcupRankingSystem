@@ -263,6 +263,15 @@ class user
 		}
 		return false;
 	}
+
+	public function get_user_privilege()
+	{
+		$sql = "Select * From ".$GLOBALS['sc']->table('user_privileges') . " Where `user_id` = '" . $this->user_info['user_id']."' " ;
+		$arr = $GLOBALS['db']->getAll($sql);
+		foreach ($arr as $a)
+			$ret[$a['topic_id']] = 1;
+		return $ret;
+	}
 	
 	public function get_user_by_id($user_id)
 	{

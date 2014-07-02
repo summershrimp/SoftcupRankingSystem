@@ -10,7 +10,7 @@
 	<h3>赛题列表</h3>
 	<form action="?action=delexam" method="post">
 		<table>
-			<tr><!--<th>#</th>--><th>操作</th><th>题目</th><th>描述</th></tr>
+			<tr><!--<th>#</th>--><th style="width:55px;min-width:55px">操作</th><th>题目</th><th>描述</th></tr>
 			<?php
 				$exam_list = get_all_topics();
 				foreach ($exam_list as $e) {
@@ -18,7 +18,7 @@
 					//echo "<td><input type='checkbox' name='chk[]' value='" . $e['topic_id'] . "' /></td>";
 					echo "<td class='click warning' onclick=\"conf('?action=do_delexam&id=" . $e['topic_id'] . "','确定要删除这条记录吗？')\">删除</td>";
 					echo "<td class='click' onclick=\"window.location.href='?action=editexam&id=" . $e['topic_id'] . "'\">" . $e['topicname'] . "</td>";
-					echo "<td>" . $e['comment'] . "</td>";
+					echo "<td><span class='ell'>" . $e['comment'] . "</span></td>";
 					echo "</tr>";
 				}
 			?>

@@ -8,8 +8,11 @@
 	<ul>
 	<?php
 		$topic = get_all_topics();
+		$privilege = $user->get_user_privilege();
 		foreach($topic as $t) {
-			echo "<a href=\"?exam=" . $t['topic_id'] . "\"><li>" . $t['topicname'] . "</li></a>";
+			if (isset($privilege[$t['topic_id']]) && $privilege[$t['topic_id']] == 1) {
+				echo "<a href=\"?exam=" . $t['topic_id'] . "\"><li>" . $t['topicname'] . "</li></a>";
+			}
 		}
 	?>
 	</ul>

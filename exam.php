@@ -12,7 +12,7 @@
 		$teams = get_teams($exam);
 		foreach($teams as $t) {
 			echo "<a href=\"?exam=" . $exam . "&team=" . $t['team_id'] .
-				"\"><li><span class=\"li_left\">" . $t['teamname'] . "</span><span class=\"li_right\">";
+				"\"><li><span style=\"max-width:55%\" class=\"li_left ell\">" . $t['teamname'] . "</span><span class=\"li_right\">";
 			$score = $user->get_team_total_scores($t['team_id']);
 			if ($score == 0) echo "<span style=\"color:red\">未评分</span>";
 			else echo "<span style=\"color:green\">" . $score . "分</span>";

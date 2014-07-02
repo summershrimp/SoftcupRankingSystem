@@ -4,7 +4,10 @@
 /* common */
 * {
 	font-family: "微软雅黑", "SimHei", "Tahoma";
-	-webkit-appearance: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-o-user-select: none;
+	user-select: none;
 }
 html {
 	width: 100%;
@@ -92,7 +95,7 @@ h1, .form_row_container {
 /* logged in */
 header {
 	background: #191919;
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 	right: 0;
@@ -135,7 +138,6 @@ header a {
 ul {
 	list-style-type: none;
 	padding: 0;
-	cursor: pointer;
 }
 ul:last-child {
 	border-bottom: 1px solid #BBB;
@@ -143,18 +145,22 @@ ul:last-child {
 ul a {
 	text-decoration: none;
 }
-ul li:active {
-	background: #333 !important;
-	color: #FFF !important;
-}
 ul li {
 	height: 48px;
 	line-height: 48px;
 	border-top: 1px solid #BBB;
 	color: #000;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	cursor: pointer;
 }
 ul li:hover {
 	background: #DDD;
+}
+ul li:active {
+	background: #333 !important;
+	color: #FFF !important;
 }
 .li_left {
 	float: left;
@@ -190,4 +196,8 @@ select {
 }
 .warning {
 	color: red !important;
+}
+.ell {
+	overflow: hidden;
+	text-overflow: ellipsis !important;
 }
