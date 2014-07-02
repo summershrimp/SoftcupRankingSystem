@@ -11,6 +11,7 @@
 			"salt" => $salt,
 			"role_id" => $_POST['type'][$i],
 			"sex" => $_POST['sex'][$i],
+			"isadmin" => $_POST['is_admin'][$i],
 			"realname" => $_POST['realname'][$i],
 			"phone" => $_POST['phone'][$i],
 			"comment" => $_POST['comment'][$i]

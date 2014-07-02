@@ -10,10 +10,14 @@
 ?>
 <div id="content">
 	<input class="button back" type="button" value="返回" onclick="window.location='?action=manuser'" />
-	<h3>编辑用户信息</h3>
+	<h3>编辑用户 <?php echo $tuser['username'] ?> 的信息</h3>
 	<form action="?action=do_edituser&id=<?php echo $_GET['id']; ?>" method="post">
 		<div class="form_row_container">
-			<span class="form_left thin">* 用户名</span><input class="form_right thin" type="text" name="username" title="用户名" value="<?php echo $tuser['username'] ?>" autofocus required />
+			<span class="form_left thin">* 管理员</span>
+			<select class="thin" name="is_admin[]">
+				<option value="0">否</option>
+				<option value="1">是</option>
+			</select>
 		</div>
 		<div class="form_row_container">
 			<span class="form_left thin">* 用户类型</span><select class="thin" name="type">

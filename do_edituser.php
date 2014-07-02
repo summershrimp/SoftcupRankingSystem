@@ -6,14 +6,17 @@
 		relocate("javascript:window.history.go(-1)");
 		die();
 	}
+	$tuser = $user->get_user_by_id($_GET['id']);
+	$salt = $tuser['salt'];
 	$user_list = array(
-		"username" => $_POST['username'],
-		"role_id" => $_POST['type'],
-		"sex" => $_POST['sex'],
-		"realname" => $_POST['realname'],
-		"phone" => $_POST['phone'],
-		"comment" => $_POST['comment']
+		"password" => md5(md5($_POST['password'][$i]).$salt),
+		"role_id" => $_POST['type'][$i],
+		"sex" => $_POST['sex'][$i],
+		"is_admin" => $_POST['is_admin'][$i],
+		"realname" => $_POST['realname'][$i],
+		"phone" => $_POST['phone'][$i],
+		"comment" => $_POST['comment'][$i]
 	);
 	$user->change_user($_GET['id'], $user_list);
-	relocate("?action=manuser");
+	//relocate("?action=manuser");
 ?>

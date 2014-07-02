@@ -10,5 +10,6 @@
 		<li onclick="window.location='?action=manteam'">队伍管理</li>
 		<li onclick="window.location='?action=manuser'">用户管理</li>
 		<li onclick="window.location='?action=statics'">数据统计</li>
+		<li onclick="window.location='?action=privilege'">权限管理</li>
 	</ul>
 </div>

@@ -31,6 +31,7 @@
 			case "do_deluser":
 			case "statics":
 			case "show_statics":
+			case "privilege":
 				require_once "title.php";
 				require_once "admin.php";
 				require_once $_GET['action'] . ".php";
