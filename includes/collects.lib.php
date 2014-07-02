@@ -35,8 +35,17 @@ function get_all_teams()
 
 function get_team_by_id($team_id)
 {
-	$sql = $sql = "Select * From ".$GLOBALS['sc']->table('teams')." Where `team_id` = '".$team_id."' LIMIT 1";
+	$sql = "Select * From ".$GLOBALS['sc']->table('teams')." Where `team_id` = '".$team_id."' LIMIT 1";
 	return $arr = $GLOBALS['db']->getRow($sql);
+}
+
+function get_role_by_id($role_id)
+{
+
+	$sql = "Select * From ".$GLOBALS['sc']->table('roles')." Where `role_id` = '$role_id'";
+	$arr = $GLOBALS['db']->getRow($sql);
+	return $arr;
+	
 }
 
 function get_topic_items($topic_id)
@@ -47,8 +56,13 @@ function get_topic_items($topic_id)
 
 function get_collects($topic_id)
 {
-	$sql = "Select `user_id`, `role_id`, `realname` From ".$GLOBALS['sc']->table('users')." ".
-			"Where `isadmin` = '0' Order By `role_id`";
+	$sql =  "Select ".$GLOBALS['sc']->table('users').".`user_id`, ".
+			$GLOBALS['sc']->table('users').".`role_id`, ".
+			$GLOBALS['sc']->table('users').".`realname` ".
+		    "From ".$GLOBALS['sc']->table('users')." ".
+			"Right Join ".$GLOBALS['sc']->table('user_privileges')." ".
+			"On ".$GLOBALS['sc']->table('user_privileges').".`user_id` = ".$GLOBALS['sc']->table('users').".`user_id`".
+			"Where ".$GLOBALS['sc']->table('user_privileges').".`topic_id` = '$topic_id' Order By `role_id`";
 	$result = $GLOBALS['db']->query($sql);
 	$user_array = Array();
 	while($arr = $GLOBALS['db']->fetchRow($result))
@@ -92,7 +106,10 @@ function get_collects($topic_id)
 			else 
 				$ret['contents'][$tkey]['scores'][$ukey] = -1;
 		}
-		$ret['contents'][$tkey]['avescore'] = $sumall / floatval($sumbal);
+		if($sumall == 0.0)
+			$ret['contents'][$tkey]['avescore'] = -1;
+		else
+			$ret['contents'][$tkey]['avescore'] = $sumall / floatval($sumbal);
 	}
 	return $ret;
 }

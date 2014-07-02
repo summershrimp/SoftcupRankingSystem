@@ -19,7 +19,7 @@
 			<span class="form_left thin">* 描述</span><span class="form_right thin" style="width:15%;margin:0 0.5599px"><textarea name="desc" title="描述"><?php echo $team['comment'] ?></textarea></span>
 		</div>
 		<div class="form_row_container">
-			<span class="form_left thin">* 选题</span><select class="thin" name="exam[]">
+			<span class="form_left thin">* 选题</span><select class="thin" name="exam">
 				<?php
 					$topic = get_all_topics();
 					foreach($topic as $t) {

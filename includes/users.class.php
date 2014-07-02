@@ -105,11 +105,11 @@ class user
 	{
 		if($this->is_admin())
 		{
-			$sql = "INSERT Into ".$GLOBALS['sc'].table('users').
-				   " (`username`,`password`,`salt`,`isadmin`,`sex`,`realname`,`phone`,`comment`) VALUES ".
+			$sql = "INSERT Into ".$GLOBALS['sc']->table('users').
+				   " (`username`,`password`,`salt`, `isadmin`, `role_id`, `sex`, `realname`, `phone`, `comment`) VALUES ".
 				   "('".$user_array['username']."',  '".$user_array['password']."',  '".$user_array['salt']."',  '".
-				   		$user_array['isadmin']."',  '".$user_array['sex']."',  '".$user_array['realname']."',  '".
-				   		$user_array['phone']."',  '".$user_array['comment']."')";
+				   		$user_array['isadmin']."',  '".$user_array['role_id']."',  '".$user_array['sex']."',  '".
+				   		$user_array['realname']."',  '".$user_array['phone']."',  '".$user_array['comment']."')";
 			$GLOBALS['db']->query($sql);
 			if($GLOBALS['db']->affected_rows()==1)
 				return $GLOBALS['db']->insert_id();
@@ -160,9 +160,26 @@ class user
 		else return false;
 	}
 	
+	public function add_feedback($user_id, $team_id, $content)
+	{
+		$sql = "Delete From ".$GLOBALS['sc']->table('items')." Where `user_id` = '$user_id' AND `team_id` = $team_id ";
+		$GLOBALS['db']->query($sql);
+		$sql = "Insert INTO ".$GLOBALS['sc']->table('items')." (`user_id`, `team_id`, `content`) VALUES('$user_id', '$team_id', '$content')";
+		$GLOBALS['db']->query($sql);
+		return $GLOBALS['db']->insert_id();
+		
+	}
+	
 	public function get_team_scores($team_id)
 	{
 		$sql = "Select * From ".$GLOBALS['sc']->table('collects')." Where `team_id` = '$team_id' AND `user_id` = '".$this->user_info['user_id']."'";
+		$arr = $GLOBALS['db']->getAll($sql);
+		return $arr;
+	}
+	
+	public function get_any_team_scores($user_id, $team_id)
+	{
+		$sql = "Select * From ".$GLOBALS['sc']->table('collects')." Where `team_id` = '$team_id' AND `user_id` = '$user_id'";
 		$arr = $GLOBALS['db']->getAll($sql);
 		return $arr;
 	}
@@ -177,6 +194,16 @@ class user
 		return $arr;
 	}
 	
+	public function get_any_team_total_scores($user_id ,$team_id)
+	{
+		$sql =
+		"Select Sum(`score`) ".
+		"From ".$GLOBALS['sc']->table('collects')." ".
+		"Where `team_id` = '$team_id' AND `user_id` = '".$user_id."'";
+		$arr = $GLOBALS['db']->getOne($sql);
+		return $arr;
+	}
+
 	public function get_all_users($limit_start = 0,$limit_end = 20)
 	{
 		if($this->is_admin())
@@ -187,7 +214,68 @@ class user
 		}
 		return false;
 	}
-
+	
+	public function get_all_users_no_admin()
+	{
+		if($this->is_admin())
+		{
+			$sql = "Select * From ".$GLOBALS['sc']->table('users')." Where `isadmin` = 0 Order By `role_id` ";
+			$arr = $GLOBALS['db']->getAll($sql);
+			return $arr;
+		}
+		return false;
+	}
+	
+	public function get_all_roles()
+	{
+		if($this->is_admin())
+		{
+			$sql = "Select * From ".$GLOBALS['sc']->table('roles');
+			$arr = $GLOBALS['db']->getAll($sql);
+			return $arr;
+		}
+		return false;
+	}
+	
+	public function get_all_privilege()
+	{
+		if($this->is_admin())
+		{
+			$sql = "Select * From ".$GLOBALS['sc']->table('user_privileges') . "" ;
+			$arr = $GLOBALS['db']->getAll($sql);
+			$ret = Array();
+			foreach ($arr as $a)
+				$ret[$a['topic_id']][$a['user_id']] = 1;
+			return $ret;
+		}
+		return false;
+	}
+	
+	public function get_privilege_by_user_id($user_id)
+	{
+		if($this->is_admin())
+		{
+			$sql = "Select * From ".$GLOBALS['sc']->table('user_privileges') . " Where `user_id` = '$user_id' " ;
+			$arr = $GLOBALS['db']->getAll($sql);
+			foreach ($arr as $a)
+				$ret[$a['topic_id']] = 1;
+			return $ret;
+		}
+		return false;
+	}
+	
+	public function get_user_by_id($user_id)
+	{
+		if($this->is_admin())
+		{
+			$sql = "Select * From ".$GLOBALS['sc']->table('users')." Where `user_id` = '$user_id'";
+			$arr = $GLOBALS['db']->getRow($sql);
+			unset($arr['password']);
+			return $arr;
+		}
+		return false;
+	}
+	
 	public function change_topic($topic_id,$topic_array)
 	{
 		if($this->is_admin())
@@ -197,9 +285,9 @@ class user
 			{
 				$set_content .= "`$key` = '$value',";
 			}
-			rtrim($set_content,',');
+			$set_content = rtrim($set_content,',');
 			$sql = 
-					"Update From ".$GLOBALS['sc']->table('topics')." ".
+					"Update  ".$GLOBALS['sc']->table('topics')." ".
 					"Set ".$set_content." ".
 					"Where `topic_id` = '$topic_id' ";
 			$GLOBALS['db']->query($sql);
@@ -220,13 +308,13 @@ class user
 			{
 				$set_content .= "`$key` = '$value',";
 			}
-			rtrim($set_content,',');
+			$set_content = rtrim($set_content,',');
 			$sql =
-				"Update From ".$GLOBALS['sc']->table('teams')." ".
+				"Update  ".$GLOBALS['sc']->table('teams')." ".
 				"Set ".$set_content." ".
 				"Where `team_id` = '$team_id' ";
 			$GLOBALS['db']->query($sql);
-			if($GLOBALS['sb']->affected_rows()==1)
+			if($GLOBALS['db']->affected_rows()==1)
 				return $team_id;
 			return false;
 		}
@@ -242,13 +330,13 @@ class user
 			{
 				$set_content .= "`$key` = '$value',";
 			}
-			rtrim($set_content,',');
+			$set_content = rtrim($set_content,',');
 			$sql =
-				"Update From ".$GLOBALS['sc']->table('roles')." ".
+				"Update  ".$GLOBALS['sc']->table('roles')." ".
 				"Set ".$set_content." ".
 				"Where `role_id` = '$role_id' ";
 			$GLOBALS['db']->query($sql);
-			if($GLOBALS['sb']->affected_rows()==1)
+			if($GLOBALS['db']->affected_rows()==1)
 				return $team_id;
 			return false;
 		}
@@ -264,13 +352,13 @@ class user
 			{
 				$set_content .= "`$key` = '$value',";
 			}
-			rtrim($set_content,',');
+			$set_content = rtrim($set_content,',');
 			$sql =
-				"Update From ".$GLOBALS['sc']->table('items')." ".
+				"Update  ".$GLOBALS['sc']->table('items')." ".
 				"Set ".$set_content." ".
 				"Where `item_id` = '$item_id' ";
 			$GLOBALS['db']->query($sql);
-			if($GLOBALS['sb']->affected_rows()==1)
+			if($GLOBALS['db']->affected_rows()==1)
 				return $team_id;
 			return false;
 		}
@@ -286,15 +374,39 @@ class user
 			{
 				$set_content .= "`$key` = '$value',";
 			}
-			rtrim($set_content,',');
+			
+			$set_content = rtrim($set_content,',');
 			$sql =
-			"Update From ".$GLOBALS['sc']->table('users')." ".
+			"Update ".$GLOBALS['sc']->table('users')." ".
 			"Set ".$set_content." ".
 			"Where `user_id` = '$user_id' ";
 			$GLOBALS['db']->query($sql);
-			if($GLOBALS['sb']->affected_rows()==1)
-				return $team_id;
+			if($GLOBALS['db']->affected_rows()==1)
+				return $user_id;
 			return false;
+		}
+		return false;
+	}
+	
+	public function change_privilege($user_id, $topic_array)
+	{
+		if($this->is_admin())
+		{
+			$sql = "Delete From ".$GLOBALS['sc']->table("user_privileges")." Where `user_id` = '$user_id'";
+			$GLOBALS['db']->query($sql);
+			$count = 0;
+			foreach($topic_array as $key => $value)
+			{
+				if($value == 1)
+				{
+					$sql = "Insert Into ".$GLOBALS['sc']->table("user_privileges")." (`user_id`, `topic_id`) VALUES ('$user_id', '$key')";
+					$GLOBALS['db']->query($sql);
+					$count++;
+				}
+			}
+			if($count == 0)
+				return false;
+			return $count;
 		}
 		return false;
 	}
@@ -336,6 +448,23 @@ class user
 			$sql = 
 				"Delete From ".$GLOBALS['sc']->table('items')." ".
 				"Where `item_id` = '$item_id'";
+			$GLOBALS['db']->query($sql);
+			if($GLOBALS['db']->affected_rows()==1)
+				return true;
+			return false;
+		}
+		return false;
+	}
+	
+	public function delete_user($user_id)
+	{
+		if($this->is_admin())
+		{
+			if($this->user_info['user_id'] == $user_id)
+				return false;
+			$sql =
+			"Delete From ".$GLOBALS['sc']->table('users')." ".
+			"Where `user_id` = '$user_id'";
 			$GLOBALS['db']->query($sql);
 			if($GLOBALS['db']->affected_rows()==1)
 				return true;

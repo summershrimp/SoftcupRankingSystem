@@ -20,6 +20,11 @@
 			case "delexam":
 			case "delteam":
 			case "deluser":
+			case "statics":
+				require_once "title.php";
+				require_once "admin.php";
+				require_once $_GET['action'] . ".php";
+				break;
 			case "do_addexam":
 			case "do_addteam":
 			case "do_adduser":
@@ -27,12 +32,11 @@
 			case "do_editteam":
 			case "do_edituser":
 			case "do_delexam":
+			case "do_delteam":
 			case "do_deluser":
-			case "do_deluser":
-			case "statics":
+			case "do_editpriv":
 			case "show_statics":
-				require_once "title.php";
-				require_once "admin.php";
+			case "privilege":
 				require_once $_GET['action'] . ".php";
 				break;
 			case "print":
@@ -54,6 +58,7 @@
 			require_once "title.php";
 			if ($user->is_admin()) {
 				require_once "admin.php";
+				require_once "admindef.php";
 			}
 			else if (isset($_GET['team'])) {
 				require_once "team.php";

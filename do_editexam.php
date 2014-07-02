@@ -23,5 +23,4 @@
 		$user->add_item($item);
 	}
 	relocate("?action=manexam");
-	exit();
 ?>

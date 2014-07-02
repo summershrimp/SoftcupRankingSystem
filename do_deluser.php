@@ -6,9 +6,9 @@
 		relocate("javascript:window.history.go(-1)");
 		die();
 	}
-	$result = $user->delete_topic($_GET['id']);
+	$result = $user->delete_user($_GET['id']);
 	if ($result != false) {
-		relocate("?action=manexam");
+		relocate("?action=manuser");
 	}
 	else {
 		echo "<div id='content'>";
