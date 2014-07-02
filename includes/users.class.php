@@ -216,6 +216,28 @@ class user
 		return false;
 	}
 	
+	public function get_all_privilege()
+	{
+		if($this->is_admin())
+		{
+			$sql = "Select * From ".$GLOBALS['sc']->table('user_privileges') . "" ;
+			$arr = $GLOBALS['db']->getAll($sql);
+			return $arr;
+		}
+		return false;
+	}
+	
+	public function get_privilege_by_user_id($user_id)
+	{
+		if($this->is_admin())
+		{
+			$sql = "Select * From ".$GLOBALS['sc']->table('user_privileges') . " Where `user_id` = '$user_id' " ;
+			$arr = $GLOBALS['db']->getAll($sql);
+			return $arr;
+		}
+		return false;
+	}
+	
 	public function get_user_by_id($user_id)
 	{
 		if($this->is_admin())
@@ -338,6 +360,26 @@ class user
 			if($GLOBALS['db']->affected_rows()==1)
 				return $team_id;
 			return false;
+		}
+		return false;
+	}
+	
+	public function change_privilege($user_id, $topic_array)
+	{
+		if($this->is_admin())
+		{
+			$sql = "Delete From ".$GLOBALS['sc']->table("user_privileges")." Where `user_id` = '$user_id'";
+			$GLOBALS['db']->query($sql);
+			$count = 0;
+			foreach($topic_array as $value)
+			{
+				$sql = "Insert Into ".$GLOBALS['sc']->table("user_privileges")." (`user_id`, `topic_id`) VALUES ('$user_id', '$value')";
+				$GLOBALS['db']->query($sql);
+				$count++;
+			}
+			if($count == 0)
+				return false;
+			return $count;
 		}
 		return false;
 	}
