@@ -105,7 +105,7 @@ class user
 	{
 		if($this->is_admin())
 		{
-			$sql = "INSERT Into ".$GLOBALS['sc'].table('users').
+			$sql = "INSERT Into ".$GLOBALS['sc']->table('users').
 				   " (`username`,`password`,`salt`,`isadmin`,`sex`,`realname`,`phone`,`comment`) VALUES ".
 				   "('".$user_array['username']."',  '".$user_array['password']."',  '".$user_array['salt']."',  '".
 				   		$user_array['isadmin']."',  '".$user_array['sex']."',  '".$user_array['realname']."',  '".
