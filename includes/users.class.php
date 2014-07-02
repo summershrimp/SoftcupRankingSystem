@@ -305,7 +305,7 @@ class user
 			{
 				$set_content .= "`$key` = '$value',";
 			}
-			rtrim($set_content,',');
+			$set_content = rtrim($set_content,',');
 			$sql =
 				"Update  ".$GLOBALS['sc']->table('items')." ".
 				"Set ".$set_content." ".
@@ -327,7 +327,7 @@ class user
 			{
 				$set_content .= "`$key` = '$value',";
 			}
-			rtrim($set_content,',');
+			$set_content = rtrim($set_content,',');
 			$sql =
 			"Update ".$GLOBALS['sc']->table('users')." ".
 			"Set ".$set_content." ".
