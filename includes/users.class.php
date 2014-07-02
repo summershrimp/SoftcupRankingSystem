@@ -233,7 +233,10 @@ class user
 		{
 			$sql = "Select * From ".$GLOBALS['sc']->table('user_privileges') . "" ;
 			$arr = $GLOBALS['db']->getAll($sql);
-			return $arr;
+			$ret = Array();
+			foreach ($arr as $a)
+				$ret[$a['topic_id']][$a['user_id']] = 1;
+			return $ret;
 		}
 		return false;
 	}
@@ -383,7 +386,7 @@ class user
 			$count = 0;
 			foreach($topic_array as $key => $value)
 			{
-				if ($value == 1)
+				if($value == 1)
 				{
 					$sql = "Insert Into ".$GLOBALS['sc']->table("user_privileges")." (`user_id`, `topic_id`) VALUES ('$user_id', '$key')";
 					$GLOBALS['db']->query($sql);
