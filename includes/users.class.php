@@ -205,6 +205,17 @@ class user
 		return false;
 	}
 	
+	public function get_all_users_no_admin()
+	{
+		if($this->is_admin())
+		{
+			$sql = "Select * From ".$GLOBALS['sc']->table('users')." Where `isadmin` = 0 Order By `role_id` ";
+			$arr = $GLOBALS['db']->getAll($sql);
+			return $arr;
+		}
+		return false;
+	}
+	
 	public function get_all_roles()
 	{
 		if($this->is_admin())
@@ -245,7 +256,6 @@ class user
 			$sql = "Select * From ".$GLOBALS['sc']->table('users')." Where `user_id` = '$user_id'";
 			$arr = $GLOBALS['db']->getRow($sql);
 			unset($arr['password']);
-			unset($arr['salt']);
 			return $arr;
 		}
 		return false;
