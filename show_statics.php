@@ -9,6 +9,9 @@
 	$a = get_collects($_GET['exam']);
 ?>
 <style>
+	body {
+		overflow: auto !important;
+	}
 	table tr:nth-child(even) {
 		background: #E6E6E6;
 	}
@@ -51,7 +54,7 @@
 			else {
 				foreach ($data['scores'] as $user_id => $score) {
 					if ($score == -1) echo "<td>-</td>";
-					else echo "<td class='click' onclick=\"window.open('?action=print&exam=" . $_GET['exam'] . "&team=" . $team_id . "&user=" . $user_id . "')\">" . $score . "</td></a>";
+					else echo "<td class='click' onclick=\"window.open('?action=print&exam=" . $_GET['exam'] . "&team=" . $team_id . "&user=" . $user_id . "','toolbar=no,menubar=no,location=no,scrollbars=yes,status=no')\">" . $score . "</td></a>";
 				}
 			}
 			echo "</tr>";

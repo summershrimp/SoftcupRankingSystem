@@ -18,6 +18,7 @@
 	body {
 		background: none;
 		font-size: 1.1em;
+		overflow: auto !important;
 	}
 	h2, pre {
 		text-align: center;
@@ -49,10 +50,11 @@
 	#nav {
 		border: none;
 	}
+	#nav tr, #nav tr:hover {
+		background: none !important;
+	}
 	#nav td {
-		text-align: left;
 		width: 33.333333%;
-		padding-left: 10px;
 		border: none;
 	}
 	.em {
@@ -62,7 +64,13 @@
 </style>
 <h2>第三届“中国软件杯”大学生软件设计大赛</h2>
 <h2><pre>评   审   表</pre></h2>
-<table id="nav"><td>评审日期：</td><td>队伍编号（必填）：<?php $a=get_team_by_id($team); echo $a['team_no']; ?></td><td>评审人：</td></table>
+<table id="nav">
+	<tr>
+		<td style="text-align:left">评审日期：<?php echo date("Y-m-d"); ?></td>
+		<td style="text-align:center">队伍编号（必填）：<?php $a=get_team_by_id($team); echo $a['team_no']; ?></td>
+		<td style="text-align:right">评审人：<?php $a=$user->get_user_by_id($userid); echo $a['realname']; ?></td>
+	</tr>
+</table>
 <table style="margin-top:20px">
 	<tr><td class="header" colspan="4">作品信息</td></tr>
 	<tr>

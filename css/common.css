@@ -1,5 +1,5 @@
 ::-webkit-scrollbar, ::-webkit-scrollbar-thumb, ::-webkit-scrollbar-button {
-	display: none;
+	width: 0;
 }
 /* common */
 * {
@@ -97,6 +97,8 @@ header {
 	right: 0;
 	height: 48px;
 	color: white;
+	z-index: 10;
+	box-shadow: 0 2px 5px #191919;
 }
 header h1 {
 	text-align: left;
@@ -123,9 +125,11 @@ header a {
 	left: 0;
 	right: 0;
 	bottom: 0;
+	z-index: 5;
 	overflow: auto;
 	text-align: center;
 	border-right: 1px solid gray;
+	box-shadow: 0 0 10px #333;
 }
 ul {
 	list-style-type: none;

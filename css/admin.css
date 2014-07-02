@@ -1,3 +1,21 @@
+::-webkit-scrollbar {
+	width: 4px !important;
+	height: 4px !important;
+	background-color: transparent !important;
+}
+::-webkit-scrollbar-thumb {
+	background-color: #999 !important;
+	border-radius: 2px !important;
+}
+::-webkit-scrollbar-thumb:hover {
+	background-color: #666 !important;
+}
+::-webkit-scrollbar-thumb:active {
+	background-color: #333 !important;
+}
+::-webkit-scrollbar-button {
+	display: none !important;
+}
 #content {
 	position: absolute;
 	top: 60px;
@@ -13,33 +31,18 @@ table {
 	width: 90%;
 	background: #FFF;
 }
-.single {
-	width: auto;
-	margin: 0 auto;
-	text-align: center;
-	white-space: nowrap;
-}
-.single th, .single td {
-	padding:0 30px;
-}
-table th {
-	background: #CCC;
-}
-table tr {
-	line-height: 32px;
-}
-table tr:hover {
-	background: #E9E9E9 !important;
-}
 .close {
 	margin: 10px auto;
 	text-align: center;
 }
-#content .click {
+.click {
 	cursor: pointer;
 	color: #069;
 }
-#content .click:active {
+.click:hover {
+	text-decoration: underline;
+}
+.click:active {
 	background: #333 !important;
 	color: #FFF;
 }
@@ -89,7 +92,24 @@ table tr:nth-child(even) {
 	background: #EEE;
 	border-top: 1px solid gray;
 }
-
+.single {
+	width: auto;
+	margin: 0 auto;
+	text-align: center;
+	white-space: nowrap;
+}
+.single th, .single td {
+	padding:0 30px;
+}
+table th {
+	background: #CCC;
+}
+table tr {
+	line-height: 32px;
+}
+table tr:hover {
+	background: #E9E9E9 !important;
+}
 @media screen and (min-width:600px) {
 	#test {
 		width: 20%;

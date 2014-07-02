@@ -12,7 +12,7 @@
 	}
 	$exam = array("topicname" => $_POST['title'], "comment" => $_POST['desc']);
 	$user->change_topic($_GET['id'], $exam);
-	$length = count($_POST['point_title']);
+	$length = isset($_POST['point_title']) ? count($_POST['point_title']) : 0;
 	for ($i = 0; $i < $length; $i++) {
 		$item = array(
 			"topic_id" => $_GET['id'],

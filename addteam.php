@@ -33,7 +33,7 @@
 				'<input class="form_right thin" type="text" name="name[]" title="队伍名称" required />'+
 			'</div>'+
 			'<div class="form_row_container">'+
-				'<span class="form_left thin">* 队伍描述</span>'+
+				'<span class="form_left thin">队伍描述</span>'+
 				'<input class="form_right thin" type="text" name="desc[]" title="队伍描述" />'+
 			'</div>'+
 			'<div class="form_row_container">'+

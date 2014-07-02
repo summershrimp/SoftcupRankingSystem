@@ -18,7 +18,7 @@
 			<td></td>
 			<?php
 				foreach ($user_list as $e) {
-					echo "<td><span>" . $e['realname'] . "</span></td>";
+					echo "<td style='padding:0 5px'><span>" . $e['realname'] . "</span></td>";
 				}
 			?>
 		</tr>

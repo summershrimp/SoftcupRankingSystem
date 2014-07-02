@@ -3,6 +3,20 @@
 		exit();
 	}
 ?>
+<script>
+	function check(id, cur, max) {
+		var dom=document.getElementsByName("float-"+id)[0];
+		if (cur == max) {
+			dom.innerHTML="<option>0</option>";
+		}
+		else {
+			dom.innerHTML="";
+			for (var i = 0; i < 10; i++) {
+				dom.innerHTML+="<option>"+i+"</option>";
+			}
+		}
+	}
+</script>
 <div id="test">
 	<input class="button back" type="button" value="返回" onclick="window.location='?exam=<?php echo $exam; ?>'" />
 	<h3><?php $a=get_topic_by_id($exam); echo $a['topicname']; ?></h3>
@@ -30,7 +44,7 @@
 				echo "<div class=\"form_row_container\">";
 				echo "<div class=\"form_desc\"><b>" . $i['itemname'] . "</b><br />" . $i['comment'] . "</div>";
 				echo "<span class=\"form_left\">得分</span>";
-				echo "<select style=\"width:20%\" name=\"int-" . $i['item_id'] . "\">";
+				echo "<select style=\"width:20%\" name=\"int-" . $i['item_id'] . "\" onchange=\"check(" . $i['item_id'] . ",this.value," . $i['maxscore'] . ")\">";
 				for ($j = 0; $j <= $i['maxscore']; $j++) {
 					if ($j == $score[0]) echo "<option selected='selected'>" . $j . "</option>";
 					else echo "<option>" . $j . "</option>";
