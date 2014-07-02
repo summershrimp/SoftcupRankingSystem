@@ -7,33 +7,27 @@
 		die();
 	}
 	$a = get_collects($_GET['exam']);
-	$b = NULL;
-	foreach ($a as $t) {
-		$b = $t['scores'];
-		break;
-	}
 ?>
 <div id="content">
 	<input class="button back" type="button" value="返回" onclick="window.location='?action=statics'" />
-	<h3>评分表</h3>
+	<h3><?php $tt = get_topic_by_id($exam); echo $tt['topicname']; ?></h3>
 	<table>
 		<tr>
 			<th>队名</th><th>分数</th>
 			<?php
-				if ($b != NULL) {
-					foreach ($b as $id => $score) {
-						echo "<th>" . get_user_realname_by_id($id) . "</th>";
-					}
+				foreach ($a['users'] as $id => $data) {
+					echo "<th>" . $data['realname'] . "</th>";
 				}
 			?>
 		</tr>
 		<?php
-		foreach ($a as $team_id => $b) {
+		foreach ($a['contents'] as $team_id => $data) {
 			echo "<tr>";
-			echo "<td>" . $b['teamname'] . "</td>";
-			echo "<td>" . $b['ave'] . "</td>";
-			foreach ($b['scores'] as $user => $score) {
-				echo "<td class='click' onclick=\"window.open('?action=print&exam=" . $_GET['exam'] . "&team=" . $team_id . "&user=" . $user . "')\">" . $score . "</td></a>";
+			echo "<td>" . $data['teamname'] . "</td>";
+			echo "<td>" . $data['avescore'] . "</td>";
+			foreach ($data['scores'] as $user_id => $score) {
+				if ($score == -1) echo "<td>-</td>";
+				else echo "<td class='click' onclick=\"window.open('?action=print&exam=" . $_GET['exam'] . "&team=" . $team_id . "&user=" . $user_id . "')\">" . $score . "</td></a>";
 			}
 			echo "</tr>";
 		}

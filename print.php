@@ -2,9 +2,10 @@
 	if (!defined("IN_SCRS")) {
 		exit();
 	}
-	if (isset($_GET['team']) && isset($_GET['exam'])) {
+	if (isset($_GET['team']) && isset($_GET['exam']) && isset($_GET['user'])) {
 		$team = $_GET['team'];
 		$exam = $_GET['exam'];
+		$userid = $_GET['user'];
 	}
 	else {
 		die();
@@ -80,7 +81,7 @@
 	</tr>
 </table>
 <?php
-	$temps = $user->get_team_scores($team);
+	$temps = $user->get_any_team_scores($userid, $team);
 	$scores=Array();
 	foreach ($temps as $u) {
 		$scores[$u['item_id']] = $u['score'];
@@ -98,7 +99,8 @@
 		echo "</table>\n";
 	}
 ?>
-	<table style="margin-top:-1px"><tr><td class="em" width="56%">评审意见特殊说明</td><td class="em" width="22%">总计</td><td width="22%"></td></tr></table>
+	<table style="margin-top:-1px"><tr><td class="em" width="56%">评审意见特殊说明</td><td class="em" width="22%">总计</td><td width="22%">
+	<?php print_r($user->get_team_total_scores($team)); ?></td></tr></table>
 	<table style="margin-top:-1px"><tr style="line-height:96px"><td width="56%"></td><td class="em" width="22%">评审人</td><td width="22%"></td></tr></table>
 </table>
 <script>window.print();</script>

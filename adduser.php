@@ -29,9 +29,12 @@
 				'<div class="form_row_container">'+
 					'<span class="form_left thin">* 用户类型</span>\n'+
 					'<select class="thin" name="type[]">'+
-						'<option value="0">指导教师</option>'+
-						'<option value="1">企业代表</option>'+
-						'<option value="2">大学教师</option>'+
+					<?php
+						$roles = $user->get_all_roles();
+						foreach ($roles as $e) {
+							echo "'<option value=\"" . $e['role_id'] . "\">" . $e['rolename'] . "</option>'+";
+						}
+					?>
 					'</select>'+
 				'</div>'+
 				'<div class="form_row_container">'+
