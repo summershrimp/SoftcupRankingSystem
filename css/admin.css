@@ -7,20 +7,33 @@
 	text-align: center;
 	overflow: auto;
 }
-#content table {
+table {
 	margin: 0 auto;
 	border: 1px solid #BBB;
 	width: 90%;
 	background: #FFF;
 }
-#content table th {
+.single {
+	width: auto;
+	margin: 0 auto;
+	text-align: center;
+	white-space: nowrap;
+}
+.single th, .single td {
+	padding:0 30px;
+}
+table th {
 	background: #CCC;
 }
-#content table tr {
+table tr {
 	line-height: 32px;
 }
-#content table tr:hover {
+table tr:hover {
 	background: #E9E9E9 !important;
+}
+.close {
+	margin: 10px auto;
+	text-align: center;
 }
 #content .click {
 	cursor: pointer;
@@ -30,10 +43,10 @@
 	background: #333 !important;
 	color: #FFF;
 }
-#content table tr:nth-child(odd) {
+table tr:nth-child(odd) {
 	background: #E6E6E6;
 }
-#content table tr:nth-child(even) {
+table tr:nth-child(even) {
 	background: #F3F3F3;
 }
 .delete {
@@ -84,8 +97,20 @@
 	#content ul li {
 		margin-left: 1px;
 	}
+	#sleft {
+		display: inline-block;
+	}
+	#sup {
+		display: none;
+	}
 }
 @media screen and (max-width:600px) {
+	#sup {
+		display: inline-block;
+	}
+	#sleft {
+		display: none;
+	}
 	#test {
 		bottom: auto;
 		height: 70px;
