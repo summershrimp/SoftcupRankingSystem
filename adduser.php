@@ -27,6 +27,10 @@
 					'<input class="form_right thin" type="text" name="name[]" title="用户名" required />'+
 				'</div>'+
 				'<div class="form_row_container">'+
+					'<span class="form_left thin">* 密码</span>\n'+
+					'<input class="form_right thin" type="password" name="password[]" title="密码" required />'+
+				'</div>'+
+				'<div class="form_row_container">'+
 					'<span class="form_left thin">* 用户类型</span>\n'+
 					'<select class="thin" name="type[]">'+
 					<?php
@@ -58,7 +62,7 @@
 				'</div>'+
 			'</div>';
 		document.getElementById("user_list").innerHTML+=s;
-		document.getElementById("user"+id).style.height=300+"px";
+		document.getElementById("user"+id).style.height=340+"px";
 	}
 </script>
 <div id="content">

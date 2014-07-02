@@ -24,7 +24,7 @@ function get_user_realname_by_id($user_id)
 
 function get_teams($team_id)
 {
-	$sql = "Select * From ".$GLOBALS['sc']->table('teams')." Where `team_id` = '".$team_id."'";
+	$sql = "Select * From ".$GLOBALS['sc']->table('teams')." Where `topic_id` = '".$team_id."'";
 	return $arr = $GLOBALS['db']->getAll($sql);
 }
 function get_all_teams()
