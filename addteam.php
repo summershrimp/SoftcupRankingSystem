@@ -25,6 +25,10 @@
 		dom.innerHTML=
 			'<h4>队伍 #'+id+'</h4>'+
 			'<div class="form_row_container">'+
+				'<span class="form_left thin">* 队伍编号</span>'+
+				'<input class="form_right thin" type="text" name="no[]" title="队伍编号" required />'+
+			'</div>'+
+			'<div class="form_row_container">'+
 				'<span class="form_left thin">* 队伍名称</span>'+
 				'<input class="form_right thin" type="text" name="name[]" title="队伍名称" required />'+
 			'</div>'+
@@ -44,7 +48,7 @@
 				'</select>'+
 			'</div>';
 		document.getElementById("item_list").appendChild(dom);
-		document.getElementById("item"+id).style.height=192+"px";
+		document.getElementById("item"+id).style.height=220+"px";
 	}
 </script>
 <div id="content">

@@ -5,6 +5,7 @@
 	$result = true;
 	for ($i = 0; $i < count($_POST['name']); $i++) { 
 		$team = array(
+			"team_no" => $_POST['no'][$i],
 			"teamname" => $_POST['name'][$i],
 			"comment" => $_POST['desc'][$i],
 			"topic_id" => $_POST['exam'][$i]
