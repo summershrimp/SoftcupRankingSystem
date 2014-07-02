@@ -160,6 +160,16 @@ class user
 		else return false;
 	}
 	
+	public function add_feedback($user_id, $team_id, $content)
+	{
+		$sql = "Delete From ".$GLOBALS['sc']->table('items')." Where `user_id` = '$user_id' AND `team_id` = $team_id ";
+		$GLOBALS['db']->query($sql);
+		$sql = "Insert INTO ".$GLOBALS['sc']->table('items')." (`user_id`, `team_id`, `content`) VALUES('$user_id', '$team_id', '$content')";
+		$GLOBALS['db']->query($sql);
+		return $GLOBALS['db']->insert_id();
+		
+	}
+	
 	public function get_team_scores($team_id)
 	{
 		$sql = "Select * From ".$GLOBALS['sc']->table('collects')." Where `team_id` = '$team_id' AND `user_id` = '".$this->user_info['user_id']."'";
@@ -359,8 +369,6 @@ class user
 	{
 		if($this->is_admin())
 		{
-			if($this->user_info['user_id'] == $user_id)
-				return false;
 			$set_content = "";
 			foreach($user_array as $key => $value)
 			{
@@ -451,6 +459,8 @@ class user
 	{
 		if($this->is_admin())
 		{
+			if($this->user_info['user_id'] == $user_id)
+				return false;
 			$sql =
 			"Delete From ".$GLOBALS['sc']->table('users')." ".
 			"Where `user_id` = '$user_id'";
