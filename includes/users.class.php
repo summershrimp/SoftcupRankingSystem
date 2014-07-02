@@ -235,7 +235,7 @@ class user
 			$arr = $GLOBALS['db']->getAll($sql);
 			$ret = Array();
 			foreach ($arr as $a)
-				$ret[$a['user_id']][$a['topic_id']] = 1;
+				$ret[$a['topic_id']][$a['user_id']] = 1;
 			return $ret;
 		}
 		return false;
@@ -247,7 +247,9 @@ class user
 		{
 			$sql = "Select * From ".$GLOBALS['sc']->table('user_privileges') . " Where `user_id` = '$user_id' " ;
 			$arr = $GLOBALS['db']->getAll($sql);
-			return $arr;
+			foreach ($arr as $a)
+				$ret[$a['topic_id']] = 1;
+			return $ret;
 		}
 		return false;
 	}
