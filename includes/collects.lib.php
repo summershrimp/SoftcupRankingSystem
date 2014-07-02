@@ -101,7 +101,10 @@ function get_collects($topic_id)
 			else 
 				$ret['contents'][$tkey]['scores'][$ukey] = -1;
 		}
-		$ret['contents'][$tkey]['avescore'] = $sumall / floatval($sumbal);
+		if($sumall == 0.0)
+			$ret['contents'][$tkey]['avescore'] = -1;
+		else
+			$ret['contents'][$tkey]['avescore'] = $sumall / floatval($sumbal);
 	}
 	return $ret;
 }

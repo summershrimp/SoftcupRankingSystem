@@ -29,8 +29,8 @@
 		</div>
 		<div class="form_row_container">
 			<span class="form_left thin">* 性别</span><select class="thin" name="sex">
-				<option<?php if ($tuser['sex'] == 0) echo " selected=\"selected\""; ?>>男</option>
-				<option<?php if ($tuser['sex'] == 1) echo " selected=\"selected\""; ?>>女</option>
+				<option value="0"<?php if ($tuser['sex'] == 0) echo " selected=\"selected\""; ?>>男</option>
+				<option value="1"<?php if ($tuser['sex'] == 1) echo " selected=\"selected\""; ?>>女</option>
 			</select>
 		</div>
 		<div class="form_row_container">

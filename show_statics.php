@@ -24,7 +24,7 @@
 		foreach ($a['contents'] as $team_id => $data) {
 			echo "<tr>";
 			echo "<td>" . $data['teamname'] . "</td>";
-			echo "<td>" . $data['avescore'] . "</td>";
+			echo "<td>" . (($data['avescore'] == -1) ? "-" : $data['avescore']) . "</td>";
 			foreach ($data['scores'] as $user_id => $score) {
 				if ($score == -1) echo "<td>-</td>";
 				else echo "<td class='click' onclick=\"window.open('?action=print&exam=" . $_GET['exam'] . "&team=" . $team_id . "&user=" . $user_id . "')\">" . $score . "</td></a>";
