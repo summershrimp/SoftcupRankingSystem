@@ -7,9 +7,6 @@
 	text-align: center;
 	overflow: auto;
 }
-#content ul li {
-	margin-left: 1px;
-}
 #content table {
 	margin: 0 auto;
 	border: 1px solid #BBB;
@@ -84,12 +81,20 @@
 	#test {
 		width: 20%;
 	}
+	#content ul li {
+		margin-left: 1px;
+	}
 }
 @media screen and (max-width:600px) {
 	#test {
 		bottom: auto;
-		height: 80px;
+		height: 70px;
 		border: none;
+		border-bottom: 1px solid gray;
+		white-space: nowrap;
+		overflow-x: auto;
+		overflow-y: hidden;
+		background: #EEE;
 	}
 	#test ul {
 		border: none;
@@ -105,8 +110,14 @@
 		height: 36px;
 		line-height: 36px;
 	}
+	#test ul li:first-child {
+		margin-left: 10px;
+	}
+	#test ul li:last-child {
+		margin-right: 10px;
+	}
 	#content {
-		top: 105px;
+		top: 120px;
 		left: 0px;
 	}
 }

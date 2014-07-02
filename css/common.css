@@ -30,8 +30,8 @@ input[type=text], input[type=number], input[type=password], input[type=mobile], 
 input[type=number] {
 	width: 50%;
 }
-input[type=text]:hover, input[type=number]:hover, input[type=mobile]:hover, textarea:hover,
-input[type=text]:focus, input[type=number]:focus, input[type=mobile]:focus, textarea:focus {
+input[type=text]:hover, input[type=number]:hover, input[type=password]:hover, input[type=mobile]:hover, textarea:hover,
+input[type=text]:focus, input[type=number]:focus, input[type=password]:focus, input[type=mobile]:focus, textarea:focus {
 	border: 1px solid orange;
 }
 .button {

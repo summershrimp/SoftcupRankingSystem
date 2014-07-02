@@ -32,13 +32,21 @@ function get_all_teams()
 	$sql = "Select * From ".$GLOBALS['sc']->table('teams');
 	return $arr = $GLOBALS['db']->getAll($sql);
 }
-
+function get_all_users()
+{
+	$sql = "Select * From ".$GLOBALS['sc']->table('users');
+	return $arr = $GLOBALS['db']->getAll($sql);
+}
 function get_team_by_id($team_id)
 {
 	$sql = $sql = "Select * From ".$GLOBALS['sc']->table('teams')." Where `team_id` = '".$team_id."' LIMIT 1";
 	return $arr = $GLOBALS['db']->getRow($sql);
 }
-
+function get_user_by_id($user_id)
+{
+	$sql = $sql = "Select * From ".$GLOBALS['sc']->table('users')." Where `user_id` = '".$user_id."' LIMIT 1";
+	return $arr = $GLOBALS['db']->getRow($sql);
+}
 function get_topic_items($topic_id)
 {
 	$sql = "Select * From ".$GLOBALS['sc']->table('items')." Where `topic_id` = '".$topic_id."'";

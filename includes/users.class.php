@@ -208,13 +208,13 @@ class user
 			{
 				$set_content .= "`$key` = '$value',";
 			}
-			rtrim($set_content,',');
+			$set_content = rtrim($set_content,',');
 			$sql =
-				"Update From ".$GLOBALS['sc']->table('teams')." ".
+				"Update ".$GLOBALS['sc']->table('teams')." ".
 				"Set ".$set_content." ".
 				"Where `team_id` = '$team_id' ";
 			$GLOBALS['db']->query($sql);
-			if($GLOBALS['sb']->affected_rows()==1)
+			if($GLOBALS['db']->affected_rows()==1)
 				return $team_id;
 			return false;
 		}

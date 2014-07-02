@@ -7,6 +7,7 @@
 		die();
 	}
 	$a = get_collects($_GET['exam']);
+	$b = NULL;
 	foreach ($a as $t) {
 		$b = $t['scores'];
 		break;
@@ -19,18 +20,22 @@
 		<tr>
 			<th>队名</th><th>分数</th>
 			<?php
-				foreach ($b as $id => $score) {
-					echo "<th>" . get_user_realname_by_id($id) . "</th>";
+				if ($b != NULL) {
+					foreach ($b as $id => $score) {
+						echo "<th>" . get_user_realname_by_id($id) . "</th>";
+					}
 				}
 			?>
 		</tr>
 		<?php
 		foreach ($a as $team_id => $b) {
+			echo "<tr>";
 			echo "<td>" . $b['teamname'] . "</td>";
 			echo "<td>" . $b['ave'] . "</td>";
 			foreach ($b['scores'] as $user => $score) {
 				echo "<td class='click' onclick=\"window.open('?action=print&exam=" . $_GET['exam'] . "&team=" . $team_id . "&user=" . $user . "')\">" . $score . "</td></a>";
 			}
+			echo "</tr>";
 		}
 		?>
 	</table>

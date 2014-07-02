@@ -55,9 +55,7 @@
 				'</div>'+
 			'</div>';
 		document.getElementById("user_list").innerHTML+=s;
-		setTimeout(function(){
-			document.getElementById("user"+id).style.height=300+"px";
-		},1);
+		document.getElementById("user"+id).style.height=300+"px";
 	}
 </script>
 <div id="content">

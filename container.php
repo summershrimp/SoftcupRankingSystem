@@ -27,7 +27,7 @@
 			case "do_editteam":
 			case "do_edituser":
 			case "do_delexam":
-			case "do_deluser":
+			case "do_delteam":
 			case "do_deluser":
 			case "statics":
 			case "show_statics":
