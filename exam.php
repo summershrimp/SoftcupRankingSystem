@@ -13,11 +13,9 @@
 		foreach($teams as $t) {
 			echo "<a href=\"?exam=" . $exam . "&team=" . $t['team_id'] .
 				"\"><li><span class=\"li_left\">" . $t['teamname'] . "</span><span class=\"li_right\">";
-			$score = $user->get_team_scores($t['team_id']);
-			if (sizeof($score) != 0) $score = $score[0];
-			else $score = NULL;
-			if ($score == NULL || $score['score'] == 0) echo "<span style=\"color:red\">未评分</span>";
-			else echo "<span style=\"color:green\">" . $score['score'] . "分</span>";
+			$score = $user->get_team_total_scores($t['team_id']);
+			if ($score == 0) echo "<span style=\"color:red\">未评分</span>";
+			else echo "<span style=\"color:green\">" . $score . "分</span>";
 			echo "</span></li></a>";
 		}
 	?>

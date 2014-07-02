@@ -7,23 +7,43 @@
 	<input class="button back" type="button" value="返回" onclick="window.location='?exam=<?php echo $exam; ?>'" />
 	<h3><?php $a=get_topic_by_id($exam); echo $a['topicname']; ?></h3>
 	<h3 style="margin-bottom:-5px"><?php $a=get_team_by_id($team); echo $a['teamname']; ?></h3>
-	<form action="?action=post_score" method="post">
+	<form action="?action=post_score&exam=<?php echo $exam; ?>&team=<?php echo $team; ?>" method="post">
 		<?php
 			$items = get_topic_items($exam);
+			$items = array_sort($items, 'item_id');
+			$scores = $user->get_team_scores($team);
+			$scores = array_sort($scores, 'collect_id');
+			$temp = array();
+			$count = 0;
+			foreach ($scores as $key => $value) {
+				$temp[$count] = $value;
+				$count++;
+			}
+			$scores = $temp;
+			$none = ($user->get_team_total_scores($team) == 0);
 			$count = 0;
 			foreach ($items as $i) {
 				$count++;
+				$score = $none ? $i['maxscore'] : $scores[$count - 1]['score'];
+				$score = explode(".", strval($score));
+				if (!isset($score[1])) $score[1] = 0;
 				echo "<div class=\"form_row_container\">";
 				echo "<div class=\"form_desc\"><b>" . $i['itemname'] . "</b><br />" . $i['comment'] . "</div>";
 				echo "<span class=\"form_left\">得分</span>";
-				echo "<select name=\"int" . $i['item_id'] . "\">";
-				for ($j = 0; $j < $i['maxscore']; $j++) echo "<option>" . $j . "</option>";
-				echo "<option selected='selected'>" . $i['maxscore'] . "</option>";
+				echo "<select style=\"width:20%\" name=\"int-" . $i['item_id'] . "\">";
+				for ($j = 0; $j <= $i['maxscore']; $j++) {
+					if ($j == $score[0]) echo "<option selected='selected'>" . $j . "</option>";
+					else echo "<option>" . $j . "</option>";
+				}
 				echo "</select>";
-				echo "<span style='width:4%;display:inline-block;text-align:center'><b>.</b></span>";
-				echo "<select name=\"float" . $i['item_id'] . "\">";
-				for ($j = 0; $j <= 9; $j++) echo "<option>" . $j . "</option>";
+				echo "<span class=\"form_left\" style='background:#FFF;width:4%;display:inline-block;text-align:center;margin-left:-1px'><b>.</b></span>";
+				echo "<select style=\"width:20%\" name=\"float-" . $i['item_id'] . "\">";
+				for ($j = 0; $j <= 9; $j++) {
+					if ($j == $score[1]) echo "<option selected='selected'>" . $j . "</option>";
+					else echo "<option>" . $j . "</option>";
+				}
 				echo "</select>";
+				echo "<span class=\"form_left\" style=\"width:6.05%;margin-left:-1px\">分</span>";
 				echo "</div>";
 			}
 		?>

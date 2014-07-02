@@ -7,29 +7,56 @@
 		die();
 	}
 	$a = get_collects($_GET['exam']);
-	foreach ($a as $t) {
-		$b = $t['scores'];
-		break;
-	}
 ?>
-<div id="content">
-	<table>
+<style>
+	table tr:nth-child(even) {
+		background: #E6E6E6;
+	}
+	table tr:nth-child(odd) {
+		background: #F3F3F3;
+	}
+</style>
+<script src="js/sorttable.js"></script>
+<script>
+	window.resizeTo(window.screen.availWidth,window.screen.availHeight);
+	window.moveTo(0,0);
+</script>
+<div style="text-align:center">
+	<input class="button back" type="button" value="返回" onclick="window.location='?action=statics'" />
+	<h3><?php $tt = get_topic_by_id($exam); echo $tt['topicname']; ?></h3>
+	<h4>点按表头排序表格</h4>
+</div>
+<table class="sortable single">
+	<thead>
 		<tr>
-			<th>队名</th><th>分数</th>
+			<th>队名</th><th class="sort_numeric">平均分</th>
 			<?php
-				foreach ($b as $id => $score) {
-					echo "<th>" . get_user_realname_by_id($id) . "</th>";
+				foreach ($a['users'] as $id => $data) {
+					echo "<th class='sort_numeric'>" . $data['realname'] . "</th>";
 				}
 			?>
 		</tr>
+	</thead>
+	<tbody>
 		<?php
-		foreach ($a as $b) {
-			echo "<td>" . $b['teamname'] . "</td>";
-			echo "<td>" . $b['ave'] . "</td>";
-			foreach ($b['scores'] as $key => $score) {
-				echo "<td>" . $score . "</td>";
+		foreach ($a['contents'] as $team_id => $data) {
+			echo "<tr>";
+			echo "<td>" . $data['teamname'] . "</td>";
+			echo "<td>" . (($data['avescore'] == -1) ? "-" : $data['avescore']) . "</td>";
+			if ($data['avescore'] == -1) {
+				foreach ($a['users'] as $id => $data) {
+					echo "<td></td>";
+				}
 			}
+			else {
+				foreach ($data['scores'] as $user_id => $score) {
+					if ($score == -1) echo "<td>-</td>";
+					else echo "<td class='click' onclick=\"window.open('?action=print&exam=" . $_GET['exam'] . "&team=" . $team_id . "&user=" . $user_id . "')\">" . $score . "</td></a>";
+				}
+			}
+			echo "</tr>";
 		}
 		?>
-	</table>
-</div>
+	</tbody>
+</table>
+<h3 class="close"><input class="button" type="button" value="关闭" onclick="window.close()" /></div>

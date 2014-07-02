@@ -23,41 +23,53 @@
 			'<div id="user'+id+'" class="insert">'+
 				'<h4>用户 #'+id+'</h4>'+
 				'<div class="form_row_container">'+
-					'<span class="form_left thin">* 用户名</span>\n'+
+					'<span class="form_left thin">* 用户名</span>'+
 					'<input class="form_right thin" type="text" name="name[]" title="用户名" required />'+
 				'</div>'+
 				'<div class="form_row_container">'+
-					'<span class="form_left thin">* 用户类型</span>\n'+
-					'<select class="thin" name="type[]">'+
-						'<option value="0">指导教师</option>'+
-						'<option value="1">企业代表</option>'+
-						'<option value="2">大学教师</option>'+
+					'<span class="form_left thin">* 密码</span>'+
+					'<input class="form_right thin" type="password" name="password[]" title="密码" required />'+
+				'</div>'+
+				'<div class="form_row_container">'+
+					'<span class="form_left thin">* 管理员</span>'+
+					'<select class="thin" name="is_admin[]">'+
+						'<option value="0">否</option>'+
+						'<option value="1">是</option>'+
 					'</select>'+
 				'</div>'+
 				'<div class="form_row_container">'+
-					'<span class="form_left thin">* 性别</span>\n'+
+					'<span class="form_left thin">* 用户类型</span>'+
+					'<select class="thin" name="type[]">'+
+					<?php
+						$roles = $user->get_all_roles();
+						foreach ($roles as $e) {
+							echo "'<option value=\"" . $e['role_id'] . "\">" . $e['rolename'] . "</option>'+";
+						}
+					?>
+					'</select>'+
+				'</div>'+
+				'<div class="form_row_container">'+
+					'<span class="form_left thin">* 性别</span>'+
 					'<select class="thin" name="sex[]">'+
 						'<option value="0">男</option>'+
 						'<option value="1">女</option>'+
 					'</select>'+
 				'</div>'+
 				'<div class="form_row_container">'+
-					'<span class="form_left thin">* 真实姓名</span>\n'+
+					'<span class="form_left thin">* 真实姓名</span>'+
 					'<input class="form_right thin" type="text" name="realname[]" title="真实姓名" required />'+
 				'</div>'+
 				'<div class="form_row_container">'+
-					'<span class="form_left thin">手机</span>\n'+
+					'<span class="form_left thin">手机</span>'+
 					'<input class="form_right thin" type="mobile" name="phone[]" title="手机" />'+
 				'</div>'+
 				'<div class="form_row_container">'+
-					'<span class="form_left thin">备注</span>\n'+
+					'<span class="form_left thin">备注</span>'+
 					'<input class="form_right thin" type="text" name="comment[]" title="备注" />'+
 				'</div>'+
 			'</div>';
 		document.getElementById("user_list").innerHTML+=s;
-		setTimeout(function(){
-			document.getElementById("user"+id).style.height=300+"px";
-		},1);
+		document.getElementById("user"+id).style.height=380+"px";
 	}
 </script>
 <div id="content">

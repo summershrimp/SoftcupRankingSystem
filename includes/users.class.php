@@ -136,8 +136,8 @@ class user
 	{
 		if($this->is_admin())
 		{
-			$sql = "INSERT INTO ".$GLOBALS['sc']->table('teams')." (`teamname`, `comment`, `topic_id`) VALUES ".
-				   "('".$team_array['teamname']."', '".$team_array['comment']."', '".$team_array['topic_id']."')";
+			$sql = "INSERT INTO ".$GLOBALS['sc']->table('teams')." (`team_no`, `teamname`, `comment`, `topic_id`) VALUES ".
+				   "('".$team_array['team_no']."', '".$team_array['teamname']."', '".$team_array['comment']."', '".$team_array['topic_id']."')";
 			$GLOBALS['db']->query($sql);
 			if($GLOBALS['db']->affected_rows()==1)
 				return $GLOBALS['db']->insert_id();
@@ -158,6 +158,16 @@ class user
 			return false;
 		}
 		else return false;
+	}
+	
+	public function add_feedback($user_id, $team_id, $content)
+	{
+		$sql = "Delete From ".$GLOBALS['sc']->table('items')." Where `user_id` = '$user_id' AND `team_id` = $team_id ";
+		$GLOBALS['db']->query($sql);
+		$sql = "Insert INTO ".$GLOBALS['sc']->table('items')." (`user_id`, `team_id`, `content`) VALUES('$user_id', '$team_id', '$content')";
+		$GLOBALS['db']->query($sql);
+		return $GLOBALS['db']->insert_id();
+		
 	}
 	
 	public function get_team_scores($team_id)
@@ -193,7 +203,7 @@ class user
 		$arr = $GLOBALS['db']->getOne($sql);
 		return $arr;
 	}
-	
+ 
 	public function get_all_users($limit_start = 0,$limit_end = 20)
 	{
 		if($this->is_admin())
@@ -366,6 +376,7 @@ class user
 			{
 				$set_content .= "`$key` = '$value',";
 			}
+
 			$set_content = rtrim($set_content,',');
 			$sql =
 			"Update ".$GLOBALS['sc']->table('users')." ".
@@ -451,6 +462,8 @@ class user
 	{
 		if($this->is_admin())
 		{
+			if($this->user_info['user_id'] == $user_id)
+				return false;
 			$sql =
 			"Delete From ".$GLOBALS['sc']->table('users')." ".
 			"Where `user_id` = '$user_id'";

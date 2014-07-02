@@ -1,6 +1,24 @@
 <?php
 	define('IN_SCRS','true');
 	require_once './includes/init.inc.php';
+	/**/
+	function array_sort($arr,$keys,$type='asc') { 
+		$keysvalue = $new_array = array();
+		foreach ($arr as $k=>$v) {
+			$keysvalue[$k] = $v[$keys];
+		}
+		if($type == 'asc') {
+			asort($keysvalue);
+		}else{
+			arsort($keysvalue);
+		}
+		reset($keysvalue);
+		foreach ($keysvalue as $k=>$v) {
+			$new_array[$k] = $arr[$k];
+		}
+		return $new_array; 
+	}
+	/**/
 	$exam = $team = 0;
 	if (isset($_GET['exam'])) {
 		$exam = $_GET['exam'];

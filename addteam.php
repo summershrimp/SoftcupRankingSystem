@@ -10,7 +10,7 @@
 			alert("至少需要一个队伍！");
 			return false;
 		}
-		var a = document.getElementById("team"+id);
+		var a = document.getElementById("item"+id);
 		id--;
 		a.style.height=0;
 		setTimeout(function(){
@@ -25,12 +25,20 @@
 		dom.innerHTML=
 			'<h4>队伍 #'+id+'</h4>'+
 			'<div class="form_row_container">'+
-				'<span class="form_left thin">* 队伍名称</span>\n'+
+				'<span class="form_left thin">* 队伍编号</span>'+
+				'<input class="form_right thin" type="text" name="no[]" title="队伍编号" required />'+
+			'</div>'+
+			'<div class="form_row_container">'+
+				'<span class="form_left thin">* 队伍名称</span>'+
 				'<input class="form_right thin" type="text" name="name[]" title="队伍名称" required />'+
 			'</div>'+
 			'<div class="form_row_container">'+
-				'<span class="form_left thin">* 赛题选择</span>\n'+
-				'<select class="thin" name="name[]">'+
+				'<span class="form_left thin">* 队伍描述</span>'+
+				'<input class="form_right thin" type="text" name="desc[]" title="队伍描述" />'+
+			'</div>'+
+			'<div class="form_row_container">'+
+				'<span class="form_left thin">* 赛题选择</span>'+
+				'<select class="thin" name="exam[]">'+
 				<?php
 					$topic = get_all_topics();
 					foreach($topic as $t) {
@@ -40,7 +48,7 @@
 				'</select>'+
 			'</div>';
 		document.getElementById("item_list").appendChild(dom);
-		document.getElementById("item"+id).style.height=180+"px";
+		document.getElementById("item"+id).style.height=220+"px";
 	}
 </script>
 <div id="content">
