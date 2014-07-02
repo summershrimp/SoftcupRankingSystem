@@ -29,6 +29,7 @@
 			case "do_delexam":
 			case "do_delteam":
 			case "do_deluser":
+			case "do_editpriv":
 			case "statics":
 			case "show_statics":
 			case "privilege":
