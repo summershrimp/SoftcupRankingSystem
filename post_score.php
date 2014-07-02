@@ -4,12 +4,17 @@
 	}
 	$points = array();
 	foreach ($_POST as $key => $value) {
-		$t = explode("-", $key);
-		if (isset($points[$t[1]])) {
-			$points[$t[1]] += intval($value) * (($t[0] == "int") ? 1 : 0.1);
+		if ($key == "feedback") {
+			$user->add_feedback($team, $value);
 		}
 		else {
-			$points[$t[1]] = intval($value) * (($t[0] == "int") ? 1 : 0.1);
+			$t = explode("-", $key);
+			if (isset($points[$t[1]])) {
+				$points[$t[1]] += intval($value) * (($t[0] == "int") ? 1 : 0.1);
+			}
+			else {
+				$points[$t[1]] = intval($value) * (($t[0] == "int") ? 1 : 0.1);
+			}
 		}
 	}
 	if ($user->add_collects($exam, $team, $points)) {

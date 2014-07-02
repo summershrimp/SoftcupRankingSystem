@@ -201,3 +201,6 @@ select {
 	overflow: hidden;
 	text-overflow: ellipsis !important;
 }
+.hidden {
+	display: none !important;
+}

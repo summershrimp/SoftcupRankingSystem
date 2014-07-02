@@ -34,7 +34,6 @@
 </script>
 <div id="main">
 	<div style="text-align:center">
-		<input class="button back" type="button" value="返回" onclick="window.location='?action=statics'" />
 		<h3><?php $tt = get_topic_by_id($exam); echo $tt['topicname']; ?></h3>
 		<h4>点按表头排序表格</h4>
 	</div>
