@@ -10,7 +10,7 @@
 ?>
 <div id="content">
 	<input class="button back" type="button" value="返回" onclick="window.location='?action=manteam'" />
-	<h3>编辑队伍信息</h3>
+	<h3>修改队伍：编号<?php echo $team['team_no']; ?></h3>
 	<form action="?action=do_editteam&id=<?php echo $_GET['id']; ?>" method="post">
 		<div class="form_row_container">
 			<span class="form_left thin">* 名称</span><input class="form_right thin" type="text" name="title" title="名称" value="<?php echo $team['teamname'] ?>" autofocus required />

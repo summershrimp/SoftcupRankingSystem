@@ -136,8 +136,8 @@ class user
 	{
 		if($this->is_admin())
 		{
-			$sql = "INSERT INTO ".$GLOBALS['sc']->table('teams')." (`teamname`, `comment`, `topic_id`) VALUES ".
-				   "('".$team_array['teamname']."', '".$team_array['comment']."', '".$team_array['topic_id']."')";
+			$sql = "INSERT INTO ".$GLOBALS['sc']->table('teams')." (`team_no`, `teamname`, `comment`, `topic_id`) VALUES ".
+				   "('".$team_array['team_no']."', '".$team_array['teamname']."', '".$team_array['comment']."', '".$team_array['topic_id']."')";
 			$GLOBALS['db']->query($sql);
 			if($GLOBALS['db']->affected_rows()==1)
 				return $GLOBALS['db']->insert_id();

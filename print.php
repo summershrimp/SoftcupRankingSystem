@@ -62,7 +62,7 @@
 </style>
 <h2>第三届“中国软件杯”大学生软件设计大赛</h2>
 <h2><pre>评   审   表</pre></h2>
-<table id="nav"><td>评审日期：</td><td>队伍编号（必填）：</td><td>评审人：</td></table>
+<table id="nav"><td>评审日期：</td><td>队伍编号（必填）：<?php $a=get_team_by_id($team); echo $a['team_no']; ?></td><td>评审人：</td></table>
 <table style="margin-top:20px">
 	<tr><td class="header" colspan="4">作品信息</td></tr>
 	<tr>
