@@ -184,6 +184,16 @@ class user
 		return $arr;
 	}
 	
+	public function get_any_team_total_scores($user_id ,$team_id)
+	{
+		$sql =
+		"Select Sum(`score`) ".
+		"From ".$GLOBALS['sc']->table('collects')." ".
+		"Where `team_id` = '$team_id' AND `user_id` = '".$user_id."'";
+		$arr = $GLOBALS['db']->getOne($sql);
+		return $arr;
+	}
+	
 	public function get_all_users($limit_start = 0,$limit_end = 20)
 	{
 		if($this->is_admin())
@@ -230,7 +240,7 @@ class user
 			}
 			$set_content = rtrim($set_content,',');
 			$sql = 
-					"Update From ".$GLOBALS['sc']->table('topics')." ".
+					"Update  ".$GLOBALS['sc']->table('topics')." ".
 					"Set ".$set_content." ".
 					"Where `topic_id` = '$topic_id' ";
 			$GLOBALS['db']->query($sql);
@@ -253,11 +263,11 @@ class user
 			}
 			$set_content = rtrim($set_content,',');
 			$sql =
-				"Update From ".$GLOBALS['sc']->table('teams')." ".
+				"Update  ".$GLOBALS['sc']->table('teams')." ".
 				"Set ".$set_content." ".
 				"Where `team_id` = '$team_id' ";
 			$GLOBALS['db']->query($sql);
-			if($GLOBALS['sb']->affected_rows()==1)
+			if($GLOBALS['db']->affected_rows()==1)
 				return $team_id;
 			return false;
 		}
@@ -275,11 +285,11 @@ class user
 			}
 			$set_content = rtrim($set_content,',');
 			$sql =
-				"Update From ".$GLOBALS['sc']->table('roles')." ".
+				"Update  ".$GLOBALS['sc']->table('roles')." ".
 				"Set ".$set_content." ".
 				"Where `role_id` = '$role_id' ";
 			$GLOBALS['db']->query($sql);
-			if($GLOBALS['sb']->affected_rows()==1)
+			if($GLOBALS['db']->affected_rows()==1)
 				return $team_id;
 			return false;
 		}
@@ -297,11 +307,11 @@ class user
 			}
 			rtrim($set_content,',');
 			$sql =
-				"Update From ".$GLOBALS['sc']->table('items')." ".
+				"Update  ".$GLOBALS['sc']->table('items')." ".
 				"Set ".$set_content." ".
 				"Where `item_id` = '$item_id' ";
 			$GLOBALS['db']->query($sql);
-			if($GLOBALS['sb']->affected_rows()==1)
+			if($GLOBALS['db']->affected_rows()==1)
 				return $team_id;
 			return false;
 		}
@@ -319,11 +329,11 @@ class user
 			}
 			rtrim($set_content,',');
 			$sql =
-			"Update From ".$GLOBALS['sc']->table('users')." ".
+			"Update ".$GLOBALS['sc']->table('users')." ".
 			"Set ".$set_content." ".
 			"Where `user_id` = '$user_id' ";
 			$GLOBALS['db']->query($sql);
-			if($GLOBALS['sb']->affected_rows()==1)
+			if($GLOBALS['db']->affected_rows()==1)
 				return $team_id;
 			return false;
 		}
