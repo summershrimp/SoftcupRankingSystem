@@ -4,6 +4,7 @@
 /* common */
 * {
 	font-family: "微软雅黑", "SimHei", "Tahoma";
+	-webkit-appearance: none;
 }
 html {
 	width: 100%;
