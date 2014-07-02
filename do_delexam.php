@@ -9,10 +9,11 @@
 	$result = $user->delete_topic($_GET['id']);
 	if ($result != false) {
 		relocate("?action=manexam");
-		exit();
 	}
-	echo "<div id='content'>";
-	echo "<h4>删除过程中发生了错误。</h4>";
-	echo "<input class='button' type='button' onclick='window.history.go(-1)' value='返回' />";
-	echo "</div>";
+	else {
+		echo "<div id='content'>";
+		echo "<h4>删除过程中发生了错误。</h4>";
+		echo "<input class='button' type='button' onclick='window.history.go(-1)' value='返回' />";
+		echo "</div>";
+	}
 ?>

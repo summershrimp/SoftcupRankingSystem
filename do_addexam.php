@@ -16,10 +16,11 @@
 			$user->add_item($item);
 		}
 		relocate("?action=manexam");
-		exit();
 	}
-	echo "<div id='content'>";
-	echo "<h4>添加过程中发生了错误，请修改后再提交。</h4>";
-	echo "<input class='button' type='button' onclick='window.history.go(-1)' value='返回' />";
-	echo "</div>";
+	else {
+		echo "<div id='content'>";
+		echo "<h4>添加过程中发生了错误，请修改后再提交。</h4>";
+		echo "<input class='button' type='button' onclick='window.history.go(-1)' value='返回' />";
+		echo "</div>";
+	}
 ?>
