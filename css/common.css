@@ -4,10 +4,13 @@
 /* common */
 * {
 	font-family: "微软雅黑", "SimHei", "Tahoma";
-	-webkit-user-select: none;
+	/*-webkit-user-select: none;
 	-moz-user-select: none;
 	-o-user-select: none;
-	user-select: none;
+	user-select: none;*/
+}
+div {
+	-webkit-overflow-scrolling: touch;
 }
 html {
 	width: 100%;
