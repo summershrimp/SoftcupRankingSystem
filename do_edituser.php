@@ -9,14 +9,16 @@
 	$tuser = $user->get_user_by_id($_GET['id']);
 	$salt = $tuser['salt'];
 	$user_list = array(
-		"password" => md5(md5($_POST['password'][$i]).$salt),
-		"role_id" => $_POST['type'][$i],
-		"sex" => $_POST['sex'][$i],
-		"is_admin" => $_POST['is_admin'][$i],
-		"realname" => $_POST['realname'][$i],
-		"phone" => $_POST['phone'][$i],
-		"comment" => $_POST['comment'][$i]
+		"role_id" => $_POST['type'],
+		"sex" => $_POST['sex'],
+		"isadmin" => $_POST['is_admin'],
+		"realname" => $_POST['realname'],
+		"phone" => $_POST['phone'],
+		"comment" => $_POST['comment']
 	);
+	if (isset($_POST['password']) && $_POST['password'] != "") {
+		$user_list['password'] = ($salt == NULL) ? md5($_POST['password']) : md5(md5($_POST['password']).$salt);
+	}
 	$user->change_user($_GET['id'], $user_list);
-	//relocate("?action=manuser");
+	relocate("?action=manuser");
 ?>

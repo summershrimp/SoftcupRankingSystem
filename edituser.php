@@ -13,10 +13,12 @@
 	<h3>编辑用户 <?php echo $tuser['username'] ?> 的信息</h3>
 	<form action="?action=do_edituser&id=<?php echo $_GET['id']; ?>" method="post">
 		<div class="form_row_container">
-			<span class="form_left thin">* 管理员</span>
-			<select class="thin" name="is_admin[]">
-				<option value="0">否</option>
-				<option value="1">是</option>
+			<span class="form_left thin">密码</span><input class="form_right thin" type="password" name="password" title="密码" />
+		</div>
+		<div class="form_row_container">
+			<span class="form_left thin">* 管理员</span><select class="thin" name="is_admin">
+				<option value="0"<?php if ($tuser['isadmin'] == 0) echo " selected='selected'"; ?>>否</option>
+				<option value="1"<?php if ($tuser['isadmin'] == 1) echo " selected='selected'"; ?>>是</option>
 			</select>
 		</div>
 		<div class="form_row_container">

@@ -106,10 +106,10 @@ class user
 		if($this->is_admin())
 		{
 			$sql = "INSERT Into ".$GLOBALS['sc']->table('users').
-				   " (`username`,`password`,`salt`,`isadmin`,`role_id`,`sex`,`realname`,`phone`,`comment`) VALUES ".
-				   "('".$user_array['username']."', '".$user_array['password']."', '".$user_array['salt']."',  '".
-				   		$user_array['isadmin']."', '".$user_array['role_id']."', '".$user_array['sex']."', '".$user_array['realname']."',  '".
-				   		$user_array['phone']."', '".$user_array['comment']."')";
+				   " (`username`,`password`,`salt`, `isadmin`, `role_id`, `sex`, `realname`, `phone`, `comment`) VALUES ".
+				   "('".$user_array['username']."',  '".$user_array['password']."',  '".$user_array['salt']."',  '".
+				   		$user_array['isadmin']."',  '".$user_array['role_id']."',  '".$user_array['sex']."',  '".
+				   		$user_array['realname']."',  '".$user_array['phone']."',  '".$user_array['comment']."')";
 			$GLOBALS['db']->query($sql);
 			if($GLOBALS['db']->affected_rows()==1)
 				return $GLOBALS['db']->insert_id();
@@ -205,11 +205,44 @@ class user
 		return false;
 	}
 	
+	public function get_all_users_no_admin()
+	{
+		if($this->is_admin())
+		{
+			$sql = "Select * From ".$GLOBALS['sc']->table('users')." Where `isadmin` = 0 Order By `role_id` ";
+			$arr = $GLOBALS['db']->getAll($sql);
+			return $arr;
+		}
+		return false;
+	}
+	
 	public function get_all_roles()
 	{
 		if($this->is_admin())
 		{
 			$sql = "Select * From ".$GLOBALS['sc']->table('roles');
+			$arr = $GLOBALS['db']->getAll($sql);
+			return $arr;
+		}
+		return false;
+	}
+	
+	public function get_all_privilege()
+	{
+		if($this->is_admin())
+		{
+			$sql = "Select * From ".$GLOBALS['sc']->table('user_privileges') . "" ;
+			$arr = $GLOBALS['db']->getAll($sql);
+			return $arr;
+		}
+		return false;
+	}
+	
+	public function get_privilege_by_user_id($user_id)
+	{
+		if($this->is_admin())
+		{
+			$sql = "Select * From ".$GLOBALS['sc']->table('user_privileges') . " Where `user_id` = '$user_id' " ;
 			$arr = $GLOBALS['db']->getAll($sql);
 			return $arr;
 		}
@@ -223,7 +256,6 @@ class user
 			$sql = "Select * From ".$GLOBALS['sc']->table('users')." Where `user_id` = '$user_id'";
 			$arr = $GLOBALS['db']->getRow($sql);
 			unset($arr['password']);
-			unset($arr['salt']);
 			return $arr;
 		}
 		return false;
@@ -336,8 +368,31 @@ class user
 			"Where `user_id` = '$user_id' ";
 			$GLOBALS['db']->query($sql);
 			if($GLOBALS['db']->affected_rows()==1)
-				return $team_id;
+				return $user_id;
 			return false;
+		}
+		return false;
+	}
+	
+	public function change_privilege($user_id, $topic_array)
+	{
+		if($this->is_admin())
+		{
+			$sql = "Delete From ".$GLOBALS['sc']->table("user_privileges")." Where `user_id` = '$user_id'";
+			$GLOBALS['db']->query($sql);
+			$count = 0;
+			foreach($topic_array as $key => $value)
+			{
+				if ($value == 1)
+				{
+					$sql = "Insert Into ".$GLOBALS['sc']->table("user_privileges")." (`user_id`, `topic_id`) VALUES ('$user_id', '$key')";
+					$GLOBALS['db']->query($sql);
+					$count++;
+				}
+			}
+			if($count == 0)
+				return false;
+			return $count;
 		}
 		return false;
 	}
