@@ -162,9 +162,9 @@ class user
 	
 	public function add_feedback($team_id, $content)
 	{
-		echo $sql = "Delete From ".$GLOBALS['sc']->table('feedbacks')." Where `user_id` = '".$this->user_info['user_id']."' AND `team_id` = $team_id ";
+		$sql = "Delete From ".$GLOBALS['sc']->table('feedbacks')." Where `user_id` = '".$this->user_info['user_id']."' AND `team_id` = $team_id ";
 		$GLOBALS['db']->query($sql);
-		echo $sql = "Insert INTO ".$GLOBALS['sc']->table('feedbacks')." (`user_id`, `team_id`, `content`) VALUES('".$this->user_info['user_id']."', '$team_id', '$content')";
+		$sql = "Insert INTO ".$GLOBALS['sc']->table('feedbacks')." (`user_id`, `team_id`, `content`) VALUES('".$this->user_info['user_id']."', '$team_id', '$content')";
 		$GLOBALS['db']->query($sql);
 		return $GLOBALS['db']->insert_id();
 	}
