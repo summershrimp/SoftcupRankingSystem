@@ -25,7 +25,7 @@ body {
 	margin: 0;
 	overflow: hidden;
 }
-input[type=button], select {
+input[type=button], input[type=submit], input[type=reset], select {
 	border-radius: 0;
 	-webkit-appearance: none;
 }
@@ -55,6 +55,7 @@ input[type=text]:focus, input[type=number]:focus, input[type=password]:focus, in
 	outline: none;
 	margin: 2px;
 	max-width: 120px;
+	height: 3em !important;
 }
 input[type=submit] {
 	margin-top: 10px;
@@ -63,9 +64,6 @@ input[type=submit] {
 .back {
 	margin-top: 15px;
 	margin-bottom: -5px;
-}
-.button:hover {
-	background: #F3F3F3;
 }
 .button:active {
 	background: #333;
@@ -154,8 +152,8 @@ ul a {
 	text-decoration: none;
 }
 ul li {
-	height: 48px;
-	line-height: 48px;
+	height: 4em;
+	line-height: 4em;
 	border-top: 1px solid #BBB;
 	color: #000;
 	overflow: hidden;
@@ -163,12 +161,9 @@ ul li {
 	text-overflow: ellipsis;
 	cursor: pointer;
 }
-ul li:hover {
-	background: #DDD;
-}
 ul li:active {
-	background: #333 !important;
-	color: #FFF !important;
+	background: #333;
+	color: #FFF;
 }
 .li_left {
 	float: left;
@@ -194,6 +189,7 @@ select {
 	width: 23%;
 	height: 30px;
 	background: #FFF;
+	height: 3em !important;
 }
 .insert {
 	height: 0;

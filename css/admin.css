@@ -168,3 +168,17 @@ table tr:hover {
 		left: 0px;
 	}
 }
+.button:hover {
+	background: #F3F3F3;
+}
+.button:active {
+	background: #333;
+	color: #FFF;
+}
+ul li:hover {
+	background: #DDD;
+}
+ul li:active {
+	background: #333;
+	color: #FFF;
+}
