@@ -8,8 +8,9 @@
 	-moz-user-select: none;
 	-o-user-select: none;
 	user-select: none;*/
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
 }
-div {
+#container {
 	-webkit-overflow-scrolling: touch;
 }
 html {
@@ -23,6 +24,10 @@ body {
 	background: -o-linear-gradient(#DDD, #FFF);
 	margin: 0;
 	overflow: hidden;
+}
+input[type=button], select {
+	border-radius: 0;
+	-webkit-appearance: none;
 }
 input[type=text], input[type=number], input[type=password], input[type=mobile], textarea, select {
 	border: 1px solid #BBB;
@@ -188,6 +193,7 @@ form a {
 select {
 	width: 23%;
 	height: 30px;
+	background: #FFF;
 }
 .insert {
 	height: 0;
@@ -206,4 +212,21 @@ select {
 }
 .hidden {
 	display: none !important;
+}
+.form_desc {
+	overflow: hidden;
+}
+.form_desc select {
+	border: none;
+	width: 15%;
+	margin: 0;
+	background: #EEE;
+	border: 1px solid #09F;
+}
+.form_desc span {
+	border: none;
+	width: 4%;
+	margin: 0;
+	display: inline-block;
+	text-align: center;
 }

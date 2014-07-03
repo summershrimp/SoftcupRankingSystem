@@ -22,10 +22,13 @@
 	right: 0;
 	bottom: 0;
 	text-align: center;
+}
+div {
 	overflow: auto;
 }
 table {
 	margin: 0 auto;
+	margin-bottom: 30px;
 	border: 1px solid #BBB;
 	width: 90%;
 	background: #FFF;
@@ -132,7 +135,7 @@ table tr:hover {
 	}
 	#test {
 		bottom: auto;
-		height: 70px;
+		height: 80px;
 		border: none;
 		border-bottom: 1px solid gray;
 		white-space: nowrap;
@@ -161,7 +164,7 @@ table tr:hover {
 		margin-right: 10px;
 	}
 	#content {
-		top: 120px;
+		top: 130px;
 		left: 0px;
 	}
 }

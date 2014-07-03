@@ -37,6 +37,7 @@
 		border-collapse: collapse;
 		text-align: center;
 		page-break-after: auto;
+		margin: 0;
 	}
 	.header {
 		color: #FFF;
@@ -44,8 +45,9 @@
 		text-align: center;
 		font-weight: bold;
 	}
-	td, th {
+	table td, table th {
 		border: 1px solid #000;
+		background: #FFF;
 	}
 	#nav {
 		border: none;
@@ -109,6 +111,6 @@
 ?>
 	<table style="margin-top:-1px"><tr><td class="em" width="56%">评审意见及特殊说明</td><td class="em" width="22%">总计</td><td width="22%">
 	<?php print_r($user->get_any_team_total_scores($userid, $team)); ?></td></tr></table>
-	<table style="margin-top:-1px"><tr style="line-height:96px"><td width="56%"><?php echo $user->get_feedback_by_id($userid, $team); ?></td><td class="em" width="22%">评审人</td><td width="22%"></td></tr></table>
+	<table style="margin-top:-1px;margin-bottom:30px"><tr style="line-height:96px"><td width="56%"><?php echo $user->get_feedback_by_id($userid, $team); ?></td><td class="em" width="22%">评审人</td><td width="22%"></td></tr></table>
 </table>
 <script>window.print();</script>

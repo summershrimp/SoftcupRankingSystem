@@ -37,5 +37,12 @@
 	<div id="container">
 		<?php require_once "container.php"; ?>
 	</div>
+	<script>
+		var list=["a", "input", "li"];
+		list.forEach(function (e) {
+			var a=document.getElementsByTagName(e);
+			for (var i=0;i<a.length;i++) a[i].addEventListener("touchstart",function(){},false);
+		});
+	</script>
 </body>
 </html>

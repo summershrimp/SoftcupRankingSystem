@@ -10,7 +10,7 @@
 	<h3>队伍列表</h3>
 	<form action="?action=delteam" method="post">
 		<table>
-			<tr><!--<th>#</th>--><th>操作</th><th>编号</th><th>名称</th><th>描述</th><th>选题</th></tr>
+			<tr><!--<th>#</th>--><th style="width:55px;min-width:55px">操作</th><th>编号</th><th>名称</th><th>描述</th><th>选题</th></tr>
 			<?php
 				$team_list = get_all_teams();
 				foreach ($team_list as $e) {

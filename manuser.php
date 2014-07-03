@@ -10,7 +10,7 @@
 	<h3>用户列表</h3>
 	<form action="?action=deluser" method="post">
 		<table>
-			<tr><!--<th>#</th>--><th>操作</th><th>用户名</th><th>用户类型</th><th>管理员</th><th>性别</th><th>真实姓名</th><th>手机</th><th>备注</th></tr>
+			<tr><!--<th>#</th>--><th style="width:55px;min-width:55px">操作</th><th>用户名</th><th>用户类型</th><th>管理员</th><th>性别</th><th>真实姓名</th><th>手机</th><th>备注</th></tr>
 			<?php
 				$user_list = $user->get_all_users();
 				foreach ($user_list as $e) {

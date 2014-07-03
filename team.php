@@ -44,15 +44,16 @@
 				echo "<div class=\"form_row_container\">";
 				echo "<div class=\"form_desc\"><b>" . $i['itemname'] . "</b><br />" . $i['comment'] . "</div>";
 				$hidden = ($i['maxscore'] == 0) ? " hidden" : "";
-				echo "<span class=\"form_left" . $hidden . "\">得分</span>";
-				echo "<select style=\"width:20%\" class=\"" . $hidden . "\" name=\"int-" . $i['item_id'] . "\" onchange=\"check(" . $i['item_id'] . ",this.value," . $i['maxscore'] . ")\">";
+				echo "<div style='background:#DDD;padding:0;margin:0 auto' class=\"form_desc\">";
+				echo "<span style='width:56%' class=\"form_left" . $hidden . "\">得分</span>";
+				echo "<select class=\"" . $hidden . "\" name=\"int-" . $i['item_id'] . "\" onchange=\"check(" . $i['item_id'] . ",this.value," . $i['maxscore'] . ")\">";
 				for ($j = 0; $j <= $i['maxscore']; $j++) {
 					if ($j == $score[0]) echo "<option selected='selected'>" . $j . "</option>";
 					else echo "<option>" . $j . "</option>";
 				}
 				echo "</select>";
-				echo "<span class=\"form_left" . $hidden . "\" style='background:#FFF;width:4%;display:inline-block;text-align:center;margin-left:-1px'><b>.</b></span>";
-				echo "<select style=\"width:20%\" class=\"" . $hidden . "\" name=\"float-" . $i['item_id'] . "\">";
+				echo "<span class=\"form_left" . $hidden . "\"><b>.</b></span>";
+				echo "<select class=\"" . $hidden . "\" name=\"float-" . $i['item_id'] . "\">";
 				if ($score[0] == $i['maxscore']) {
 					echo "<option>0</option>";
 				}
@@ -63,7 +64,8 @@
 					}
 				}
 				echo "</select>";
-				echo "<span class=\"form_left" . $hidden . "\" style=\"width:6.05%;margin-left:-1px\">分</span>";
+				echo "<span style='border:none;width:10%;margin:0' class=\"form_left" . $hidden . "\">分</span>";
+				echo "</div>";
 				echo "</div>";
 			}
 		?>
