@@ -64,6 +64,10 @@
 		font-weight: bold;
 	}
 </style>
+<script>
+	window.resizeTo(window.screen.availWidth,window.screen.availHeight);
+	window.moveTo(0,0);
+</script>
 <h2>第三届“中国软件杯”大学生软件设计大赛</h2>
 <h2><pre>评   审   表</pre></h2>
 <table id="nav">

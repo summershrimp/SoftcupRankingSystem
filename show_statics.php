@@ -28,10 +28,6 @@
 	}
 </style>
 <script src="js/sorttable.js"></script>
-<script>
-	window.resizeTo(window.screen.availWidth,window.screen.availHeight);
-	window.moveTo(0,0);
-</script>
 <div id="main">
 	<div style="text-align:center">
 		<h3><?php $tt = get_topic_by_id($exam); echo $tt['topicname']; ?></h3>
@@ -50,22 +46,24 @@
 		</thead>
 		<tbody>
 			<?php
-			foreach ($a['contents'] as $team_id => $data) {
-				echo "<tr>";
-				echo "<td>" . $data['teamname'] . "</td>";
-				echo "<td>" . (($data['avescore'] == -1) ? "-" : $data['avescore']) . "</td>";
-				if ($data['avescore'] == -1) {
-					foreach ($a['users'] as $id => $data) {
-						echo "<td></td>";
+			if (isset($a['contents'])) {
+				foreach ($a['contents'] as $team_id => $data) {
+					echo "<tr>";
+					echo "<td>" . $data['teamname'] . "</td>";
+					echo "<td>" . (($data['avescore'] == -1) ? "-" : $data['avescore']) . "</td>";
+					if ($data['avescore'] == -1) {
+						foreach ($a['users'] as $id => $data) {
+							echo "<td></td>";
+						}
 					}
-				}
-				else {
-					foreach ($data['scores'] as $user_id => $score) {
-						if ($score == -1) echo "<td>-</td>";
-						else echo "<td class='click' onclick=\"window.open('?action=print&exam=" . $_GET['exam'] . "&team=" . $team_id . "&user=" . $user_id . "','toolbar=no,menubar=no,location=no,scrollbars=yes,status=no')\">" . $score . "</td></a>";
+					else {
+						foreach ($data['scores'] as $user_id => $score) {
+							if ($score == -1) echo "<td>-</td>";
+							else echo "<td class='click' onclick=\"window.open('?action=print&exam=" . $_GET['exam'] . "&team=" . $team_id . "&user=" . $user_id . "','_blank','toolbar=no,menubar=no,location=no,scrollbars=yes,status=no')\">" . $score . "</td></a>";
+						}
 					}
+					echo "</tr>";
 				}
-				echo "</tr>";
 			}
 			?>
 		</tbody>

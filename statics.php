@@ -10,7 +10,7 @@
 	<?php
 		$topic = get_all_topics();
 		foreach($topic as $t) {
-			echo "<li onclick=\"window.open('?action=show_statics&exam=" . $t['topic_id'] . "','_blank','toolbar=no,menubar=no,location=no,scrollbars=no,status=no')\">" . $t['topicname'] . "</li>";
+			echo "<li onclick=\"window.open('?action=show_statics&exam=" . $t['topic_id'] . "','_blank')\">" . $t['topicname'] . "</li>";
 		}
 	?>
 	</ul>
