@@ -18,6 +18,21 @@
 		}
 		return $new_array; 
 	}
+	function safe_html($str) {
+		return htmlentities($str, ENT_QUOTES, "UTF-8");
+	}
+	function encode($value) {
+		if (empty($value)) {
+			return $value;
+		}
+		else {
+			return is_array($value) ? array_map('encode', $value) : safe_html($value);
+		}
+	}
+	$_GET = encode($_GET);
+	$_POST = encode($_POST);
+	$_COOKIE = encode($_COOKIE);
+	$_REQUEST = encode($_REQUEST);
 	/**/
 	$exam = $team = 0;
 	if (isset($_GET['exam'])) {
