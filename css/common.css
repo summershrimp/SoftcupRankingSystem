@@ -9,6 +9,7 @@
 	-o-user-select: none;
 	user-select: none;*/
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	border-radius: 0;
 }
 #container {
 	-webkit-overflow-scrolling: touch;
