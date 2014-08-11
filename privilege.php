@@ -1,7 +1,5 @@
 <?php
-	if (!defined("IN_SCRS")) {
-		exit();
-	}
+	if (!defined("IN_SCRS")) exit();
 	$user_list = $user->get_all_users_no_admin();
 	$exam_list = get_all_topics();
 	$privilege = $user->get_all_privilege();

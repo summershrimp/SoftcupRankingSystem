@@ -1,7 +1,5 @@
 <?php
-	if (!defined("IN_SCRS")) {
-		exit();
-	}
+	if (!defined("IN_SCRS")) exit();
 	$user->clear_privilege();
 	$arr = array();
 	foreach ($_POST as $key => $value) {

@@ -1,7 +1,5 @@
 <?php
-	if (!defined("IN_SCRS")) {
-		exit();
-	}
+	if (!defined("IN_SCRS")) exit();
 	$result = true;
 	for ($i = 0; $i < count($_POST['name']); $i++) { 
 		$team = array(

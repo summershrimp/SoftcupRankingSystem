@@ -1,7 +1,5 @@
 <?php
-	if (!defined("IN_SCRS")) {
-		exit();
-	}
+	if (!defined("IN_SCRS")) exit();
 	if (isset($_GET['team']) && isset($_GET['exam']) && isset($_GET['user'])) {
 		$team = $_GET['team'];
 		$exam = $_GET['exam'];

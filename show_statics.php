@@ -1,7 +1,5 @@
 <?php
-	if (!defined("IN_SCRS")) {
-		exit();
-	}
+	if (!defined("IN_SCRS")) exit();
 	if (!isset($_GET['exam'])) {
 		relocate("javascript:window.history.go(-1)");
 		die();

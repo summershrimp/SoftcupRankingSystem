@@ -1,7 +1,5 @@
 <?php
-	if (!defined("IN_SCRS")) {
-		exit();
-	}
+	if (!defined("IN_SCRS")) exit();
 ?>
 <div id="content">
 	<input class="button back" type="button" value="返回" onclick="window.location='?'" />

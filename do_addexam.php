@@ -1,7 +1,5 @@
 <?php
-	if (!defined("IN_SCRS")) {
-		exit();
-	}
+	if (!defined("IN_SCRS")) exit();
 	$exam = array("topicname" => $_POST['title'], "comment" => $_POST['desc']);
 	$result = $user->add_topic($exam);
 	if ($result != false) {
