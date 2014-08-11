@@ -23,6 +23,7 @@
 	<h3 style="margin-bottom:-5px"><?php $a=get_team_by_id($team); echo $a['teamname']; ?></h3>
 	<form action="?action=post_score&exam=<?php echo $exam; ?>&team=<?php echo $team; ?>" method="post">
 		<?php
+			$confirmed = $user->is_confirmed($exam, $team);
 			$items = get_topic_items($exam);
 			$items = array_sort($items, 'item_id');
 			$scores = $user->get_team_scores($team);
@@ -46,14 +47,14 @@
 				$hidden = ($i['maxscore'] == 0) ? " hidden" : "";
 				echo "<div style='background:#DDD;padding:0;margin:0 auto' class=\"form_desc\">";
 				echo "<span style='width:56%' class=\"form_left" . $hidden . "\">得分</span>";
-				echo "<select class=\"" . $hidden . "\" name=\"int-" . $i['item_id'] . "\" onchange=\"check(" . $i['item_id'] . ",this.value," . $i['maxscore'] . ")\">";
+				echo "<select " . ($confirmed ? "disabled" : "") . " class=\"" . $hidden . "\" name=\"int-" . $i['item_id'] . "\" onchange=\"check(" . $i['item_id'] . ",this.value," . $i['maxscore'] . ")\">";
 				for ($j = 0; $j <= $i['maxscore']; $j++) {
 					if ($j == $score[0]) echo "<option selected='selected'>" . $j . "</option>";
 					else echo "<option>" . $j . "</option>";
 				}
 				echo "</select>";
 				echo "<span class=\"form_left" . $hidden . "\"><b>.</b></span>";
-				echo "<select class=\"" . $hidden . "\" name=\"float-" . $i['item_id'] . "\">";
+				echo "<select " . ($confirmed ? "disabled" : "") . " class=\"" . $hidden . "\" name=\"float-" . $i['item_id'] . "\">";
 				if ($score[0] == $i['maxscore']) {
 					echo "<option>0</option>";
 				}
@@ -71,10 +72,15 @@
 		?>
 		<div class="form_desc form_row_container">
 			<h4 style="margin:5px">评审意见及特殊说明</h4>
-			<textarea style="width:90%;height:8em" name="feedback" title="评审意见及特殊说明"><?php echo $user->get_feedback($team); ?></textarea>
+			<textarea<?php echo ($confirmed ? " disabled" : ""); ?> style="width:90%;height:8em" name="feedback" title="评审意见及特殊说明"><?php echo $user->get_feedback($team); ?></textarea>
 		</div>
 		<div class="form_row_container">
-			<input class="button" type="submit" value="提交" />
+			<?php echo (
+				$confirmed ?
+				"<input disabled class=\"button\" type=\"submit\" value=\"已提交\" />" :
+				"<input class=\"button\" type=\"submit\" value=\"保存\" />"
+				);
+			?>
 		</div>
 	</form>
 </div>

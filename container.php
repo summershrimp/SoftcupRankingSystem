@@ -39,6 +39,8 @@
 			case "privilege":
 				require_once $_GET['action'] . ".php";
 				break;
+			case "do_submit":
+				require_once "do_submit.php";
 			case "print":
 				if ($user->is_admin()) {
 					require_once "print.php";

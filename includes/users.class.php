@@ -102,7 +102,7 @@ class user
 	public function is_confirmed($topic_id, $team_id)
 	{
 		$sql = "Select `is_confirmed` From ".$GLOBALS['sc']->table('confirms')." Where `user_id` = '".$this->user_info['user_id']."' AND `team_id` = '$team_id' AND `topic_id` = '$topic_id' LIMIT 1";
-		$ans = boolval($GLOBALS['db']->getOne($sql));
+		$ans = $GLOBALS['db']->getOne($sql);
 		return $ans;
 	}
 	

@@ -5,7 +5,7 @@
 ?>
 <div>
 	<h1>请登录</h1>
-	<form action="?action=login" method="post">
+	<form action="?action=login&ru=<?php echo base64_encode($_SERVER['REQUEST_URI']); ?>" method="post">
 		<div class="form_row_container">
 			<span class="form_left thin">用户名</span><input class="form_right thin" type="text" name="username" title="请输入用户名。" autofocus required />
 		</div>

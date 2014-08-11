@@ -4,7 +4,7 @@
 	}
 	require_once './includes/init.inc.php';
 	if ($user->login($_POST['username'],$_POST['password'])) {
-		relocate("?");
+		relocate(isset($_GET['ru']) ? base64_decode($_GET['ru']) : "?");
 	}
 	else {
 		echo "<script>";
