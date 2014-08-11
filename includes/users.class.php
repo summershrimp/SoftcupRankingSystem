@@ -74,10 +74,34 @@ class user
 		return false;
 	}
 	
+	public function confirm_team($team_id)
+	{
+		$sql = "Update ".$GLOBALS['sc']->table('confirms')." SET `is_confirmed` = '1' Where `user_id` = '".$this->user_info['user_id']."' `team_id` = '$team_id' LIMIT 1";
+		$GLOBALS['db']->query($sql);
+		return $GLOBALS['db']->affected_rows();
+	}
+	
+	public function confirm_topic($topic_id)
+	{
+		
+		$sql = "Update ".$GLOBALS['sc']->table('confirms')." SET `is_confirmed` = '1' Where `user_id` = '".$this->user_info['user_id']."' `topic_id` = '$topic_id' LIMIT 1";
+		$GLOBALS['db']->query($sql);
+		return $GLOBALS['db']->affected_rows();
+		
+	}
+	
+	public function is_confirmed($topic_id, $team_id)
+	{
+		$sql = "Select `is_confirmed` From ".$GLOBALS['sc']->table('confirms')." Where `user_id` = '".$this->user_info['user_id']."' AND `team_id` = '$team_id' AND `topic_id` = '$topic_id' LIMIT 1";
+		$ans = boolval($GLOBALS['db']->getOne($sql));
+		return $ans;
+	}
+	
 	public function add_collects($topic_id,$team_id,$collects)
 	{
 		if(!$this->is_login())
 			return false;
+		$GLOBALS['db']->query("Start Transcation");
 		$sql = "DELETE From ".$GLOBALS['sc']->table('collects')." Where `user_id` = '".$this->user_info['user_id']."' AND `topic_id` = '".$topic_id."' AND `team_id` = '$team_id'";
 		$GLOBALS['db']->query($sql);
 		$count = 0;
@@ -93,12 +117,32 @@ class user
 		$allcount = $GLOBALS['db']->getOne($sql);
 		if($allcount!=$count)
 		{
-			$sql = "DELETE From ".$GLOBALS['sc']->table('collects')." Where `user_id` = '".$this->user_info['user_id']."' AND `topic_id` = '".$topic_id."' AND `team_id` = '$team_id'";
-			$GLOBALS['db']->query($sql);
+			$GLOBALS['db']->query("Rollback");
+			$GLOBALS['db']->query("Commit");
 			return false;
 		}
+		$GLOBALS['db']->query("Commit");
+		$sql = "Update ".$GLOBALS['sc']->table('confirms'). " SET `is_rated` = 1 Where `user_id` = '".$this->user_info['user_id']."' AND `team_id` = '$team_id'";
+		$GLOBALS['db']->query($sql);
 		return true;
 		
+	}
+	
+	public function get_status($topic_id = NULL)
+	{
+		$sql = "Select Count(*) From ".$GLOBALS['sc']->table('confirms'). " Where `user_id` = '".$this->user_info['user_id']."'";
+		if($topic_id != NULL)
+			$sql .= " AND `topic_id` = '$topic_id'";
+		$return['all'] = intval($GLOBALS['db']->getOne($sql));
+		$sql = "Select Count(*) From ".$GLOBALS['sc']->table('confirms'). " Where `user_id` = '".$this->user_info['user_id']."' AND `is_rated` = '1'";
+		if($topic_id != NULL)
+			$sql .= " AND `topic_id` = '$topic_id'";
+		$return['rated'] = intval($GLOBALS['db']->getOne($sql));
+		$sql = "Select Count(*) From ".$GLOBALS['sc']->table('confirms'). " Where `user_id` = '".$this->user_info['user_id']."' AND `is_confirmed` = '1'";
+		$return['confirmed'] = intval($GLOBALS['db']->getOne($sql));
+		if($topic_id != NULL)
+			$sql .= " AND `topic_id` = '$topic_id'";
+		return $return;
 	}
 	
 	public function add_user($user_array)
@@ -393,7 +437,7 @@ class user
 	
 	public function change_user($user_id, $user_array)
 	{
-		if($this->is_admin())
+		if($this->is_admin() || $user_id == $this->user_info['user_id'])
 		{
 			if($this->user_info['user_id'] == $user_id)
 				return false;
@@ -415,13 +459,21 @@ class user
 		}
 		return false;
 	}
-	
+	public function clear_privilege()
+	{
+		$GLOBALS['db']->query("Start Transcation");
+		$sql = "TRUNCATE ".$GLOBALS['sc']->table("user_privileges");
+		$GLOBALS['db']->query($sql);
+	}
 	public function change_privilege($user_id, $topic_array)
 	{
 		if($this->is_admin())
 		{
-			$sql = "Delete From ".$GLOBALS['sc']->table("user_privileges")." Where `user_id` = '$user_id'";
-			$GLOBALS['db']->query($sql);
+			//$GLOBALS['db']->query("Start Transcation");
+			//$sql = "Delete From ".$GLOBALS['sc']->table("user_privileges")." Where `user_id` = '$user_id'";
+			//$GLOBALS['db']->query($sql);
+			//$sql = "Delete From ".$GLOBALS['sc']->table("confirms")." Where `user_id` = '$user_id'";
+			//$GLOBALS['db']->query($sql);
 			$count = 0;
 			foreach($topic_array as $key => $value)
 			{
@@ -430,13 +482,32 @@ class user
 					$sql = "Insert Into ".$GLOBALS['sc']->table("user_privileges")." (`user_id`, `topic_id`) VALUES ('$user_id', '$key')";
 					$GLOBALS['db']->query($sql);
 					$count++;
+					$sql = "Select `team_id` From " .$GLOBALS['sc']->table("teams"). " Where `topic_id` = '$key'";
+					$result = $GLOBALS['db']->query($sql);
+					while($arr = $GLOBALS['db']->fetchRow($result))
+					{
+						$sql = "Select * From ".$GLOBALS['sc']->table("confirms"). " Where `user_id` = '$user_id' AND `team_id` = '".$arr['team_id']."' LIMIT 1";
+						$tarr = $GLOBALS['db']->getRow($sql);
+						if(!isset($tarr['user_id']))
+						{
+							$sql = "Insert Into ".$GLOBALS['sc']->table("confirms"). " (`user_id`, `topic_id`, `team_id`) VALUES ('$user_id', '$key', '".$arr['team_id']."')";
+							$GLOBALS['db']->query($sql);
+						}
+					}
 				}
 			}
-			if($count == 0)
-				return false;
 			return $count;
 		}
 		return false;
+	}
+	public function finish_privilege()
+	{
+		if($GLOBALS['db']->errno())
+		{
+			$GLOBALS['db']->query("Rollback");
+			$GLOBALS['db']->query("Commit");
+		}
+		$GLOBALS['db']->query("Commit");
 	}
 	
 	public function delete_team($team_id)
