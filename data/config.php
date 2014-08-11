@@ -6,10 +6,10 @@ $db_host   = "127.0.0.1:3306";
 $db_name   = "scrs";
 
 // database username
-$db_user   = "root";
+$db_user   = "rexskz";
 
 // database password
-$db_pass   = "ZYB941023";
+$db_pass   = "2147483647";
 
 // table prefix
 $prefix    = "sc_";

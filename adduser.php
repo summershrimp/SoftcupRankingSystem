@@ -69,7 +69,7 @@
 				'</div>'+
 			'</div>';
 		document.getElementById("user_list").innerHTML+=s;
-		document.getElementById("user"+id).style.height=380+"px";
+		document.getElementById("user"+id).style.height=450+"px";
 	}
 </script>
 <div id="content">

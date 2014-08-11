@@ -30,19 +30,19 @@
 		dom.innerHTML=
 			'<h4>评测点 #'+id+'</h4>'+
 			'<div class="form_row_container">'+
-				'<span class="form_left thin">* 评测点名称</span>'+
+				'<span class="form_left thin">* 名称</span>'+
 				'<input class="form_right thin" type="text" name="point_title[]" title="评测点名称" required />'+
 			'</div>'+
 			'<div class="form_row_container">'+
-				'<span class="form_left thin">* 评测点描述</span>'+
+				'<span class="form_left thin">* 描述</span>'+
 				'<input class="form_right thin" type="text" name="point_desc[]" title="评测点描述" />'+
 			'</div>'+
 			'<div class="form_row_container">'+
 				'<span class="form_left thin">* 分值</span>'+
-				'<input class="form_right thin" type="number" name="point_score[]" title="分值" min="0" required />'+
+				'<input class="form_right thin" type="number" name="point_score[]" title="评测点分值" min="0" required />'+
 			'</div>';
 		document.getElementById("item_list").appendChild(dom);
-		document.getElementById("item"+id).style.height=180+"px";
+		document.getElementById("item"+id).style.height=200+"px";
 	}
 </script>
 <div id="content">

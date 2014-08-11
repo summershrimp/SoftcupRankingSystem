@@ -37,7 +37,7 @@
 				'<input class="form_right thin" type="number" name="point_score[]" title="分值" min="0" required />'+
 			'</div>';
 		document.getElementById("item_list").appendChild(dom);
-		document.getElementById("item"+id).style.height=180+"px";
+		document.getElementById("item"+id).style.height=200+"px";
 	}
 </script>
 <div id="content">

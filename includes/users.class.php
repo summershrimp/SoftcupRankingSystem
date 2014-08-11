@@ -138,7 +138,7 @@ class user
 	}
 	public function get_total_statics()
 	{
-		$sql = "Select Count(*) as `count` From ".$GLOBALS['sc']->table('confirms'). " Where `user_id` = '".$this->user_info['user_id']."' ";
+		$sql = "Select Count(*) From ".$GLOBALS['sc']->table('confirms'). " Where `user_id` = '".$this->user_info['user_id']."' ";
 		$return['total']['all'] = intval($GLOBALS['db']->getOne($sql));
 		$sql = "Select Count(*) From ".$GLOBALS['sc']->table('confirms'). " Where `user_id` = '".$this->user_info['user_id']."' AND `is_rated` = '1'";
 		$return['total']['rated'] = intval($GLOBALS['db']->getOne($sql));
@@ -150,15 +150,15 @@ class user
 	{
 		$sql = "Select `topic_id`, Count(*) as `count` From ".$GLOBALS['sc']->table('confirms'). " Where `user_id` = '".$this->user_info['user_id']."' Group By `topic_id` ";
 		$result = $GLOBALS['db']->query($sql);
-		while($arr = $GLOBALS['db']->fetchRow($sql))
+		while($arr = $GLOBALS['db']->fetchRow($result))
 			$return[$arr['topic_id']]['total'] = $arr['count'];
-		$sql = "Select Count(*) From ".$GLOBALS['sc']->table('confirms'). " Where `user_id` = '".$this->user_info['user_id']."' AND `is_rated` = '1' Group By `topic_id`";
+		$sql = "Select `topic_id`, Count(*) From ".$GLOBALS['sc']->table('confirms'). " Where `user_id` = '".$this->user_info['user_id']."' AND `is_rated` = '1' Group By `topic_id`";
 		$result = $GLOBALS['db']->query($sql);
-		while($arr = $GLOBALS['db']->fetchRow($sql))
+		while($arr = $GLOBALS['db']->fetchRow($result))
 			$return[$arr['topic_id']]['rated'] = $arr['count'];
-		$sql = "Select Count(*) From ".$GLOBALS['sc']->table('confirms'). " Where `user_id` = '".$this->user_info['user_id']."' AND `is_confirmed` = '1' Group By `topic_id`";
+		$sql = "Select `topic_id`, Count(*) From ".$GLOBALS['sc']->table('confirms'). " Where `user_id` = '".$this->user_info['user_id']."' AND `is_confirmed` = '1' Group By `topic_id`";
 		$result = $GLOBALS['db']->query($sql);
-		while($arr = $GLOBALS['db']->fetchRow($sql))
+		while($arr = $GLOBALS['db']->fetchRow($result))
 			$return[$arr['topic_id']]['confirmed'] = $arr['count'];
 		return $return;
 	}

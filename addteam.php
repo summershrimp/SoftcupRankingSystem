@@ -48,7 +48,7 @@
 				'</select>'+
 			'</div>';
 		document.getElementById("item_list").appendChild(dom);
-		document.getElementById("item"+id).style.height=220+"px";
+		document.getElementById("item"+id).style.height=260+"px";
 	}
 </script>
 <div id="content">
