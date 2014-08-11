@@ -108,7 +108,7 @@ class user
 	
 	public function add_collects($topic_id,$team_id,$collects)
 	{
-		if(!$this->is_login())
+		if(!$this->is_login()||$this->is_confirmed($topic_id,$team_id))
 			return false;
 		$GLOBALS['db']->query("Start Transcation");
 		$sql = "DELETE From ".$GLOBALS['sc']->table('collects')." Where `user_id` = '".$this->user_info['user_id']."' AND `topic_id` = '".$topic_id."' AND `team_id` = '$team_id'";
@@ -144,22 +144,18 @@ class user
 		$return['total']['rated'] = intval($GLOBALS['db']->getOne($sql));
 		$sql = "Select Count(*) From ".$GLOBALS['sc']->table('confirms'). " Where `user_id` = '".$this->user_info['user_id']."' AND `is_confirmed` = '1'";
 		$return['total']['confirmed'] = intval($GLOBALS['db']->getOne($sql));
-		
+		return $return;
 	}
 	public function get_statics()
 	{
-		$sql = "Select `topic_id`, Count(*) as `count` From ".$GLOBALS['sc']->table('confirms'). " Where `user_id` = '".$this->user_info['user_id']."' Group By `topic_id` ";
+		$sql = "Select `topic_id`, Count(*) as `total`, Sum(`is_rated`) as `rated`, Sum(`is_confirmed`) as `confirmed` ".
+			   "From ".$GLOBALS['sc']->table('confirms'). " Where `user_id` = '".$this->user_info['user_id']."' Group By `topic_id` ";
 		$result = $GLOBALS['db']->query($sql);
 		while($arr = $GLOBALS['db']->fetchRow($result))
-			$return[$arr['topic_id']]['total'] = $arr['count'];
-		$sql = "Select `topic_id`, Count(*) From ".$GLOBALS['sc']->table('confirms'). " Where `user_id` = '".$this->user_info['user_id']."' AND `is_rated` = '1' Group By `topic_id`";
-		$result = $GLOBALS['db']->query($sql);
-		while($arr = $GLOBALS['db']->fetchRow($result))
-			$return[$arr['topic_id']]['rated'] = $arr['count'];
-		$sql = "Select `topic_id`, Count(*) From ".$GLOBALS['sc']->table('confirms'). " Where `user_id` = '".$this->user_info['user_id']."' AND `is_confirmed` = '1' Group By `topic_id`";
-		$result = $GLOBALS['db']->query($sql);
-		while($arr = $GLOBALS['db']->fetchRow($result))
-			$return[$arr['topic_id']]['confirmed'] = $arr['count'];
+		{
+			$return[$arr['topic_id']] = $arr;
+			unset($return[$arr['topic_id']]['topic_id']);
+		}
 		return $return;
 	}
 	
