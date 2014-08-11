@@ -461,9 +461,12 @@ class user
 	}
 	public function clear_privilege()
 	{
+		if(!$this->is_admin())
+			return false;
 		$GLOBALS['db']->query("Start Transcation");
 		$sql = "TRUNCATE ".$GLOBALS['sc']->table("user_privileges");
 		$GLOBALS['db']->query($sql);
+		return true;
 	}
 	public function change_privilege($user_id, $topic_array)
 	{
@@ -502,12 +505,15 @@ class user
 	}
 	public function finish_privilege()
 	{
+		if(!$this->is_admin())
+			return false;
 		if($GLOBALS['db']->errno())
 		{
 			$GLOBALS['db']->query("Rollback");
 			$GLOBALS['db']->query("Commit");
 		}
 		$GLOBALS['db']->query("Commit");
+		return true;
 	}
 	
 	public function delete_team($team_id)
