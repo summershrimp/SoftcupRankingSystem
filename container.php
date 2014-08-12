@@ -19,7 +19,6 @@
 				case "do_delexam":case "do_delteam":case "do_deluser":
 				case "do_editpriv":
 				case "privilege":
-				case "do_submit":
 				case "print":
 				case "logout":
 					require_once $_GET['action'] . ".php";
@@ -58,7 +57,8 @@
 			if (isset($_GET['action'])) {
 				switch ($_GET['action']) {
 				case "logout":
-					require_once "logout.php";
+				case "do_submit":
+					require_once $_GET['action'] . ".php";
 					break;
 				case "post_score":
 					require_once "title.php";

@@ -6,7 +6,7 @@
 	function releaseConfirm(id){
 		var xmlhttp=new XMLHttpRequest();
 		xmlhttp.open("GET","releaseConfirm.php?id="+id,true);
-		xmlhttp.onreadystatechange=function(){if(xmlhttp.readyState==4&&xmlhttp.status==200)alert("成功！");}
+		xmlhttp.onreadystatechange=function(){if(xmlhttp.readyState==4&&xmlhttp.status==200)alert("成功！开放了 "+parseInt(xmlhttp.responseText)+" 个队伍的评分权限。");}
 		xmlhttp.send("");
 	}
 </script>
