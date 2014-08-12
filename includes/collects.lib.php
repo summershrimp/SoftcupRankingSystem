@@ -56,8 +56,12 @@ function get_topic_items($topic_id)
 
 function get_collects_by_user($user_id, $topic_id)
 {
-	$sql = "Select Sum(`score`) From ". $GLOBALS['sc']->table('collects') ." Where `user_id` = '$user_id' AND `topic_id` = '$topic_id' Group By `team_id`";
-	return $arr = $GLOBALS['db']->getAll($sql);
+	$sql = "Select `team_id`, Sum(`score`) as `score` From ". $GLOBALS['sc']->table('collects') ." Where `user_id` = '$user_id' AND `topic_id` = '$topic_id' Group By `team_id`";
+	$arr = $GLOBALS['db']->getAll($sql);
+	$ret = Array();
+	foreach ($arr as $value)
+		$ret[$value['team_id']] = $value['score'];
+	return $ret;
 }
 
 function get_collects($topic_id)

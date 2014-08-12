@@ -4,7 +4,10 @@
 		relocate("javascript:window.history.go(-1)");
 		die();
 	}
-	$a = get_collects($_GET['exam']);
+	$a = get_teams($_GET['exam']);
+	$scores = get_collects_by_user($_GET['user'], $_GET['exam']);
+	$exam = get_topic_by_id($_GET['exam']);
+	$users = $user->get_user_by_id($_GET['user']);
 ?>
 <style>
 	body {
@@ -25,47 +28,32 @@
 		overflow: auto;
 	}
 </style>
-<script src="js/sorttable.js"></script>
 <div id="main">
 	<div style="text-align:center">
-		<h3><?php $tt = get_topic_by_id($exam); echo $tt['topicname']; ?></h3>
-		<h4>点按表头排序表格</h4>
+		<h3>中国软件杯大赛评分确认表</h3>
 	</div>
-	<table class="sortable single">
+	<table class="single">
 		<thead>
 			<tr>
-				<th>序号</th><th>队伍编号</th><th>队名</th><th class="sort_numeric">平均分</th>
-				<?php
-					foreach ($a['users'] as $id => $data) {
-						echo "<th class='sort_numeric'>" . $data['realname'] . "</th>";
-					}
-				?>
+				<th colspan="5">
+					<span style="float:left">赛题：<?php echo $exam['topicname']; ?></span>
+					<span style="float:right">评审教师：<?php echo $users['realname']; ?></span>
+				</th>
 			</tr>
+			<tr><th>序号</th><th>队伍编号</th><th>队伍名</th><th>平均分</th><th>备注</th></tr>
 		</thead>
 		<tbody>
 			<?php
-			if (isset($a['contents'])) {
-				$i = 1;
-				foreach ($a['contents'] as $team_id => $data) {
-					echo "<tr>";
-					echo "<td>" . $i . "</td>";
-					echo "<td>" . $data['team_no'] . "</td>";
-					echo "<td>" . $data['teamname'] . "</td>";
-					echo "<td>" . (($data['avescore'] == -1) ? "-" : $data['avescore']) . "</td>";
-					if ($data['avescore'] == -1) {
-						foreach ($a['users'] as $id => $data) {
-							echo "<td></td>";
-						}
-					}
-					else {
-						foreach ($data['scores'] as $user_id => $score) {
-							if ($score == -1) echo "<td>-</td>";
-							else echo "<td class='click' onclick=\"window.open('?action=print&exam=" . $_GET['exam'] . "&team=" . $team_id . "&user=" . $user_id . "','_blank','toolbar=no,menubar=no,location=no,scrollbars=yes,status=no')\">" . $score . "</td></a>";
-						}
-					}
-					echo "</tr>";
-					$i++;
-				}
+			$i = 1;
+			foreach ($a as $value) {
+				echo "<tr>";
+				echo "<td>" . $i . "</td>";
+				echo "<td>" . $value['team_no'] . "</td>";
+				echo "<td>" . $value['teamname'] . "</td>";
+				echo "<td>" . (!isset($scores[$value['team_id']])  ? "-" : $scores[$value['team_id']]) . "</td>";
+				echo "<td> </td>";
+				echo "</tr>";
+				$i++;
 			}
 			?>
 		</tbody>
