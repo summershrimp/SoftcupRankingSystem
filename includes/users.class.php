@@ -545,6 +545,15 @@ class user
 		return false;
 	}
 	
+	public function open_rating($user_id)
+	{
+		if(!$this->is_admin())
+			return false;
+		$sql = "Update ".$GLOBALS['sc']->table('confirms')." Set `is_confirmed` = '0' Where `user_id` = '$user_id'";
+		$GLOBALS['db']->query($sql);
+		return $GLOBALS['db']->affected_rows();
+	}
+	
 	public function delete_role($role_id)
 	{
 		if($this->is_admin())

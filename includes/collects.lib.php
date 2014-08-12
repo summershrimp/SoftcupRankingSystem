@@ -71,7 +71,7 @@ function get_collects($topic_id)
 		$user_array[$arr['user_id']]['role_id'] = $arr['role_id'];
 	}
 	
-	$sql = "Select `team_id`, `teamname` From ".$GLOBALS['sc']->table('teams')." ".
+	$sql = "Select `team_id`,`team_no`, `teamname` From ".$GLOBALS['sc']->table('teams')." ".
 			"Where `topic_id` = '$topic_id' ";
 	$result = $GLOBALS['db']->query($sql);
 	$team_array = Array();
