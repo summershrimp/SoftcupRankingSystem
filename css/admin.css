@@ -144,7 +144,7 @@ ul li:active{
 	background:#333;
 	color:#FFF;
 }
-#test ul li:last-child{
+ul li:last-child{
 	border-bottom:1px solid #BBB;
 }
 input[type=checkbox]{

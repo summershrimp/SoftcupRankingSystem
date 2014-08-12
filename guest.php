@@ -1,7 +1,5 @@
 <?php
-	if (!defined("IN_SCRS")) {
-		exit();
-	}
+	if (!defined("IN_SCRS")) exit();
 ?>
 <div>
 	<h1>请登录</h1>

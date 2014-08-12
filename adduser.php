@@ -1,7 +1,5 @@
 <?php
-	if (!defined("IN_SCRS")) {
-		exit();
-	}
+	if (!defined("IN_SCRS")) exit();
 ?>
 <script>
 	var id = 0;

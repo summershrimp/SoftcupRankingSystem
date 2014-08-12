@@ -1,7 +1,5 @@
 <?php
-	if (!defined("IN_SCRS")) {
-		exit();
-	}
+	if (!defined("IN_SCRS")) exit();
 ?>
 <div id="test">
 	<h3>内容</h3>

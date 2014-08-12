@@ -1,7 +1,5 @@
 <?php
-	if (!defined("IN_SCRS")) {
-		exit();
-	}
+	if (!defined("IN_SCRS")) exit();
 ?>
 <script src="js/conf.js"></script>
 <div id="test">

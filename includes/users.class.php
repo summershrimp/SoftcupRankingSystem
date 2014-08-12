@@ -98,7 +98,7 @@ class user
 		return $GLOBALS['db']->affected_rows();
 	
 	}
-	
+
 	public function is_confirmed($topic_id, $team_id)
 	{
 		$sql = "Select `is_confirmed` From ".$GLOBALS['sc']->table('confirms')." Where `user_id` = '".$this->user_info['user_id']."' AND `team_id` = '$team_id' AND `topic_id` = '$topic_id' LIMIT 1";
@@ -473,6 +473,7 @@ class user
 		}
 		return false;
 	}
+	
 	public function clear_privilege()
 	{
 		if(!$this->is_admin())
@@ -482,6 +483,7 @@ class user
 		$GLOBALS['db']->query($sql);
 		return true;
 	}
+
 	public function change_privilege($user_id, $topic_array)
 	{
 		if($this->is_admin())
@@ -530,6 +532,15 @@ class user
 		return true;
 	}
 	
+	public function open_confirmed($user_id)
+	{
+		if(!$this->is_admin())
+			return false;
+		$sql = "Update ".$GLOBALS['sc']->table('confirms')." Set `is_confirmed` = '0' Where `user_id` = '$user_id' ";
+		$GLOBALS['db']->query($sql);
+		return $GLOBALS['db']->affected_rows();
+	}
+
 	public function delete_team($team_id)
 	{
 		if($this->is_admin())

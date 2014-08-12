@@ -54,6 +54,16 @@ function get_topic_items($topic_id)
 	return $arr = $GLOBALS['db']->getAll($sql);
 }
 
+function get_collects_by_user($user_id, $topic_id)
+{
+	$sql = "Select `team_id`, Sum(`score`) as `score` From ". $GLOBALS['sc']->table('collects') ." Where `user_id` = '$user_id' AND `topic_id` = '$topic_id' Group By `team_id`";
+	$arr = $GLOBALS['db']->getAll($sql);
+	$ret = Array();
+	foreach ($arr as $value)
+		$ret[$value['team_id']] = $value['score'];
+	return $ret;
+}
+
 function get_collects($topic_id)
 {
 	$sql =  "Select ".$GLOBALS['sc']->table('users').".`user_id`, ".
@@ -71,12 +81,15 @@ function get_collects($topic_id)
 		$user_array[$arr['user_id']]['role_id'] = $arr['role_id'];
 	}
 	
-	$sql = "Select `team_id`,`team_no`, `teamname` From ".$GLOBALS['sc']->table('teams')." ".
+	$sql = "Select `team_id`, `team_no`, `teamname` From ".$GLOBALS['sc']->table('teams')." ".
 			"Where `topic_id` = '$topic_id' ";
 	$result = $GLOBALS['db']->query($sql);
 	$team_array = Array();
 	while($arr = $GLOBALS['db']->fetchRow($result))
-		$team_array[$arr['team_id']] = $arr['teamname'];
+	{
+		$team_array[$arr['team_id']]['teamname'] = $arr['teamname'];
+		$team_array[$arr['team_id']]['team_no'] = $arr['team_no'];		
+	}
 
 	$sql = "Select `role_id`, `balance` From ".$GLOBALS['sc']->table('roles');
 	$result = $GLOBALS['db']->query($sql);
@@ -89,7 +102,7 @@ function get_collects($topic_id)
 	$ret['users'] = $user_array;
 	foreach ($team_array as $tkey => $tvalue)
 	{
-		$ret['contents'][$tkey]['teamname'] = $tvalue;
+		$ret['contents'][$tkey] = $tvalue;
 		$sumall=0.0;
 		$sumbal=0.0;
 		foreach($user_array as $ukey => $uvalue)

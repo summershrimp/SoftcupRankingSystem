@@ -1,7 +1,5 @@
 <?php
-	if (!defined("IN_SCRS")) {
-		exit();
-	}
+	if (!defined("IN_SCRS")) exit();
 	require_once './includes/init.inc.php';
 	if ($user->login($_POST['username'],$_POST['password'])) {
 		relocate(isset($_GET['ru']) ? base64_decode($_GET['ru']) : "?");

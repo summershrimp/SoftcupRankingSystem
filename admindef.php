@@ -1,7 +1,5 @@
 <?php
-	if (!defined("IN_SCRS")) {
-		exit();
-	}
+	if (!defined("IN_SCRS")) exit();
 ?>
 <div id="content">
 	<h1 style="font-weight:bold">欢迎</h1>
