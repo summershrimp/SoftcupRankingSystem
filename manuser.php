@@ -2,13 +2,21 @@
 	if (!defined("IN_SCRS")) exit();
 ?>
 <script src="js/conf.js"></script>
+<script>
+	function releaseConfirm(id){
+		var xmlhttp=new XMLHttpRequest();
+		xmlhttp.open("GET","releaseConfirm.php?id="+id,true);
+		xmlhttp.onreadystatechange=function(){if(xmlhttp.readyState==4&&xmlhttp.status==200)alert("成功！");}
+		xmlhttp.send("");
+	}
+</script>
 <div id="content">
 	<input class="button back" type="button" value="返回" onclick="window.location='?'" />
 	<input class="button" type="button" value="添加新用户" onclick="window.location='?action=adduser'" />
 	<h3>用户列表</h3>
 	<form action="?action=deluser" method="post">
 		<table>
-			<tr><!--<th>#</th>--><th style="width:55px;min-width:55px">操作</th><th>用户名</th><th>用户类型</th><th>管理员</th><th>性别</th><th>真实姓名</th><th>手机</th><th>备注</th></tr>
+			<tr><!--<th>#</th>--><th style="width:55px;min-width:55px">操作</th><th>用户名</th><th>用户类型</th><th>管理员</th><th>性别</th><th>真实姓名</th><th>手机</th><th>备注</th><th>重获打分权限</th></tr>
 			<?php
 				$user_list = $user->get_all_users();
 				foreach ($user_list as $e) {
@@ -24,6 +32,7 @@
 					echo "<td>" . $e['realname'] . "</td>";
 					echo "<td>" . $e['phone'] . "</td>";
 					echo "<td>" . $e['comment'] . "</td>";
+					echo "<td class='click' style=\"color:green;font-weight:bold\" onclick=\"releaseConfirm(" . $e['user_id'] . ")\">√</td>";
 					echo "</tr>";
 				}
 			?>
