@@ -34,7 +34,7 @@
 	<table class="sortable single">
 		<thead>
 			<tr>
-				<th>队名</th><th class="sort_numeric">平均分</th>
+				<th>序号</th><th>队伍编号</th><th>队名</th><th class="sort_numeric">平均分</th>
 				<?php
 					foreach ($a['users'] as $id => $data) {
 						echo "<th class='sort_numeric'>" . $data['realname'] . "</th>";
@@ -45,8 +45,11 @@
 		<tbody>
 			<?php
 			if (isset($a['contents'])) {
+				$i = 1;
 				foreach ($a['contents'] as $team_id => $data) {
 					echo "<tr>";
+					echo "<td>" . $i . "</td>";
+					echo "<td>" . $data['team_no'] . "</td>";
 					echo "<td>" . $data['teamname'] . "</td>";
 					echo "<td>" . (($data['avescore'] == -1) ? "-" : $data['avescore']) . "</td>";
 					if ($data['avescore'] == -1) {
@@ -61,6 +64,7 @@
 						}
 					}
 					echo "</tr>";
+					$i++;
 				}
 			}
 			?>

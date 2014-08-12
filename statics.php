@@ -3,13 +3,10 @@
 ?>
 <div id="content">
 	<input class="button back" type="button" value="返回" onclick="window.location='?'" />
-	<h3>请选择赛题</h3>
+	<h3>请选择表格类型</h3>
 	<ul>
-	<?php
-		$topic = get_all_topics();
-		foreach($topic as $t) {
-			echo "<li onclick=\"window.open('?action=show_statics&exam=" . $t['topic_id'] . "','_blank')\">" . $t['topicname'] . "</li>";
-		}
-	?>
+		<li onclick="window.location.href='?action=statics&id=1'">评分确认表</li>
+		<li onclick="window.location.href='?action=statics&id=2'">分赛题分数统计表</li>
+		<li onclick="window.open('?action=show_statics&id=3','_blank')">分数汇总</li>
 	</ul>
 </div>

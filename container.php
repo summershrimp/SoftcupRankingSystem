@@ -10,7 +10,6 @@
 				case "manexam":case "manteam":case "manuser":
 				case "editexam":case "editteam":case "edituser":
 				case "delexam":case "delteam":case "deluser":
-				case "statics":
 					require_once "title.php";
 					require_once "admin.php";
 					require_once $_GET['action'] . ".php";
@@ -19,12 +18,32 @@
 				case "do_editexam":case "do_editteam":case "do_edituser":
 				case "do_delexam":case "do_delteam":case "do_deluser":
 				case "do_editpriv":
-				case "show_statics":
 				case "privilege":
 				case "do_submit":
 				case "print":
 				case "logout":
 					require_once $_GET['action'] . ".php";
+					break;
+				case "statics":
+					require_once "title.php";
+					require_once "admin.php";
+					if (isset($_GET['id'])) {
+						switch ($_GET['id']) {
+						case 1:case 2:case 3:
+							require_once $_GET['action'] . "_" . $_GET['id'] . ".php"; break;
+						}
+					}
+					else {
+						require_once $_GET['action'] . ".php";
+					}
+					break;
+				case "show_statics":
+					if (isset($_GET['id'])) {
+						switch ($_GET['id']) {
+						case 1:case 2:case 3:
+							require_once $_GET['action'] . "_" . $_GET['id'] . ".php"; break;
+						}
+					}
 					break;
 				}
 			}
