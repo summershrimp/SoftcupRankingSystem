@@ -279,11 +279,11 @@ class user
 		return $arr;
 	}
  
-	public function get_all_users($limit_start = 0,$limit_end = 20)
+	public function get_all_users()
 	{
 		if($this->is_admin())
 		{
-			$sql = "Select * From ".$GLOBALS['sc']->table('users')." Order By `isadmin` Limit $limit_start, $limit_end";
+			$sql = "Select * From ".$GLOBALS['sc']->table('users')." Order By `isadmin` ";
 			$arr = $GLOBALS['db']->getAll($sql);
 			return $arr;
 		}

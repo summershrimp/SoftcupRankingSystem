@@ -105,6 +105,8 @@ function get_collects($topic_id)
 		$ret['contents'][$tkey] = $tvalue;
 		$sumall=0.0;
 		$sumbal=0.0;
+		$sumperrole = Array();
+		$allperrole = Array();
 		foreach($user_array as $ukey => $uvalue)
 		{
 			$sql = "Select Sum(`score`) as `score` From ". $GLOBALS['sc']->table('collects') ." Where `user_id` = '$ukey' And `team_id` = '$tkey' ";
@@ -112,17 +114,26 @@ function get_collects($topic_id)
 			if(isset($arr['score']))
 			{
 				$sum = floatval($arr['score']);
-				$sumall += $sum * floatval($role_array[$uvalue['role_id']]);
-				$sumbal += floatval($role_array[$uvalue['role_id']]);
+				isset($sumperrole[$uvalue['role_id']])?$sumperrole[$uvalue['role_id']] += $sum:$sumperrole[$uvalue['role_id']] = $sum;
+				isset($allperrole[$uvalue['role_id']])?$allperrole[$uvalue['role_id']] += $sum:$allperrole[$uvalue['role_id']] = $sum;
+				//$sumall += $sum * floatval($role_array[$uvalue['role_id']]);
+				//$sumbal += floatval($role_array[$uvalue['role_id']]);
 				$ret['contents'][$tkey]['scores'][$ukey] = $sum;
 			}
 			else 
 				$ret['contents'][$tkey]['scores'][$ukey] = -1;
 		}
-		if($sumall == 0.0)
+		foreach($role_array as $value)
+			$sumbal += $value;
+		$avescore = 0.0;
+		foreach ($sumperrole as $key => $value)
+		{
+			$avescore += $value * $role_array[$key]/$sumbal;
+		}
+		if($avescore == 0.0)
 			$ret['contents'][$tkey]['avescore'] = -1;
 		else
-			$ret['contents'][$tkey]['avescore'] = $sumall / floatval($sumbal);
+			$ret['contents'][$tkey]['avescore'] = $avescore;
 	}
 	return $ret;
 }
