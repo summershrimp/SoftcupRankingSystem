@@ -148,6 +148,7 @@ class user
 	}
 	public function get_statics()
 	{
+		$return = Array();
 		$sql = "Select `topic_id`, Count(*) as `total`, Sum(`is_rated`) as `rated`, Sum(`is_confirmed`) as `confirmed` ".
 			   "From ".$GLOBALS['sc']->table('confirms'). " Where `user_id` = '".$this->user_info['user_id']."' Group By `topic_id` ";
 		$result = $GLOBALS['db']->query($sql);
@@ -341,6 +342,7 @@ class user
 
 	public function get_user_privilege()
 	{
+		$ret = Array();
 		$sql = "Select * From ".$GLOBALS['sc']->table('user_privileges') . " Where `user_id` = '" . $this->user_info['user_id']."' " ;
 		$arr = $GLOBALS['db']->getAll($sql);
 		foreach ($arr as $a)
