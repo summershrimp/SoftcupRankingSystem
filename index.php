@@ -54,10 +54,11 @@
 	</div>
 	<script>
 		var list=["a", "input", "li"];
-		list.forEach(function (e) {
+		for(var i=0;i<list.length;i++){
+			var e=list[i];
 			var a=document.getElementsByTagName(e);
 			for (var i=0;i<a.length;i++) a[i].addEventListener("touchstart",function(){},false);
-		});
+		};
 	</script>
 </body>
 </html>

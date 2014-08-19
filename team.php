@@ -3,14 +3,19 @@
 ?>
 <script>
 	function check(id, cur, max) {
-		var dom=document.getElementsByName("float-"+id)[0];
+		var dom=document.getElementById("float-"+id);
+		dom.innerHTML="";
 		if (cur == max) {
-			dom.innerHTML="<option>0</option>";
+			ts=document.createElement("option");
+			ts.innerHTML=0;
+			dom.appendChild(ts);
 		}
 		else {
-			dom.innerHTML="";
+			var ts;
 			for (var i = 0; i < 10; i++) {
-				dom.innerHTML+="<option>"+i+"</option>";
+				ts=document.createElement("option");
+				ts.innerHTML=i;
+				dom.appendChild(ts);
 			}
 		}
 	}
@@ -52,7 +57,7 @@
 				}
 				echo "</select>";
 				echo "<span class=\"form_left" . $hidden . "\"><b>.</b></span>";
-				echo "<select " . ($confirmed ? "disabled" : "") . " class=\"" . $hidden . "\" name=\"float-" . $i['item_id'] . "\">";
+				echo "<select id=\"float-" . $i['item_id'] . "\" " . ($confirmed ? "disabled" : "") . " class=\"" . $hidden . "\" name=\"float-" . $i['item_id'] . "\">";
 				if ($score[0] == $i['maxscore']) {
 					echo "<option>0</option>";
 				}
