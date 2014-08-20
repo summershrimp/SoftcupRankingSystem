@@ -57,7 +57,8 @@
 		for(var i=0;i<list.length;i++){
 			var e=list[i];
 			var a=document.getElementsByTagName(e);
-			for (var i=0;i<a.length;i++) a[i].addEventListener("touchstart",function(){},false);
+			alert(a.length);
+			for (var j=0;j<a.length;j++) a[j].addEventListener("touchstart",function(){},false);
 		};
 	</script>
 </body>
