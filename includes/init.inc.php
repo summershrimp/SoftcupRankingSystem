@@ -4,7 +4,7 @@ if (! defined ( 'IN_SCRS' ))
     die ( 'Hacking attempt' );
 }
 
-error_reporting(E_ALL);
+#error_reporting(E_ALL);
 
 if (__FILE__ == '')
 {

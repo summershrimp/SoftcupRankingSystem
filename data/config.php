@@ -1,15 +1,15 @@
 <?php
 // database host
-$db_host   = SAE_MYSQL_HOST_M.":".SAE_MYSQL_PORT;
+$db_host   = "localhost:3306";
 
 // database name
-$db_name   = SAE_MYSQL_DB;
+$db_name   = "scrs";
 
 // database username
-$db_user   = SAE_MYSQL_USER;
+$db_user   = "scrs";
 
 // database password
-$db_pass   = SAE_MYSQL_PASS;
+$db_pass   = "scrs";
 
 // table prefix
 $prefix    = "sc_";
