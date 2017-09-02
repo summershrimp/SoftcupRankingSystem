@@ -1,5 +1,7 @@
 <?php
-	if (!defined("IN_SCRS")) exit();
+	if (!defined("IN_SCRS")) {
+		exit();
+	}
 	if (!isset($_GET['exam'])) {
 		relocate("javascript:window.history.go(-1)");
 		die();
@@ -23,14 +25,13 @@
 <script src="js/sorttable.js"></script>
 <div id="main">
 	<div style="text-align:center">
-		<h3>中国软件杯大赛分赛题分数统计表</h3>
-		<h3>赛题：<?php $tt = get_topic_by_id($exam); echo $tt['topicname']; ?></h3>
+		<h3><?php $tt = get_topic_by_id($exam); echo $tt['topicname']; ?></h3>
 		<h4>点按表头排序表格</h4>
 	</div>
 	<table class="sortable single">
 		<thead>
 			<tr>
-				<th>序号</th><th>队伍编号</th><th>队名</th><th class="sort_numeric">平均分</th>
+				<th>队名</th><th class="sort_numeric">平均分</th>
 				<?php
 					foreach ($a['users'] as $id => $data) {
 						echo "<th class='sort_numeric'>" . $data['realname'] . "</th>";
@@ -41,11 +42,8 @@
 		<tbody>
 			<?php
 			if (isset($a['contents'])) {
-				$i = 1;
 				foreach ($a['contents'] as $team_id => $data) {
 					echo "<tr>";
-					echo "<td>" . $i . "</td>";
-					echo "<td>" . $data['team_no'] . "</td>";
 					echo "<td>" . $data['teamname'] . "</td>";
 					echo "<td>" . (($data['avescore'] == -1) ? "-" : $data['avescore']) . "</td>";
 					if ($data['avescore'] == -1) {
@@ -60,7 +58,6 @@
 						}
 					}
 					echo "</tr>";
-					$i++;
 				}
 			}
 			?>

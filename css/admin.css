@@ -63,7 +63,7 @@ table tr:nth-child(even){
 	text-align:center;
 	white-space:nowrap;
 }
-.single th,.single td{
+.single th,.single tfoot td{
 	padding:0 30px;
 }
 table th{

@@ -1,15 +1,15 @@
 <?php
 // database host
-$db_host   = "127.0.0.1:3306";
+$db_host   = SAE_MYSQL_HOST_M.":".SAE_MYSQL_PORT;
 
 // database name
-$db_name   = "scrs";
+$db_name   = SAE_MYSQL_DB;
 
 // database username
-$db_user   = "rexskz";
+$db_user   = SAE_MYSQL_USER;
 
 // database password
-$db_pass   = "2147483647";
+$db_pass   = SAE_MYSQL_PASS;
 
 // table prefix
 $prefix    = "sc_";
@@ -32,4 +32,3 @@ define('OLD_AUTH_KEY', '');
 
 define('API_TIME', '');
 ?>
-

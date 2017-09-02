@@ -20,12 +20,7 @@
 		background: #F3F3F3;
 	}
 	#main {
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		position: absolute;
-		overflow: auto;
+		position: relative;
 	}
 </style>
 <div id="main">
@@ -57,6 +52,19 @@
 			}
 			?>
 		</tbody>
+		<tfoot>
+			<tr align="right">
+				<td colspan="5">
+					<div style="line-height:40px;">签字：<span style="border-bottom:1px solid #000;width:150px;height:25px;display:inline-block;vertical-align:middle"></span></div>
+					<div><?php echo date('Y 年 m 月 d 日'); ?></div>
+				</td>
+			</tr>
+			<tr align="right">
+			</tr>
+		</tfoot>
 	</table>
-	<h3 class="close"><input class="button" type="button" value="关闭" onclick="window.close()" /></h3>
+	<h3 class="close">
+		<input class="button" type="button" value="打印" onclick="print()">
+		<input class="button" type="button" value="关闭" onclick="close()">
+	</h3>
 </div>

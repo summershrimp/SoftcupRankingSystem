@@ -68,7 +68,7 @@ function get_collects($topic_id)
 {
 	$sql =  "Select ".$GLOBALS['sc']->table('users').".`user_id`, ".
 			$GLOBALS['sc']->table('users').".`role_id`, ".
-			$GLOBALS['sc']->table('users').".`realname` ".
+			$GLOBALS['sc']->table('users').".`realname`, ".
 			$GLOBALS['sc']->table('users').".`school_id` ".
 		    "From ".$GLOBALS['sc']->table('users')." ".
 			"Right Join ".$GLOBALS['sc']->table('user_privileges')." ".
@@ -82,7 +82,7 @@ function get_collects($topic_id)
 		$user_array[$arr['user_id']]['role_id'] = $arr['role_id'];
 		$user_array[$arr['user_id']]['school_id'] = $arr['school_id'];
 	}
-	
+
 	$sql = "Select `team_id`, `team_no`, `teamname`, `school_id` From ".$GLOBALS['sc']->table('teams')." ".
 			"Where `topic_id` = '$topic_id' ";
 	$result = $GLOBALS['db']->query($sql);
@@ -112,10 +112,10 @@ function get_collects($topic_id)
 		$allperrole = Array();
 		foreach($user_array as $ukey => $uvalue)
 		{
-			if($uvalue['school_id'] = $tvalue['school_id'])
+			if($uvalue['school_id'] == $tvalue['school_id'])
 			{
 				$ret['contents'][$tkey]['scores'][$ukey] = -1;
-				continue;
+                continue;
 			}
 			$sql = "Select Sum(`score`) as `score` From ". $GLOBALS['sc']->table('collects') ." Where `user_id` = '$ukey' And `team_id` = '$tkey' ";
 			$arr = $GLOBALS['db']->getRow($sql);

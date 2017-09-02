@@ -259,3 +259,15 @@ ul a:last-child li{
 	background:#EEE;
 	border-top:1px solid gray;
 }
+@media print{
+	input[type=button]{
+		display:none;
+	}
+	#main{
+		overflow:hidden !important;
+	}
+	table{
+		overflow:hidden;
+		border:none !important;
+	}
+}

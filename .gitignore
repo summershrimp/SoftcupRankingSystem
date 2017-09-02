@@ -27,3 +27,5 @@ local.properties
 /.settings
 /.buildpath
 /data/config.php
+/.idea
+/.vscode

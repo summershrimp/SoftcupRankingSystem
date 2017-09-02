@@ -13,12 +13,7 @@
 		background: #F3F3F3;
 	}
 	#main {
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		position: absolute;
-		overflow: auto;
+		position: relative;
 	}
 </style>
 <div id="main">
