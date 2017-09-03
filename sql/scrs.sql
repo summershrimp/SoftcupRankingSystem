@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.4
--- http://www.phpmyadmin.net
+-- version 4.6.4
+-- https://www.phpmyadmin.net/
 --
--- 主机: localhost
--- 生成日期: 2014 年 06 月 30 日 13:10
--- 服务器版本: 5.6.12-log
--- PHP 版本: 5.4.16
+-- Host: 127.0.0.1
+-- Generation Time: Sep 02, 2017 at 01:55 PM
+-- Server version: 5.7.14
+-- PHP Version: 5.6.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,135 +14,307 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `scrs`
+--
 
 -- --------------------------------------------------------
 
 --
--- 表的结构 `sc_collects`
+-- Table structure for table `sc_collects`
 --
 
-CREATE TABLE IF NOT EXISTS `sc_collects` (
-  `collect_id` int(11) NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `sc_collects`;
+CREATE TABLE `sc_collects` (
+  `collect_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `topic_id` int(11) NOT NULL,
   `item_id` int(11) NOT NULL,
   `team_id` int(11) NOT NULL,
-  `score` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`collect_id`),
-  UNIQUE KEY `collect_id` (`collect_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
-
---
--- 转存表中的数据 `sc_collects`
---
-
-INSERT INTO `sc_collects` (`collect_id`, `user_id`, `topic_id`, `item_id`, `team_id`, `score`) VALUES
-(1, 2, 3, 4, 5, 6),
-(2, 1, 1, 1, 1, 10),
-(3, 1, 1, 2, 1, 5);
+  `score` decimal(3,1) NOT NULL DEFAULT '0.0'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- 表的结构 `sc_items`
+-- Table structure for table `sc_confirms`
 --
 
-CREATE TABLE IF NOT EXISTS `sc_items` (
-  `item_id` int(11) NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `sc_confirms`;
+CREATE TABLE `sc_confirms` (
+  `confirm_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `topic_id` int(11) NOT NULL,
+  `team_id` int(11) NOT NULL,
+  `is_rated` tinyint(1) NOT NULL DEFAULT '0',
+  `is_confirmed` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sc_feedbacks`
+--
+
+DROP TABLE IF EXISTS `sc_feedbacks`;
+CREATE TABLE `sc_feedbacks` (
+  `feedback_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `team_id` int(11) NOT NULL,
+  `content` text NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sc_items`
+--
+
+DROP TABLE IF EXISTS `sc_items`;
+CREATE TABLE `sc_items` (
+  `item_id` int(11) NOT NULL,
   `topic_id` int(11) NOT NULL,
   `itemname` varchar(64) NOT NULL,
   `maxscore` int(11) NOT NULL DEFAULT '0',
   `comment` text NOT NULL,
-  PRIMARY KEY (`item_id`),
-  UNIQUE KEY `item_id` (`item_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
-
---
--- 转存表中的数据 `sc_items`
---
-
-INSERT INTO `sc_items` (`item_id`, `topic_id`, `itemname`, `maxscore`, `comment`) VALUES
-(1, 1, '评分项1', 10, '评分项1就是评分项1'),
-(2, 1, '评分项2', 5, '评分项2就是评分项2你管那'),
-(3, 2, '评分项4', 8, '评分项4就是评分项4'),
-(4, 1, '你猜到底是啥', 20, '我就是告诉你评分标准的');
+  `disp` int(11) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- 表的结构 `sc_teams`
+-- Table structure for table `sc_roles`
 --
 
-CREATE TABLE IF NOT EXISTS `sc_teams` (
-  `team_id` int(11) NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `sc_roles`;
+CREATE TABLE `sc_roles` (
+  `role_id` int(11) NOT NULL,
+  `rolename` varchar(64) NOT NULL,
+  `balance` int(11) NOT NULL DEFAULT '1',
+  `comment` text NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sc_schools`
+--
+
+DROP TABLE IF EXISTS `sc_schools`;
+CREATE TABLE `sc_schools` (
+  `school_id` int(11) NOT NULL,
+  `schoolname` varchar(64) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sc_teams`
+--
+
+DROP TABLE IF EXISTS `sc_teams`;
+CREATE TABLE `sc_teams` (
+  `team_id` int(11) NOT NULL,
+  `team_no` varchar(8) NOT NULL DEFAULT '0',
   `teamname` varchar(64) NOT NULL,
   `comment` text NOT NULL,
   `topic_id` int(11) NOT NULL,
-  PRIMARY KEY (`team_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
-
---
--- 转存表中的数据 `sc_teams`
---
-
-INSERT INTO `sc_teams` (`team_id`, `teamname`, `comment`, `topic_id`) VALUES
-(1, '测试队伍1', '这尼玛就是测试队伍1', 1),
-(2, '测试队伍2', '测试队伍2测试队伍2测试队伍2', 2),
-(3, '测试队伍3', '测试队伍3测试队伍3测试队伍3', 1),
-(4, '测试队伍4', '测试队伍4测试队伍4测试队伍4', 1),
-(5, '测试队伍5', '测试队伍5测试队伍5测试队伍5测试队伍5', 2),
-(6, '又一只队伍', '你猜都有啥', 2);
+  `school_id` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- 表的结构 `sc_topics`
+-- Table structure for table `sc_topics`
 --
 
-CREATE TABLE IF NOT EXISTS `sc_topics` (
-  `topic_id` int(11) NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `sc_topics`;
+CREATE TABLE `sc_topics` (
+  `topic_id` int(11) NOT NULL,
   `topicname` varchar(64) NOT NULL,
   `comment` text NOT NULL,
-  PRIMARY KEY (`topic_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
-
---
--- 转存表中的数据 `sc_topics`
---
-
-INSERT INTO `sc_topics` (`topic_id`, `topicname`, `comment`) VALUES
-(1, '测试题目1', '这就是尼玛是个测试题1'),
-(2, '测试题目2', '这就是尼玛测试题目2'),
-(3, '又一个测试题目', '注释一下');
+  `disp` int(11) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- 表的结构 `sc_users`
+-- Table structure for table `sc_users`
 --
 
-CREATE TABLE IF NOT EXISTS `sc_users` (
-  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `sc_users`;
+CREATE TABLE `sc_users` (
+  `user_id` int(11) NOT NULL,
   `username` varchar(32) NOT NULL,
   `password` varchar(32) NOT NULL,
   `salt` smallint(4) DEFAULT NULL,
+  `role_id` int(11) NOT NULL DEFAULT '2',
   `isadmin` tinyint(1) NOT NULL DEFAULT '0',
   `sex` int(2) DEFAULT NULL,
   `realname` varchar(32) DEFAULT NULL,
   `phone` varchar(16) DEFAULT NULL,
   `comment` text NOT NULL,
-  PRIMARY KEY (`user_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+  `school_id` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
 
 --
--- 转存表中的数据 `sc_users`
+-- Table structure for table `sc_user_privileges`
 --
 
-INSERT INTO `sc_users` (`user_id`, `username`, `password`, `salt`, `isadmin`, `sex`, `realname`, `phone`, `comment`) VALUES
-(1, 'test1', '5a105e8b9d40e1329780d62ea2265d8a', NULL, 0, NULL, 'Summer Zhang', NULL, ''),
-(2, '1', '1', 1234, 0, 0, 'asd', '1', '1');
+DROP TABLE IF EXISTS `sc_user_privileges`;
+CREATE TABLE `sc_user_privileges` (
+  `priv_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `topic_id` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `sc_collects`
+--
+ALTER TABLE `sc_collects`
+  ADD PRIMARY KEY (`collect_id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `topic_id` (`topic_id`),
+  ADD KEY `item_id` (`item_id`),
+  ADD KEY `team_id` (`team_id`);
+
+--
+-- Indexes for table `sc_confirms`
+--
+ALTER TABLE `sc_confirms`
+  ADD PRIMARY KEY (`confirm_id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `topic_id` (`topic_id`),
+  ADD KEY `team_id` (`team_id`),
+  ADD KEY `is_rated` (`is_rated`),
+  ADD KEY `is_confirmed` (`is_confirmed`);
+
+--
+-- Indexes for table `sc_feedbacks`
+--
+ALTER TABLE `sc_feedbacks`
+  ADD PRIMARY KEY (`feedback_id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `team_id` (`team_id`);
+
+--
+-- Indexes for table `sc_items`
+--
+ALTER TABLE `sc_items`
+  ADD PRIMARY KEY (`item_id`),
+  ADD KEY `topic_id` (`topic_id`),
+  ADD KEY `disp` (`disp`);
+
+--
+-- Indexes for table `sc_roles`
+--
+ALTER TABLE `sc_roles`
+  ADD PRIMARY KEY (`role_id`);
+
+--
+-- Indexes for table `sc_schools`
+--
+ALTER TABLE `sc_schools`
+  ADD PRIMARY KEY (`school_id`);
+
+--
+-- Indexes for table `sc_teams`
+--
+ALTER TABLE `sc_teams`
+  ADD PRIMARY KEY (`team_id`),
+  ADD KEY `topic_id` (`topic_id`),
+  ADD KEY `team_no` (`team_no`),
+  ADD KEY `school_id` (`school_id`) USING BTREE;
+
+--
+-- Indexes for table `sc_topics`
+--
+ALTER TABLE `sc_topics`
+  ADD PRIMARY KEY (`topic_id`),
+  ADD KEY `disp` (`disp`);
+
+--
+-- Indexes for table `sc_users`
+--
+ALTER TABLE `sc_users`
+  ADD PRIMARY KEY (`user_id`),
+  ADD UNIQUE KEY `username` (`username`),
+  ADD KEY `role_id` (`role_id`),
+  ADD KEY `isadmin` (`isadmin`);
+
+--
+-- Indexes for table `sc_user_privileges`
+--
+ALTER TABLE `sc_user_privileges`
+  ADD PRIMARY KEY (`priv_id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `topic_id` (`topic_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `sc_collects`
+--
+ALTER TABLE `sc_collects`
+  MODIFY `collect_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `sc_confirms`
+--
+ALTER TABLE `sc_confirms`
+  MODIFY `confirm_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `sc_feedbacks`
+--
+ALTER TABLE `sc_feedbacks`
+  MODIFY `feedback_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `sc_items`
+--
+ALTER TABLE `sc_items`
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `sc_roles`
+--
+ALTER TABLE `sc_roles`
+  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `sc_schools`
+--
+ALTER TABLE `sc_schools`
+  MODIFY `school_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `sc_teams`
+--
+ALTER TABLE `sc_teams`
+  MODIFY `team_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `sc_topics`
+--
+ALTER TABLE `sc_topics`
+  MODIFY `topic_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `sc_users`
+--
+ALTER TABLE `sc_users`
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `sc_user_privileges`
+--
+ALTER TABLE `sc_user_privileges`
+  MODIFY `priv_id` int(11) NOT NULL AUTO_INCREMENT;
+
+INSERT INTO `sc_users` ( `username`, `password`, `salt`, `role_id`, `isadmin`, `sex`, `realname`, `phone`, `comment`, `school_id`) VALUES
+( 'admin', '21232f297a57a5a743894a0e4a801fc3', NULL, 1, 1, 0, 'admin', '', '', -1);
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
