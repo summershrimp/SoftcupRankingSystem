@@ -1,6 +1,6 @@
 <?php
 // database host
-$db_host   = "localhost:3306";
+$db_host   = "db:3306";
 
 // database name
 $db_name   = "scrs";
