@@ -121,7 +121,7 @@ CREATE TABLE `sc_teams` (
   `teamname` varchar(64) NOT NULL,
   `comment` text NOT NULL,
   `topic_id` int(11) NOT NULL,
-  `school_id` int(11) NOT NULL
+  `school_id` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -156,7 +156,7 @@ CREATE TABLE `sc_users` (
   `realname` varchar(32) DEFAULT NULL,
   `phone` varchar(16) DEFAULT NULL,
   `comment` text NOT NULL,
-  `school_id` int(11) NOT NULL
+  `school_id` int(11) NOT NULL DEFAULT '-1'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
