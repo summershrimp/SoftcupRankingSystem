@@ -455,8 +455,6 @@ class user
 	{
 		if($this->is_admin() || $user_id == $this->user_info['user_id'])
 		{
-			if($this->user_info['user_id'] == $user_id)
-				return false;
 			$set_content = "";
 			foreach($user_array as $key => $value)
 			{
