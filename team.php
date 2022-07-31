@@ -21,7 +21,7 @@
 	}
 </script>
 <div id="test">
-	<input class="button back" type="button" value="返回" onclick="window.location='?exam=<?php echo $exam; ?>'" />
+	<input class="button back" type="button" value="返回" onclick="window.location='?exam=<?php echo $exam."#".$team; ?>'" />
 	<h3><?php $a=get_topic_by_id($exam); echo $a['topicname']; ?></h3>
 	<h3 style="margin-bottom:-5px"><?php $a=get_team_by_id($team); echo $a['teamname']; ?></h3>
 	<form action="?action=post_score&exam=<?php echo $exam; ?>&team=<?php echo $team; ?>" method="post">

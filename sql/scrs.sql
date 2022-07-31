@@ -34,7 +34,7 @@ CREATE TABLE `sc_collects` (
   `item_id` int(11) NOT NULL,
   `team_id` int(11) NOT NULL,
   `score` decimal(3,1) NOT NULL DEFAULT '0.0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -50,7 +50,7 @@ CREATE TABLE `sc_confirms` (
   `team_id` int(11) NOT NULL,
   `is_rated` tinyint(1) NOT NULL DEFAULT '0',
   `is_confirmed` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -64,7 +64,7 @@ CREATE TABLE `sc_feedbacks` (
   `user_id` int(11) NOT NULL,
   `team_id` int(11) NOT NULL,
   `content` text NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -80,7 +80,7 @@ CREATE TABLE `sc_items` (
   `maxscore` int(11) NOT NULL DEFAULT '0',
   `comment` text NOT NULL,
   `disp` int(11) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -94,7 +94,7 @@ CREATE TABLE `sc_roles` (
   `rolename` varchar(64) NOT NULL,
   `balance` int(11) NOT NULL DEFAULT '1',
   `comment` text NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -106,7 +106,7 @@ DROP TABLE IF EXISTS `sc_schools`;
 CREATE TABLE `sc_schools` (
   `school_id` int(11) NOT NULL,
   `schoolname` varchar(64) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -122,7 +122,7 @@ CREATE TABLE `sc_teams` (
   `comment` text NOT NULL,
   `topic_id` int(11) NOT NULL,
   `school_id` int(11) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -136,7 +136,7 @@ CREATE TABLE `sc_topics` (
   `topicname` varchar(64) NOT NULL,
   `comment` text NOT NULL,
   `disp` int(11) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -157,7 +157,7 @@ CREATE TABLE `sc_users` (
   `phone` varchar(16) DEFAULT NULL,
   `comment` text NOT NULL,
   `school_id` int(11) NOT NULL DEFAULT '-1'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -170,7 +170,7 @@ CREATE TABLE `sc_user_privileges` (
   `priv_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `topic_id` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Indexes for dumped tables

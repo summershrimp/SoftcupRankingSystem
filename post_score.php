@@ -16,7 +16,7 @@
 		}
 	}
 	if ($user->add_collects($exam, $team, $points)) {
-		relocate("?exam=".$exam);
+		relocate("?exam=".$exam."#".$team);
 	}
 	else {
 		echo "<div id='content'>";
