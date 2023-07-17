@@ -27,7 +27,7 @@ class database
         if (! $this -> con)
             die ( "Cannot Connect To mysql" );
         mysql_select_db ( $config ['db_name'], $this -> con );
-        mysql_query ( "SET NAMES 'utf8'" );
+        mysql_set_charset ( "utf8mb4", $this -> con );
         $this -> prefix = $config ['prefix'];
         $this -> db_config = Array ();
     }

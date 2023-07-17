@@ -315,6 +315,11 @@ ALTER TABLE `sc_user_privileges`
 
 INSERT INTO `sc_users` ( `username`, `password`, `salt`, `role_id`, `isadmin`, `sex`, `realname`, `phone`, `comment`, `school_id`) VALUES
 ( 'admin', '21232f297a57a5a743894a0e4a801fc3', NULL, 1, 1, 0, 'admin', '', '', -1);
+
+INSERT INTO `sc_roles` ( `role_id`, `rolename`, `balance`, `comment` ) VALUES
+( 1, '高校评委', '7', ''),
+( 2, '企业评委', '3', '');
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
