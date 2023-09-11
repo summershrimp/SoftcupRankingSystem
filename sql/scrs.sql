@@ -117,7 +117,7 @@ CREATE TABLE `sc_schools` (
 DROP TABLE IF EXISTS `sc_teams`;
 CREATE TABLE `sc_teams` (
   `team_id` int(11) NOT NULL,
-  `team_no` varchar(8) NOT NULL DEFAULT '0',
+  `team_no` varchar(16) NOT NULL DEFAULT '0',
   `teamname` varchar(64) NOT NULL,
   `comment` text NOT NULL,
   `topic_id` int(11) NOT NULL,
@@ -317,8 +317,8 @@ INSERT INTO `sc_users` ( `username`, `password`, `salt`, `role_id`, `isadmin`, `
 ( 'admin', '21232f297a57a5a743894a0e4a801fc3', NULL, 1, 1, 0, 'admin', '', '', -1);
 
 INSERT INTO `sc_roles` ( `role_id`, `rolename`, `balance`, `comment` ) VALUES
-( 1, '高校评委', '7', ''),
-( 2, '企业评委', '3', '');
+( 1, '高校评委', '3', ''),
+( 2, '企业评委', '7', '');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
