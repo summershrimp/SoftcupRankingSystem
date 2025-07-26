@@ -18,7 +18,7 @@
 </style>
 <div id="main">
 	<div style="text-align:center">
-		<h3>中国软件杯大赛参赛队伍分数汇总表</h3>
+		<h3><?php echo $site_name; ?>参赛队伍分数汇总表</h3>
 	</div>
 	<table class="single">
 		<thead>

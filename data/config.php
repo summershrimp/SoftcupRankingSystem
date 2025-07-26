@@ -22,6 +22,8 @@ $cookie_domain    = "";
 
 $session = "1440";
 
+$site_name = "第十四届“中国软件杯”大学生软件设计大赛";
+
 define('CFM_CHARSET','utf-8');
 
 define('ADMIN_PATH','admin');

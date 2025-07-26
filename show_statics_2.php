@@ -23,7 +23,7 @@
 <script src="js/sorttable.js"></script>
 <div id="main">
 	<div style="text-align:center">
-		<h3>中国软件杯大赛分赛题分数统计表</h3>
+		<h3><?php echo $site_name; ?>分赛题分数统计表</h3>
 		<h3>赛题：<?php $tt = get_topic_by_id($exam); echo $tt['topicname']; ?></h3>
 		<h4>点按表头排序表格</h4>
 	</div>

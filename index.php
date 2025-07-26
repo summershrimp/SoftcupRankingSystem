@@ -46,7 +46,7 @@
 <html lang="zh">
 <head>
 	<?php require_once "header.php"; ?>
-	<title>软件杯评分系统</title>
+	<title><?php echo $site_name; ?>评分系统</title>
 </head>
 <body>
 	<div id="container">
